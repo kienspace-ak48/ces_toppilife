@@ -107,7 +107,7 @@ const Hero: React.FC = () => (
       <div className="relative">
         <div className="absolute -inset-4 bg-green-400 rounded-full blur-3xl opacity-20 animate-pulse"></div>
         <img 
-          src={PRODUCT_IMG_1} 
+          src={"/image/CES.png"} 
           alt="ToppiLife CES Device" 
           className="relative z-10 w-full max-w-md mx-auto drop-shadow-2xl rounded-2xl transform hover:rotate-2 transition-transform duration-500" 
         />
@@ -169,7 +169,7 @@ const Technology: React.FC = () => (
       <div className="flex flex-col lg:flex-row items-center gap-16">
         <div className="lg:w-1/2 relative">
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
-          <img src={PRODUCT_IMG_3} alt="CES Technology" className="relative z-10 rounded-3xl shadow-2xl" />
+          <img src={"/image/CES_1.jpg"} alt="CES Technology" className="relative z-10 rounded-3xl shadow-2xl" />
         </div>
         <div className="lg:w-1/2 space-y-8">
           <div className="space-y-4">
@@ -221,7 +221,7 @@ const Features: React.FC = () => (
 
       <div className="mt-16 bg-white p-8 md:p-12 rounded-3xl shadow-xl flex flex-col md:flex-row items-center gap-10">
         <div className="md:w-1/3">
-          <img src={PRODUCT_IMG_2} alt="CES Device" className="w-full max-w-xs mx-auto transform -rotate-6" />
+          <img src={"/image/CES.png"} alt="CES Device" className="w-full max-w-xs mx-auto transform -rotate-6" />
         </div>
         <div className="md:w-2/3 space-y-6">
           <h3 className="text-2xl font-bold text-gray-900">Hỗ trợ cơ thể toàn diện:</h3>

@@ -9,7 +9,7 @@ import {
   Monitor,
 } from 'lucide-react';
 
-export const LOGO_URL = 'vfdbfdcom/tientv-dev/landing-page-ces/main/logo.png';
+export const LOGO_URL = '/image/logo.png';
 export const PRODUCT_IMG_1 = 'vfdbfdcom/tientv-dev/landing-page-ces/main/product1.png';
 export const PRODUCT_IMG_2 = 'vfdbfdcom/tientv-dev/landing-page-ces/main/product2.png';
 export const PRODUCT_IMG_3 = 'vfdbfdcom/tientv-dev/landing-page-ces/main/product3.png';
