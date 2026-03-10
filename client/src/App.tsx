@@ -29,7 +29,10 @@ import {
 
 // --- Sub-components ---
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<any> = ({data}) => {
+  // start
+
+  //end
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -67,7 +70,7 @@ const Navbar: React.FC = () => {
   );
 };
 
-const Hero: React.FC = () => (
+const Hero: React.FC<any> = ({data}) => (
   <section id="intro" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
     <div className="absolute inset-0 z-0">
       <img 
@@ -81,14 +84,14 @@ const Hero: React.FC = () => (
     <div className="container mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-12 items-center">
       <div className="space-y-8 text-center md:text-left">
         <div className="inline-block px-4 py-1 bg-green-100 text-green-700 rounded-full font-semibold text-sm">
-          Giải pháp thư giãn tại nhà hàng đầu
+          {data?.hero?.badge}
         </div>
         <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
           Ngủ sâu hơn – Đầu nhẹ hơn <br/>
           <span className="text-green-600">Tinh thần dễ chịu</span> mỗi ngày
         </h1>
         <p className="text-lg md:text-xl text-gray-600 max-w-lg mx-auto md:mx-0">
-          Một cách thư giãn nhẹ nhàng tại nhà, giúp não bộ hạ nhịp, dễ đi vào giấc ngủ hơn sau những ngày làm việc căng thẳng.
+          {data?.hero?.desc}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
           <a 
@@ -116,8 +119,8 @@ const Hero: React.FC = () => (
             <Smile className="text-green-600 w-6 h-6" />
           </div>
           <div>
-            <div className="text-sm font-bold text-gray-800">100,000+</div>
-            <div className="text-xs text-gray-500">Khách hàng tin dùng</div>
+            <div className="text-sm font-bold text-gray-800">{data?.hero?.badge_right.number}</div>
+            <div className="text-xs text-gray-500">{data?.hero?.badge_right.desc}</div>
           </div>
         </div>
       </div>
@@ -125,19 +128,19 @@ const Hero: React.FC = () => (
   </section>
 );
 
-const PainPoints: React.FC = () => (
+const PainPoints: React.FC<any> = ({data}) => (
   <section className="py-24 bg-gray-50">
     <div className="container mx-auto px-4">
       <div className="max-w-4xl mx-auto text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-          Nếu bạn là người làm việc trí óc, rất có thể bạn đang gặp:
+          {data?.issue?.title}
         </h2>
         <div className="w-24 h-1.5 bg-green-500 mx-auto rounded-full"></div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8 items-center">
         <div className="grid grid-cols-1 gap-4">
-          {PAIN_POINTS.map((point, i) => (
+          {data?.issue.issues.map((point, i) => (
             <div key={i} className="flex items-start bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:border-green-200 transition-colors group">
               <div className="bg-red-50 text-red-500 p-2 rounded-lg mr-4 group-hover:scale-110 transition-transform">
                 <ShieldCheck className="w-5 h-5" />
@@ -149,9 +152,9 @@ const PainPoints: React.FC = () => (
         <div className="bg-green-600 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
           <div className="relative z-10 space-y-6">
-            <h3 className="text-2xl md:text-3xl font-bold">Đây không hẳn là vấn đề của giấc ngủ.</h3>
+            <h3 className="text-2xl md:text-3xl font-bold">{data?.issue?.card?.title}</h3>
             <p className="text-lg text-green-50 leading-relaxed">
-              Rất có thể hệ thần kinh của bạn chưa được đưa về trạng thái nghỉ thực sự. Một giấc ngủ sâu không chỉ để nghỉ ngơi, mà là nền tảng cho hiệu suất làm việc và chất lượng sống.
+              {data?.issue?.card?.desc}
             </p>
             <div className="pt-4">
               <img src={LIFESTYLE_IMAGES.STRESS} alt="Stress" className="rounded-2xl shadow-lg opacity-90 h-48 w-full object-cover" />
@@ -163,7 +166,7 @@ const PainPoints: React.FC = () => (
   </section>
 );
 
-const Technology: React.FC = () => (
+const Technology: React.FC<any> = ({data}) => (
   <section id="benefits" className="py-24 overflow-hidden">
     <div className="container mx-auto px-4">
       <div className="flex flex-col lg:flex-row items-center gap-16">
@@ -173,14 +176,14 @@ const Technology: React.FC = () => (
         </div>
         <div className="lg:w-1/2 space-y-8">
           <div className="space-y-4">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900">Khi công nghệ vỗ về tâm hồn</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900">{data?.solution?.title}</h2>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Liệu pháp Kích thích Điện sọ não (CES) là phương pháp không xâm lấn, sử dụng dòng điện cực thấp để điều hòa các tế bào thần kinh, giúp não bộ trở về trạng thái thư giãn tự nhiên nhất.
+              {data?.solution?.desc}
             </p>
           </div>
           
           <div className="grid sm:grid-cols-2 gap-6">
-            {CORE_VALUES.map((val, i) => (
+            {data?.solution?.cards.map((val, i) => (
               <div key={i} className="bg-white p-6 rounded-2xl shadow-md border border-gray-50 hover:shadow-xl transition-all">
                 <div className="text-green-600 mb-4">{val.icon}</div>
                 <h4 className="font-bold text-gray-800 text-lg mb-2">{val.title}</h4>
@@ -194,16 +197,16 @@ const Technology: React.FC = () => (
   </section>
 );
 
-const Features: React.FC = () => (
+const Features: React.FC<any> = ({data}) => (
   <section id="product" className="py-24 bg-green-50">
     <div className="container mx-auto px-4">
       <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Vì sao nên chọn ToppiLife?</h2>
-        <p className="text-lg text-gray-600">Hướng đến hỗ trợ hệ thần kinh thư giãn từ gốc, mang lại hiệu quả bền vững.</p>
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{data?.benefit?.title}</h2>
+        <p className="text-lg text-gray-600">{data?.benefit?.desc}</p>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {FEATURES.map((feat, i) => (
+        {data?.solution?.cards.map((feat, i) => (
           <div key={i} className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group">
             <div className="h-48 overflow-hidden">
               <img src={feat.img} alt={feat.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -224,14 +227,16 @@ const Features: React.FC = () => (
           <img src={"/image/CES.png"} alt="CES Device" className="w-full max-w-xs mx-auto transform -rotate-6" />
         </div>
         <div className="md:w-2/3 space-y-6">
-          <h3 className="text-2xl font-bold text-gray-900">Hỗ trợ cơ thể toàn diện:</h3>
+          <h3 className="text-2xl font-bold text-gray-900">{data?.benefit?.footer_card?.lable}</h3>
           <ul className="space-y-4">
-            {[
-              "Dễ đi vào giấc ngủ hơn tự nhiên",
-              "Ngủ sâu và trọn vẹn hơn từng đêm",
-              "Thức dậy with cảm giác nhẹ đầu, tỉnh táo",
-              "Giải pháp không dùng thuốc, an toàn tuyệt đối"
-            ].map((text, idx) => (
+            
+            {/* // [
+            //   "Dễ đi vào giấc ngủ hơn tự nhiên",
+            //   "Ngủ sâu và trọn vẹn hơn từng đêm",
+            //   "Thức dậy with cảm giác nhẹ đầu, tỉnh táo",
+            //   "Giải pháp không dùng thuốc, an toàn tuyệt đối"
+            // ] */}
+            {data?.benefit?.footer_card?.solution.map((text, idx) => (
               <li key={idx} className="flex items-center space-x-3 text-lg font-medium text-gray-700">
                 <div className="bg-green-100 p-1 rounded-full"><CheckCircle2 className="text-green-600 w-5 h-5" /></div>
                 <span>{text}</span>
@@ -244,20 +249,23 @@ const Features: React.FC = () => (
   </section>
 );
 
-const TargetAudience: React.FC = () => (
+const TargetAudience: React.FC<any> = ({data}) => (
   <section className="py-24">
     <div className="container mx-auto px-4">
       <div className="flex flex-col lg:flex-row gap-12 items-center">
         <div className="lg:w-1/2 space-y-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">Thiết bị CES đặc biệt phù hợp với những ai?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">{data?.target_user?.title}</h2>
           <div className="space-y-4">
-            {[
-              "Người thường xuyên căng thẳng, áp lực công việc kéo dài.",
-              "Người khó ngủ, ngủ không sâu, hay tỉnh giấc giữa đêm.",
-              "Người làm việc trí óc, cần sự tỉnh táo và cân bằng tinh thần.",
-              "Người gặp áp lực tâm lý, lo âu và trầm cảm.",
-              "Người muốn giải pháp thư giãn không dùng thuốc tại nhà."
-            ].map((text, i) => (
+            {
+            // [
+            //   "Người thường xuyên căng thẳng, áp lực công việc kéo dài.",
+            //   "Người khó ngủ, ngủ không sâu, hay tỉnh giấc giữa đêm.",
+            //   "Người làm việc trí óc, cần sự tỉnh táo và cân bằng tinh thần.",
+            //   "Người gặp áp lực tâm lý, lo âu và trầm cảm.",
+            //   "Người muốn giải pháp thư giãn không dùng thuốc tại nhà."
+            // ]
+            data?.target_user?.list
+            .map((text, i) => (
               <div key={i} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-2xl border border-transparent hover:border-green-200 transition-all">
                 <Users className="text-green-600 flex-shrink-0" />
                 <p className="font-medium text-gray-700">{text}</p>
@@ -265,7 +273,7 @@ const TargetAudience: React.FC = () => (
             ))}
           </div>
           <div className="p-4 bg-yellow-50 text-yellow-800 border-l-4 border-yellow-400 text-sm">
-            Lưu ý: CES là giải pháp hỗ trợ chăm sóc sức khỏe chủ động, không thay thế điều trị y khoa.
+            {data?.target_user?.note}
           </div>
           <button className="w-full sm:w-auto bg-green-600 text-white px-10 py-4 rounded-full font-bold shadow-xl hover:bg-green-700 transition-all flex items-center justify-center">
             Kiểm tra mức độ phù hợp ngay <ArrowRight className="ml-2" />
@@ -279,16 +287,19 @@ const TargetAudience: React.FC = () => (
   </section>
 );
 
-const Usage: React.FC = () => (
+const Usage: React.FC<any> = ({data}) => (
   <section className="py-24 bg-gray-900 text-white overflow-hidden">
     <div className="container mx-auto px-4">
       <div className="text-center mb-16 space-y-4">
-        <h2 className="text-3xl md:text-5xl font-bold">Cách sử dụng đơn giản</h2>
-        <p className="text-green-400 font-medium uppercase tracking-widest text-sm">Chỉ 15 phút mỗi lần – Nhẹ nhàng và dễ thực hiện</p>
+        <h2 className="text-3xl md:text-5xl font-bold">{data?.how_to_use?.title}</h2>
+        <p className="text-green-400 font-medium uppercase tracking-widest text-sm">{data?.how_to_use?.desc}</p>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {STEPS.map((step, i) => (
+        {
+        data?.how_to_use?.cards
+        
+        .map((step, i) => (
           <div key={i} className="relative group">
             <div className="absolute top-0 left-0 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center font-bold text-xl z-10 -ml-4 -mt-4 shadow-lg">
               {i + 1}
@@ -306,17 +317,20 @@ const Usage: React.FC = () => (
 
       <div className="mt-20 grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
-          <h3 className="text-3xl font-bold text-green-400">Nhịp thư giãn trong 15 phút</h3>
+          <h3 className="text-3xl font-bold text-green-400">{data?.how_to_use?.guide_title}</h3>
           <div className="space-y-4">
-            {[
-              { t: "Phút 1-5", d: "Đeo kẹp tai, chọn mức cường độ từ 0-35 phù hợp cảm nhận." },
-              { t: "Phút 6-10", d: "Cơ thể bắt đầu thả lỏng, kết hợp đọc sách hoặc nhắm mắt." },
-              { t: "Phút 11-15", d: "Máy tự động kết thúc, trả lại cho bạn tâm trí nhẹ nhàng." }
-            ].map((item, idx) => (
+            {
+            // [
+            //   { t: "Phút 1-5", d: "Đeo kẹp tai, chọn mức cường độ từ 0-35 phù hợp cảm nhận." },
+            //   { t: "Phút 6-10", d: "Cơ thể bắt đầu thả lỏng, kết hợp đọc sách hoặc nhắm mắt." },
+            //   { t: "Phút 11-15", d: "Máy tự động kết thúc, trả lại cho bạn tâm trí nhẹ nhàng." }
+            // ]
+            data?.how_to_use?.guide
+            .map((item, idx) => (
               <div key={idx} className="flex space-x-4 border-l-2 border-green-500/30 pl-6 py-2 hover:bg-white/5 transition-colors rounded-r-xl">
                 <div>
-                  <div className="text-green-500 font-bold">{item.t}</div>
-                  <div className="text-gray-300">{item.d}</div>
+                  <div className="text-green-500 font-bold">{item.minute}</div>
+                  <div className="text-gray-300">{item.desc}</div>
                 </div>
               </div>
             ))}
@@ -355,35 +369,41 @@ const FAQItem: React.FC<{ q: string, a: string }> = ({ q, a }) => {
   );
 };
 
-const FAQ: React.FC = () => (
+const FAQ: React.FC<any> = ({data}) => (
   <section id="faq" className="py-24">
     <div className="container mx-auto px-4 max-w-4xl">
       <div className="text-center mb-16 space-y-4">
-        <h2 className="text-3xl md:text-4xl font-bold">Hỏi đáp nhanh (FAQ)</h2>
-        <p className="text-gray-500">Giải tỏa mọi băn khoăn của bạn về giải pháp CES</p>
+        <h2 className="text-3xl md:text-4xl font-bold">{data?.faq?.title}</h2>
+        <p className="text-gray-500">{data?.faq?.desc}</p>
       </div>
       <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
-        {FAQS.map((faq, i) => (
-          <FAQItem key={i} q={faq.q} a={faq.a} />
+        {
+        // FAQS
+        data?.faq?.list
+        .map((faq, i) => (
+          <FAQItem key={i} q={faq.question} a={faq.anwser} />
         ))}
       </div>
     </div>
   </section>
 );
 
-const Commitment: React.FC = () => (
+const Commitment: React.FC<any> = ({data}) => (
   <section className="py-20 bg-green-900 text-white">
     <div className="container mx-auto px-4">
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-        {[
-          { icon: <Award />, title: "Thiết bị đạt chuẩn", desc: "Được nghiên cứu và ứng dụng thực tế" },
-          { icon: <ShieldCheck />, title: "Bảo hành uy tín", desc: "Hỗ trợ 1 đổi 1 trong vòng 12 tháng" },
-          { icon: <Users />, title: "Tư vấn chuyên nghiệp", desc: "Đồng hành suốt quá trình sử dụng" },
-          { icon: <MessageCircle />, title: "Hỗ trợ 24/7", desc: "Đội ngũ chuyên gia luôn sẵn sàng" }
-        ].map((item, i) => (
+        {
+        // [
+        //   { icon: <Award />, title: "Thiết bị đạt chuẩn", desc: "Được nghiên cứu và ứng dụng thực tế" },
+        //   { icon: <ShieldCheck />, title: "Bảo hành uy tín", desc: "Hỗ trợ 1 đổi 1 trong vòng 12 tháng" },
+        //   { icon: <Users />, title: "Tư vấn chuyên nghiệp", desc: "Đồng hành suốt quá trình sử dụng" },
+        //   { icon: <MessageCircle />, title: "Hỗ trợ 24/7", desc: "Đội ngũ chuyên gia luôn sẵn sàng" }
+        // ]
+        data?.testimonials
+        .map((item, i) => (
           <div key={i} className="text-center space-y-4 group">
             <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto text-green-400 group-hover:bg-green-500 group-hover:text-white transition-all">
-              {React.cloneElement(item.icon as React.ReactElement<any>, { size: 32 })}
+              {/* {React.cloneElement(item.icon as React.ReactElement<any>, { size: 32 })} */}
             </div>
             <h4 className="font-bold text-xl">{item.title}</h4>
             <p className="text-green-200/70 text-sm">{item.desc}</p>
@@ -394,7 +414,7 @@ const Commitment: React.FC = () => (
   </section>
 );
 
-const Footer: React.FC = () => (
+const Footer: React.FC<any> = ({data}) => (
   <footer className="bg-gray-50 pt-24 pb-12 border-t border-gray-100">
     <div className="container mx-auto px-4">
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
@@ -478,18 +498,17 @@ const FloatButtons: React.FC = () => (
   </div>
 );
 
-const FinalCTA: React.FC = () => (
+const FinalCTA: React.FC<any> = ({data}) => (
   <section className="py-24 relative overflow-hidden bg-green-600">
     <div className="absolute inset-0 opacity-20 pointer-events-none">
       <img src={LIFESTYLE_IMAGES.SLEEP} alt="Sleeping" className="w-full h-full object-cover" />
     </div>
     <div className="container mx-auto px-4 relative z-10 text-center text-white space-y-8 max-w-4xl">
       <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-        Đừng để mất ngủ lấy đi niềm vui sống của bạn.
+        {data?.contact?.title}
       </h2>
       <p className="text-xl text-green-50">
-        Hãy để ToppiLife đồng hành cùng bạn trên hành trình tìm lại sự cân bằng. 
-        Nhận tư vấn miễn phí từ chuyên gia ngay hôm nay!
+        {data?.contact?.desc}
       </p>
       <div className="flex flex-col sm:flex-row gap-6 justify-center pt-4">
         <button className="bg-white text-green-700 hover:bg-green-50 px-12 py-5 rounded-full text-xl font-bold shadow-2xl transition-all hover:scale-105">
@@ -506,20 +525,33 @@ const FinalCTA: React.FC = () => (
 // --- Main App ---
 
 const App: React.FC = () => {
+  const [pageData, setPageData] = useState(null);
+  //
+  const apiLocal = 'http://localhost:8081/api/landing';
+  const apiDeploy = "/api/landing"
+  useEffect(()=>{
+    fetch(apiDeploy)
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data.data)
+      setPageData(data.data)
+    })
+  },[])
+  if(!pageData) return <>Loading...</>
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
-      <Hero />
-      <PainPoints />
-      <Technology />
-      <Features />
-      <TargetAudience />
-      <Usage />
-      <Commitment />
-      <FAQ />
-      <FinalCTA />
-      <Footer />
-      <FloatButtons />
+      <Navbar data={pageData}/>
+      <Hero data={pageData} />
+      <PainPoints data={pageData} />
+      <Technology data={pageData} />
+      <Features data={pageData} />
+      <TargetAudience data={pageData} />
+      <Usage data={pageData} />
+      <Commitment data={pageData} />
+      <FAQ data={pageData} />
+      <FinalCTA data={pageData} />
+      <Footer data={pageData} />
+      <FloatButtons data={pageData} />
     </div>
   );
 };

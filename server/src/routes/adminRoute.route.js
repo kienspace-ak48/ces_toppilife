@@ -1,7 +1,9 @@
 const express = require("express");
+const galleryController = require("../controller/gallery.controller")();
 const router = express.Router();
 const homeController = require('../controller/home.controller')();
 const pageConfigController = require('../controller/pageConfig.controller')();
+const uploadImage = require("../config/uploadImage.config");
 
 //pageconfig
 router.post('/page-config/create-update', pageConfigController.SaveAndUpdate);
@@ -10,4 +12,21 @@ router.get('/page-config', pageConfigController.Index);
 router.get('/test', homeController.Test);
 router.get("/", homeController.Index);
 
+//
+router.delete("/gallery/image-delete", galleryController.DeleteImage);
+router.get('/gallery/image-getall', galleryController.GetAll);
+router.get("/gallery", galleryController.Index);
+// ======== folder
+router.post('/gallery/folder/create', galleryController.CreateFolder);
+router.delete('/gallery/folder-delete', galleryController.DeleteFolder);
+//===========category
+router.post('/gallery/category/create', galleryController.CreateFolder);
+router.get('/gallery/category/get-all', galleryController.GetAllFolder);
+router.get('/gallery/images', galleryController.GetAllImageByFolder);
+router.post('/gallery/image-upload-ajax',uploadImage.single("image"),
+(req, res, next) => {
+  // console.log("REQ.FILE =", req.file);
+  next();
+},galleryController.UploadImage);
+router.delete('/gallery/image-delete-ajax', galleryController.DeleteImageAjax);
 module.exports = router;
