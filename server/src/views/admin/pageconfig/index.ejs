@@ -1,0 +1,550 @@
+<script defer src="/js/pageconfig.js"></script>
+<form id="configForm">
+  <div class="space-y-4">
+    <!-- action -->
+    <div class="flex justify-between items-center">
+      <h2 class="text-[28px] font-bold">Pageconfig/ Cấu hình page</h2>
+      <button
+        type="submit"
+        class="px-3 py-2 border border-gray-300 rounded-lg bg-blue-500 font-bold text-white"
+      >
+        Save Config
+      </button>
+    </div>
+    <!-- Hero -->
+    <section class="border rounded-lg">
+      <button
+        type="button"
+        onclick="toggleSection('hero')"
+        class="w-full flex justify-between p-4 font-medium"
+      >
+        Hero Section
+        <span>+</span>
+      </button>
+      <!-- content -->
+      <div class="p-4" id="hero">
+        <input
+          name="hero_badge"
+          value="<%= pc?.hero?.badge || '' %>"
+          placeholder="Badge"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <input
+          name="hero_title"
+          value="<%=pc?.hero?.title||''%>"
+          placeholder="Title"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <textarea
+          name="hero_desc"
+          placeholder="Description"
+          class="border w-full px-3 py-2 rounded"
+        ><%=pc?.hero?.desc ||''%></textarea>
+
+        <input
+          name="hero_img_url"
+          value="<%=pc?.hero?.img_url||''%>"
+          placeholder="Image URL"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <input
+          name="hero_badge_right_number"
+          value="<%=pc?.hero?.badge_right.number||'100'%>"
+          placeholder="Badge Right Number"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <input
+          name="hero_badge_right_desc"
+          value="<%=pc?.hero?.badge_right.desc||''%>"
+          placeholder="Badge Right Desc"
+          class="border w-full px-3 py-2 rounded"
+        />
+      </div>
+    </section>
+    <!-- ISSUE -->
+    <section class="border rounded-lg">
+      <button
+        type="button"
+        onclick="toggleSection('issue')"
+        class="w-full flex justify-between p-4 font-medium"
+      >
+        Issue Section
+        <span>+</span>
+      </button>
+      <!-- ISSUE -->
+      <div class="p-4" id="issue">
+        <input
+          name="issue_title"
+          value="<%=pc?.issue?.title||''%>"
+          placeholder="Title"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <!-- issues list -->
+        <textarea name="issue_issues" id="" class="border w-full px-3 py-2 rounded" placeholder="Xuong dong = 1 record"><%= pc?.issue?.issues?.join('\n') || '' %></textarea>
+
+        <h4 class="font-semibold pt-3">Issue Card</h4>
+
+        <input
+          name="issue_card_title"
+          value="<%=pc?.issue?.card?.title||''%>"
+          placeholder="Card Title"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <textarea
+          name="issue_card_desc"
+          placeholder="Card Desc"
+          class="border w-full px-3 py-2 rounded"
+        ><%=pc?.issue?.card?.desc||''%></textarea>
+
+        <input
+          name="issue_card_img_url"
+          value="<%=pc?.issue?.card?.img_url||''%>"
+          placeholder="Card Image URL"
+          class="border w-full px-3 py-2 rounded"
+        />
+      </div>
+    </section>
+    <!-- SOLUTION -->
+    <section class="border rounded-lg">
+      <button
+        type="button"
+        onclick="toggleSection('solution')"
+        class="w-full flex justify-between p-4 font-medium"
+      >
+        SOLUTION Section
+        <span>+</span>
+      </button>
+      <!-- Content -->
+      <div class="p-4" id="solution">
+        <input
+          name="solution_title"
+          value="<%=pc?.solution?.title||''%>"
+          placeholder="Title"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <textarea
+          name="solution_desc"
+          placeholder="Description"
+          class="border w-full px-3 py-2 rounded"
+        ><%=pc?.solution?.desc%></textarea>
+
+        <input
+          name="solution_img_url"
+          value="<%=pc?.solution?.img_url%>"
+          placeholder="Image URL"
+          class="border w-full px-3 py-2 rounded"
+        />
+        <div class="flex justify-between items-center py-4">
+          <h4 class="font-semibold pt-3">Cards</h4>
+          <button id="cta_add_solution_card" type="button" class="px-3 py-2 font-bold bg-green-500 text-white rounded-lg ">Add Solution Component</button>
+        </div>
+
+        <div id="solution_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <%if(pc?.solution?.cards && pc?.solution?.cards.length>0){%>
+            <% pc.solution.cards.forEach(c=>{%>
+              <div class="instance relative">
+                <span type="button" class="remove-item flex justify-center items-center rounded-full h-5 w-5 bg-red-500 absolute -top-2 right-2 font-bold text-white hover:scale-120 hover:cursor-pointer">X</span>
+                <input
+                      name="icon"
+                      value="<%=c.icon%>"
+                      placeholder="Icon"
+                      class="border w-full px-3 py-2 rounded"
+                    />
+
+                    <input
+                      name="title"
+                      value="<%=c.title%>"
+                      placeholder="Title"
+                      class="border w-full px-3 py-2 rounded"
+                    />
+
+                    <textarea
+                      name="desc"
+                      placeholder="Desc"
+                      class="border w-full px-3 py-2 rounded"
+                    ><%=c.desc%></textarea>
+              </div>
+            <%})%>
+          <%}%>
+        </div>
+
+        
+      </div>
+    </section>
+    <!-- BENEFITS -->
+<section class="border rounded-lg">
+  <button
+  type="button"
+    onclick="toggleSection('benefit')"
+    class="w-full flex justify-between p-4 font-medium"
+  >
+    BENEFITS Section
+    <span>+</span>
+  </button>
+  <!-- Content -->
+  <div class="p-4" id="benefit">
+    <input value="<%=pc?.benefit?.title||''%>" type="text" name="benefit_title" class="px-3 py-2 border border-gray-300 rounded-lg  w-full" placeholder="title">
+    <input value="<%=pc?.benefit?.desc||''%>" type="text" name="benefit_desc" class="px-3 py-2 border border-gray-300 rounded-lg  w-full" placeholder="desc">
+    <div class="flex justify-between items-center py-2">
+      <h3 class="font-bold">Cards</h3>
+      <button id="cta_add_benefit_card" type="button" class="px-3 py-2 bg-green-500 text-white font-bold rounded-lg border border-gray-300">Add card component</button>
+    </div>
+    <div id="benefit_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <%if(pc?.benefit?.cards && pc?.benefit?.cards.length>0){%>
+        <%pc.benefit.cards.forEach(b=>{%>
+          <div class="instance relative">
+            <span class="h-5 w-5 remove-instance  border rounded-full flex justify-center items-center border-gray-300 bg-red-500 font-bold text-white hover:cursor-pointer hover:scale-120 absolute -top-2 right-2">X</span>
+            <div>
+              <input value="<%=b.img_url%>" type="text" name="img_url" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="imgage">
+              <input value="<%=b.icon%>" type="text" name="icon" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="icon">
+              <input value="<%=b.title%>" type="text" name="title" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="title">
+              <input value="<%=b.desc%>" type="text" name="desc" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="desc">
+            </div>
+          </div>
+        <%})%>
+      <%}%>
+    </div>
+    <!--  -->
+    <h3 class="font-bold">Footer card</h3>
+    <div>
+      <input value="<%=pc?.benefit?.footer_card.img_url%>" id="benefit_footer_img_url" type="text" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="img_url">
+      <input value="<%=pc?.benefit?.footer_card.lable%>" id="benefit_footer_title" type="text" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="desc">
+      <textarea name="" class="px-3 py-2 border border-gray-300 rounded-lg w-full" id="benefit_footer_solution" placeholder="1 Enter = 1 sentence"><%=pc?.benefit?.footer_card.solution.join('\n')%></textarea>
+    </div>
+  </div>
+</section>
+<!-- END -->
+
+    <!-- END -->
+    <!-- TARGET_USER -->
+    <section class="border rounded-lg">
+      <button
+        type="button"
+        onclick="toggleSection('target_user')"
+        class="w-full flex justify-between p-4 font-medium"
+      >
+        Target Section
+        <span>+</span>
+      </button>
+      <!-- Content -->
+      <div class="p-4" id="target_user">
+        <input
+          name="target_user_title"
+          value="<%=pc?.target_user?.title||''%>"
+          placeholder="Title"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <input
+          name="target_user_img_url"
+          value="<%=pc?.target_user?.img_url||''%>"
+          placeholder="Image URL"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <textarea
+          id="target_user_list"
+          placeholder="enter = 1 sentence"
+          class="border w-full px-3 py-2 rounded"
+        ><%=pc?.target_user?.list.join('\n')%></textarea>
+        <input
+          name="target_user_note"
+          value="<%=pc?.target_user?.note||''%>"
+          placeholder="Note"
+          class="border w-full px-3 py-2 rounded"
+        />
+        
+      </div>
+    </section>
+    <!-- END -->
+    <!-- ISSUE -->
+    <section class="border rounded-lg">
+      <button
+        type="button"
+        onclick="toggleSection('how_to_use')"
+        class="w-full flex justify-between p-4 font-medium"
+      >
+        HOWTOUSE Section
+        <span>+</span>
+      </button>
+      <!-- Content -->
+      <div class="p-4" id="how_to_use">
+        <input
+          name="how_to_use_title"
+          value="<%=pc?.how_to_use?.title||''%>"
+          placeholder="Title"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <textarea
+          name="how_to_use_desc"
+          placeholder="Description"
+          class="border w-full px-3 py-2 rounded"
+        ><%=pc?.how_to_use?.desc||''%></textarea>
+
+        <input
+          name="how_to_use_video_url"
+          value="<%=pc?.how_to_use?.video_url||''%>"
+          placeholder="Video URL"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <div class="flex justify-between items-center py-4">
+          <h4 class="font-bold pt-4">Cards</h4>
+          <button type="button" id="cta_add_howtouse_add_card" class="px-3 py-2 rounded-lg border border-gray-300 bg-green-500 text-white">Add card component</button>
+        </div>
+        <div id="howtouse_cards_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <%if(pc?.how_to_use?.cards && pc?.how_to_use?.cards.length>0){%>
+            <%pc.how_to_use.cards.forEach(i=>{%>
+              <div class="instance relative">
+                <span class="remove-instance w-5 h-5 rounded-lg bg-red-500 text-white font-bold hover:cursor-pointer hover:scale-120 flex items-center justify-center absolute -top-2 right-1">X</span>
+                <div>
+                  <input type="text" value="<%=i.img_url%>" name="img_url" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="img_url...">
+                  <input type="text" value="<%=i.title%>" name="title" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="title...">
+                  <input type="text" value="<%=i.desc%>" name="desc" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="desc...">
+
+                </div>
+              </div>
+            <%})%>
+          <%}%>
+        </div>
+        
+        <div class="flex justify-between items-center py-4">
+          <h4 class="font-bold">Guide</h4>
+          <button id="cta_howtouse_guide_add_card" type="button" class="px-3 py-2 rounded-lg border border-gray-300 bg-green-500 text-white">Add guide component</button>
+        </div>
+        <input type="text" value="<%=pc?.how_to_use?.guide_title||''%>" name="howtouse_guide_title" class="px-3 py-2 rounded-lg border border-gray-300 w-full my-2" placeholder="guide title">
+        <div id="howtouse_guide_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <%if(pc?.how_to_use?.guide && pc?.how_to_use?.guide.length>0){%>
+            <%pc.how_to_use.guide.forEach(i=>{%>
+              <div class="instance relative">
+                <span class="remove-instance w-5 h-5 rounded-lg bg-red-500 text-white font-bold hover:cursor-pointer hover:scale-120 flex items-center justify-center absolute -top-2 right-1">X</span>
+                <div>
+                  <input  value="<%=i.minute%>" type="text" name="minute" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="minute...">
+                  <input value="<%=i.desc%>" type="text" name="desc" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="desc...">
+                </div>
+            </div>
+            <%})%>
+          <%}%>
+        </div>
+        <!-- <textarea name="" id="howtouse_guide" class="px-3 py-2 rounded-lg border border-gray-300 w-full" placeholder="enter = 1 sentence"></textarea> -->
+
+       
+      </div>
+    </section>
+    <!-- END -->
+    <!-- Testimonials -->
+    <section class="border rounded-lg">
+      <button
+        type="button"
+        onclick="toggleSection('testimonials')"
+        class="w-full flex justify-between p-4 font-medium"
+      >
+        TESTIMONIALS Section
+        <span>+</span>
+      </button>
+      <!-- Content -->
+      <div class="p-4" id="testimonials">
+        <div class="flex justify-between items-center py-2">
+          <h4 class="font-bold">Testimonials card</h4>
+          <button id="cta_add_testimonial" type="button" class="px-3 py-2 bg-green-500 text-white font-bold rounded-lg">Add testimonial component</button>
+        </div>
+        <div id="testimonial_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <%if(pc?.testimonials && pc?.testimonials.length>0){%>
+            <%pc?.testimonials.forEach(i=>{%>
+              <div class="instance relative">
+                <span class="w-5 h-5 remove-instance border border-gray-300 rounded-full flex justify-center items-center bg-red-500 font-bold text-white absolute -top-2 right-2 hover:cursor-pointer hover:scale-120">X</span>
+                <div>
+                  <input value="<%=i.icon%>" type="text" name="icon" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="icon">
+                  <input value="<%=i.title%>" type="text" name="title" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="title">
+                  <input value="<%=i.desc%>" type="text" name="desc" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="desc">
+                </div>
+              </div>
+            <%})%>
+          <%}%>
+        </div>
+      </div>
+    </section>
+    <!-- END -->
+    <!-- FAQ -->
+    <section class="border rounded-lg">
+      <button
+        type="button"
+        onclick="toggleSection('faq')"
+        class="w-full flex justify-between p-4 font-medium"
+      >
+        FAQ Section
+        <span>+</span>
+      </button>
+      <!-- Content -->
+      <div class="p-4" id="faq">
+        <input value="<%=pc?.faq?.title||''%>" name="faq_title" type="text" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="title...">
+        <input value="<%=pc?.faq?.desc||''%>" name="faq_desc" type="text" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="desc...">
+        <div>
+          <div class="flex justify-between items-center py-4">
+            <h4 class="font-bold">faq card</h4>
+            <button id="cta_add_faq_card" type="button" class="px-3 py-2 bg-green-500 text-white font-bold rounded-lg border border-gray-300">add faq component</button>
+          </div>
+          <div id="faq_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <%if(pc?.faq?.list && pc?.faq?.list.length >0){%>
+              <%pc.faq.list.forEach(i=>{%>
+                <div class="instance relative">
+                  <span class="remove-instance w-5 h-5 rounded-lg bg-red-500 text-white font-bold hover:cursor-pointer hover:scale-120 flex items-center justify-center absolute -top-2 right-2">X</span>
+                  <div>
+                    <input value="<%=i.question%>" name="question" type="text" class="px-3 py-2 w-full border border-gray-300 rounded-lg" placeholder="question...">
+                    <textarea name="anwser" id="" class="px-3 py-2 w-full border border-gray-300 rounded-lg" placeholder="anwser..."><%=i.anwser%></textarea>
+                  </div>
+                </div>
+              <%})%>
+            <%}%>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END -->
+    <!-- CONTACT -->
+    <section class="border rounded-lg">
+      <button
+        type="button"
+        onclick="toggleSection('contact')"
+        class="w-full flex justify-between p-4 font-medium"
+      >
+        CONTACT Section
+        <span>+</span>
+      </button>
+      <!-- Content -->
+      <div class="p-4" id="contact">
+        <input
+          name="contact_title"
+          value="<%=pc?.contact?.title||''%>"
+          placeholder="Contact Title"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <textarea
+          name="contact_desc"
+          placeholder="Contact Description"
+          class="border w-full px-3 py-2 rounded"
+        ><%=pc?.contact?.desc||''%></textarea>
+      </div>
+    </section>
+    <!-- END -->
+  </div>
+</form>
+
+<!-- //============== TEMPLATE ===========// -->
+ <!-- ------------ Solution --------- -->
+<template id="solution_template">
+  <div class="instance relative">
+    <span type="button" class="remove-item flex justify-center items-center rounded-full h-5 w-5 bg-red-500 absolute -top-2 right-2 font-bold text-white hover:scale-120 hover:cursor-pointer">X</span>
+    <input
+          name="icon"
+          placeholder="Icon"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <input
+          name="title"
+          placeholder="Title"
+          class="border w-full px-3 py-2 rounded"
+        />
+
+        <textarea
+          name="desc"
+          placeholder="Desc"
+          class="border w-full px-3 py-2 rounded"
+        ></textarea>
+  </div>
+</template>
+<!-- ------------------- BENEFITS ---------------->
+<template id="benefit_template">
+  <div class="instance relative">
+    <span class="h-5 w-5 remove-instance  border rounded-full flex justify-center items-center border-gray-300 bg-red-500 font-bold text-white hover:cursor-pointer hover:scale-120 absolute -top-2 right-2">X</span>
+    <div>
+      <input type="text" name="img_url" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="imgage">
+      <input type="text" name="icon" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="icon">
+      <input type="text" name="title" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="title">
+      <input type="text" name="desc" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="desc">
+    </div>
+
+  </div>
+</template>
+<!-- ----------------- Testimonial ----------- -->
+ <template id="testimonial_template">
+  <div class="instance relative">
+    <span class="w-5 h-5 remove-instance border border-gray-300 rounded-full flex justify-center items-center bg-red-500 font-bold text-white absolute -top-2 right-2 hover:cursor-pointer hover:scale-120">X</span>
+    <div>
+      <input type="text" name="icon" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="icon">
+      <input type="text" name="title" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="title">
+      <input type="text" name="desc" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="desc">
+    </div>
+  </div>
+ </template>
+ <!-- ---------------- FAQ ------------ -->
+  <template id="faq_template">
+    <div class="instance relative">
+      <span class="remove-instance w-5 h-5 rounded-lg bg-red-500 text-white font-bold hover:cursor-pointer hover:scale-120 flex items-center justify-center absolute -top-2 right-2">X</span>
+      <div>
+        <input name="question" type="text" class="px-3 py-2 w-full border border-gray-300 rounded-lg" placeholder="question...">
+        <textarea name="anwser" id="" class="px-3 py-2 w-full border border-gray-300 rounded-lg" placeholder="anwser..."></textarea>
+      </div>
+    </div>
+  </template>
+<!-- --------------- HOWTOUSE ----------- -->
+ <template id="howtouse_template">
+  <div class="instance relative">
+      <span class="remove-instance w-5 h-5 rounded-lg bg-red-500 text-white font-bold hover:cursor-pointer hover:scale-120 flex items-center justify-center absolute -top-2 right-1">X</span>
+      <div>
+        <input type="text" name="video_url" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="img_url...">
+        <input type="text" name="title" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="title...">
+        <input type="text" name="desc" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="desc...">
+
+      </div>
+  </div>
+ </template>
+ <!-- ------------ howtouse guide ---------- -->
+<template id="howtouse_guide_template">
+  <div class="instance relative">
+      <span class="remove-instance w-5 h-5 rounded-lg bg-red-500 text-white font-bold hover:cursor-pointer hover:scale-120 flex items-center justify-center absolute -top-2 right-1">X</span>
+      <div>
+        <input type="text" name="minute" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="minute...">
+        <input type="text" name="desc" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="desc...">
+      </div>
+  </div>
+</template>
+<!-- //===================== -->
+ <script>
+  const howToUseWrapper = document.querySelector('#howtouse_cards_wrapper');
+  const howToUseTemplate = document.querySelector('#howtouse_template');
+  const howToUseGuideWrapper = document.querySelector('#howtouse_guide_wrapper');
+  const howToUseGuideTemplate = document.querySelector('#howtouse_guide_template');
+
+  document.querySelector('#cta_add_howtouse_add_card').addEventListener('click', (ev)=>{
+    const clone = howToUseTemplate.content.cloneNode(true);
+    howToUseWrapper.appendChild(clone);
+  })
+  howToUseWrapper.addEventListener('click', (ev)=>{
+    if(ev.target.classList.contains('remove-instance')){
+      const instance = ev.target.closest('.instance');
+      instance.remove();
+    }
+  })
+  // 
+  document.querySelector('#cta_howtouse_guide_add_card').addEventListener('click', (ev)=>{
+    const clone = howToUseGuideTemplate.content.cloneNode(true);
+    howToUseGuideWrapper.appendChild(clone);
+  })
+  howToUseGuideWrapper.addEventListener('click', (ev)=>{
+    if(ev.target.classList.contains('remove-instance')){
+      const instance = ev.target.closest('.instance');
+      instance.remove();
+    }
+  })
+ </script>

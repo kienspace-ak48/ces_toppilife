@@ -1,16 +1,16 @@
 function responseMiddleware(req, res, next) {
-  res.success = (status = 200, data = null) => {
+  res.success = (data = null, status = 200) => {
     res.status(status).json({
       success: true,
       data,
     });
   };
-  res.error= (status=500, mess='')=>{
+  res.error = (mess = "Server error", status = 500) => {
     res.status(status).json({
-    success: false,
-    error: mess,
-  });
-  }
+      success: false,
+      error: mess,
+    });
+  };
   next();
 }
 

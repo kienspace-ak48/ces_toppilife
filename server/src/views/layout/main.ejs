@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <!-- fontawesome icon -->
+    <link rel="stylesheet" href="/libs/css/all.min.css" />
+    <title>Layout</title>
+  </head>
+  <body>
+    <%- include('../partials/header.ejs') %>
+
+    <div class="flex h-[calc(100vh-64px)] overflow-y-auto">
+      <!-- sidebar -->
+      <div class="w-64 bg-white border-r" id="sidebar">
+        <%- include('../partials/sidebar.ejs') %>
+      </div>
+      <main class="flex-1 bg-gray-50 p-6">
+        <%- body %>
+        <!-- express-ejs-layouts sẽ render nội dung ở đây -->
+      </main>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+  </body>
+  <!-- //=============== SCRIPT ============// -->
+  <script>
+    function toggleMenu(btn, id) {
+      const menu = document.querySelector("#" + id);
+      menu.classList.toggle("hidden");
+
+      const icon = btn.querySelector(".fa-chevron-down");
+      icon.classList.toggle("rotate-180");
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.querySelector("#sidebar");
+      console.log('')
+
+      sidebar.classList.toggle("w-64");
+      sidebar.classList.toggle("w-16");
+    }
+  </script>
+</html>

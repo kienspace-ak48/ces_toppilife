@@ -1,0 +1,47 @@
+<nav  class="p-4 space-y-2">
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-50 text-blue-600 font-medium">
+        <i class="fa-solid fa-chart-line"></i>
+        Dashboard
+    </a>
+
+    <!-- Products parrent -->
+     <button onclick="toggleMenu(this, 'productMenu')"
+     class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 transition"
+     >
+     <span class="flex items-center gap-3">
+        <i class="fa-solid fa-box"></i>
+        Temp
+     </span>
+     <i class="fa-solid fa-chevron-down text-xs"></i>
+     </button>
+     <!-- submenu -->
+    <div id="productMenu" class="ml-8 mt-1 space-y-1 hidden">
+        <a href="/admin/page-config/hero-section" class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition">
+            Hero
+        </a>
+        <a class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition">
+            Categories
+        </a>
+        <a class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition">
+            Inventory
+        </a>
+
+    </div>
+    <!--  -->
+    <a href="/admin/page-config" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+        <i class="fa-solid fa-users"></i>
+        Page Configs
+    </a>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+      <i class="fa-solid fa-box"></i>
+      Products
+    </a>
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Orders
+    </a>
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+        <i class="fa-solid fa-gear"></i>
+        Settings
+    </a>
+</nav>
