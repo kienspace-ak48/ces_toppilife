@@ -77,6 +77,8 @@ const pageConfigSchema = new mongoose.Schema({
     title: String,
     desc: String,
   },
+  customize: {
+  }
 }, {timestamps: true});
 
 module.exports = mongoose.model('page_config', pageConfigSchema);

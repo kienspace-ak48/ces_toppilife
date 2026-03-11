@@ -26,28 +26,28 @@ const pageConfigController = () => {
             badge_right: {
               number: data.hero_badge_right_number,
               desc: data.hero_badge_right_desc,
-            }
+            },
           },
           issue: {
-              title: data.issue_title,
-              issues: data.issue_issues,
-              card: {
-                title: data.issue_card_title,
-                desc: data.issue_card_desc,
-                img_url: data.issue_card_img_url,
-              },
+            title: data.issue_title,
+            issues: data.issue_issues,
+            card: {
+              title: data.issue_card_title,
+              desc: data.issue_card_desc,
+              img_url: data.issue_card_img_url,
             },
+          },
           solution: {
             title: data.solution_title,
             img_url: data.solution_img_url,
             desc: data.solution_desc,
-            cards: data.solution_cards
+            cards: data.solution_cards,
           },
           benefit: {
             title: data.benefit_title,
             desc: data.benefit_desc,
             cards: data.benefit_cards,
-            footer_card: data.benefit_footer_card
+            footer_card: data.benefit_footer_card,
           },
           target_user: {
             title: data.target_user_title,
@@ -55,7 +55,7 @@ const pageConfigController = () => {
             note: data.target_user_note,
             img_url: data.target_user_img_url,
           },
-          how_to_use:{
+          how_to_use: {
             title: data.how_to_use_title,
             desc: data.how_to_use_desc,
             video_url: data.how_to_use_video_url,
@@ -63,16 +63,16 @@ const pageConfigController = () => {
             guide_title: data.howtouse_guide_title,
             guide: data.how_to_use_guide,
           },
-          testimonials:data.testimonials,
+          testimonials: data.testimonials,
           faq: {
             title: data.faq_title,
             desc: data.faq_desc,
-            list: data.faq_list
+            list: data.faq_list,
           },
           contact: {
             title: data.contact_title,
-            desc: data.contact_desc
-          }
+            desc: data.contact_desc,
+          },
         };
         const task1 = await pageConfigService.AddAndUpdate(pageconfigDTO);
         if (!task1) {
@@ -83,6 +83,49 @@ const pageConfigController = () => {
         console.log(CNAME, error.message);
         res.error(error.message);
         // res.render(VNAME+'/index', {success: false, error: error.message})
+      }
+    },
+    CustomizeSection: async (req, res) => {
+      try {
+        const pc = await getPageConfigFx();
+        res.render(VNAME + "/customize", { data: pc });
+      } catch (error) {
+        res.render(VNAME + "/customize", { data: {} });
+      }
+    },
+    //
+    SaveCustomizeSection: async (req, res) => {
+      try {
+        const data = req.body;
+        const cDTO = {
+          customize: {
+            email: data.pageinfo_email,
+            phone: data.pageinfo_phone,
+            zalo: data.pageinfo_zalo,
+            address: data.pageinfo_address,
+            facebook: data.pageinfo_facebook,
+            tiktok: data.pageinfo_tiktok,
+            youtube: data.pageinfo_youtube,
+            worktime: data.worktime,
+            title: data.webname,
+            img: data.img || "image1.jpg",
+            desc: data.desc,
+            keywords: data.keywords,
+            gg_a: data.gg_a || "--no--",
+            gg_wt: data.gg_wt || "--no--",
+          },
+        };
+        console.log(cDTO);
+        const task1 =await pageConfigService.AddAndUpdate(cDTO);
+        // const task1 = true;
+        if (!task1) {
+          throw new Error(CNAME + "update customize_section failed");
+        }
+        res.json({ success: true });
+      } catch (error) {
+        // res.render(VANME+'')
+        console.log(CNAME, error.message);
+        res.status(500).json({ success: false, mess: "Server error" });
       }
     },
   };

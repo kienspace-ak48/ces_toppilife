@@ -3,7 +3,7 @@
   <div class="space-y-4">
     <!-- action -->
     <div class="flex justify-between items-center">
-      <h2 class="text-[28px] font-bold">Pageconfig/ Cấu hình page</h2>
+      <h2 class="text-lg font-bold">Pageconfig/ Cấu hình page</h2>
       <button
         type="submit"
         class="px-3 py-2 border border-gray-300 rounded-lg bg-blue-500 font-bold text-white"
@@ -136,6 +136,7 @@
           class="border w-full px-3 py-2 rounded"
         /> -->
         <!--  -->
+         <h5 class="font-bold">Image <small>(1000x400)</small></h5>
         <!-- image handle action -->
     <div class="image_action">
       <!-- <label for="">Image banner</label> -->
@@ -172,7 +173,7 @@
         onclick="toggleSection('solution')"
         class="w-full flex justify-between p-4 font-medium"
       >
-        SOLUTION Section
+        Solution Section
         <span>+</span>
       </button>
       <!-- Content -->
@@ -196,6 +197,7 @@
           placeholder="Image URL"
           class="border w-full px-3 py-2 rounded"
         /> -->
+        <h5 class="font-bold">Image <small>(1000x1000)</small></h5>
         <!-- image handle action -->
     <div class="image_action">
       <!-- <label for="">Image banner</label> -->
@@ -267,7 +269,7 @@
         onclick="toggleSection('benefit')"
         class="w-full flex justify-between p-4 font-medium"
       >
-        BENEFITS Section
+        Benefit Section
         <span>+</span>
       </button>
       <!-- Content -->
@@ -275,7 +277,7 @@
         <input value="<%=pc?.benefit?.title||''%>" type="text" name="benefit_title" class="px-3 py-2 border border-gray-300 rounded-lg  w-full" placeholder="title">
         <input value="<%=pc?.benefit?.desc||''%>" type="text" name="benefit_desc" class="px-3 py-2 border border-gray-300 rounded-lg  w-full" placeholder="desc">
         <div class="flex justify-between items-center py-2">
-          <h3 class="font-bold">Cards</h3>
+          <h3 class="font-bold">Cards Image <small>(750x500)</small></h3>
           <button id="cta_add_benefit_card" type="button" class="px-3 py-2 bg-green-500 text-white font-bold rounded-lg border border-gray-300">Add card component</button>
         </div>
         <div id="benefit_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -387,6 +389,7 @@
         /> -->
         <!--  -->
         <!-- image handle action -->
+                  <h5 class="font-bold">Image <small>(750x500)</small></h5>
                   <div class="image_action">
                     <!-- <label for="">Image banner</label> -->
                     <div class="flex justify-between items-center mt-3">
@@ -436,7 +439,7 @@
         onclick="toggleSection('how_to_use')"
         class="w-full flex justify-between p-4 font-medium"
       >
-        HOWTOUSE Section
+        HowToUse Section
         <span>+</span>
       </button>
       <!-- Content -->
@@ -462,7 +465,7 @@
         />
 
         <div class="flex justify-between items-center py-4">
-          <h4 class="font-bold pt-4">Cards</h4>
+          <h4 class="font-bold pt-4">Cards | Image <small>(750x500)</small> </h4>
           <button type="button" id="cta_add_howtouse_add_card" class="px-3 py-2 rounded-lg border border-gray-300 bg-green-500 text-white">Add card component</button>
         </div>
         <div id="howtouse_cards_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -539,7 +542,7 @@
         onclick="toggleSection('testimonials')"
         class="w-full flex justify-between p-4 font-medium"
       >
-        TESTIMONIALS Section
+        Testimonial Section
         <span>+</span>
       </button>
       <!-- Content -->
@@ -608,7 +611,7 @@
         onclick="toggleSection('contact')"
         class="w-full flex justify-between p-4 font-medium"
       >
-        CONTACT Section
+        Contact Section
         <span>+</span>
       </button>
       <!-- Content -->

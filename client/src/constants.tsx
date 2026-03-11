@@ -9,7 +9,7 @@ import {
   Monitor,
 } from 'lucide-react';
 
-export const LOGO_URL = '/image/logo.png';
+export const LOGO_URL = '/image/logo_5.png';
 export const PRODUCT_IMG_1 = 'vfdbfdcom/tientv-dev/landing-page-ces/main/product1.png';
 export const PRODUCT_IMG_2 = 'vfdbfdcom/tientv-dev/landing-page-ces/main/product2.png';
 export const PRODUCT_IMG_3 = 'vfdbfdcom/tientv-dev/landing-page-ces/main/product3.png';
@@ -30,10 +30,10 @@ export const COLORS = {
 };
 
 export const NAVIGATION = [
-  { name: 'Giới thiệu', href: '#intro' },
-  { name: 'Sản phẩm', href: '#product' },
-  { name: 'Lợi ích', href: '#benefits' },
-  { name: 'Hỏi đáp', href: '#faq' },
+  { name: "nav.intro", href: "#intro" },
+  { name: "nav.product", href: "#product" },
+  { name: "nav.benefits", href: "#benefits" },
+  { name: "nav.faq", href: "#faq" },
 ];
 
 export const PAIN_POINTS = [

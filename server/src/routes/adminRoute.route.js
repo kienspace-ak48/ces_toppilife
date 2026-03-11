@@ -5,6 +5,9 @@ const homeController = require('../controller/home.controller')();
 const pageConfigController = require('../controller/pageConfig.controller')();
 const uploadImage = require("../config/uploadImage.config");
 
+// -cutomize
+router.get('/page-config/customize-section', pageConfigController.CustomizeSection);
+router.put('/page-config/customize-section', pageConfigController.SaveCustomizeSection);
 //pageconfig
 router.post('/page-config/create-update', pageConfigController.SaveAndUpdate);
 router.get('/page-config', pageConfigController.Index);

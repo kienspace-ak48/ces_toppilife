@@ -1,5 +1,5 @@
 <nav  class="p-4 space-y-2">
-    <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-50 text-blue-600 font-medium">
+    <a href="/admin" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-50 text-blue-600 font-bold">
         <i class="fa-solid fa-chart-line"></i>
         Dashboard
     </a>
@@ -8,7 +8,7 @@
      <button onclick="toggleMenu(this, 'productMenu')"
      class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 transition"
      >
-     <span class="flex items-center gap-3">
+     <span class="flex items-center gap-3 font-bold">
         <i class="fa-solid fa-box"></i>
         Page config
      </span>
@@ -16,10 +16,10 @@
      </button>
      <!-- submenu -->
     <div id="productMenu" class="ml-8 mt-1 space-y-1 hidden">
-        <a href="/admin/page-config" class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition">
+        <a href="/admin/page-config" class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition ">
             Partial page
         </a>
-        <a class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition">
+        <a href="/admin/page-config/customize-section" class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition">
             Advantage
         </a>
 
@@ -29,7 +29,7 @@
         <i class="fa-solid fa-users"></i>
         Page Configs
     </a> -->
-    <a href="/admin/gallery" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+    <a href="/admin/gallery" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-bold">
       <i class="fa-solid fa-box"></i>
       Gallery
     </a>
