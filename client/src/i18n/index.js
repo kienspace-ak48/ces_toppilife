@@ -7,6 +7,7 @@ import vi from "./locales/vi/translation.json";
 i18n
   .use(initReactI18next)
   .init({
+    debug: false,
     resources: {
       en: { translation: en },
       vi: { translation: vi }
@@ -18,5 +19,4 @@ i18n
       escapeValue: false
     }
   });
-
 export default i18n;

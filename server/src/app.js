@@ -8,13 +8,15 @@ const response  = require("./middlewares/response.middleware");
 const router = require('./routes');
 const path = require('path');
 const dbConnection = require("./config/dbConnection.config");
+const cookieParser = require("cookie-parser");
 const pageConfigModel = require("./model/pageConfig.model");
 
-//connect dB
+//connect dB 
 dbConnection();
 //middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser())
 
 //view engine EJS
 app.set('view engine', 'ejs');

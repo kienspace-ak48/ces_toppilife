@@ -1,37 +1,36 @@
 <nav  class="p-4 space-y-2">
-    <a href="/admin" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-50 text-blue-600 font-bold">
+    <a href="/admin" class="flex items-center gap-3 px-3 py-2 rounded-lg font-semibold text-blue-600">
         <i class="fa-solid fa-chart-line"></i>
-        Dashboard
+        <span class="menu-text">Dashboard</span>
     </a>
 
-    <!-- Products parrent -->
-     <button onclick="toggleMenu(this, 'productMenu')"
+    <!-- Pageconfig parrent -->
+     <button onclick="toggleMenu(this, 'page_config')"
      class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 transition"
      >
-     <span class="flex items-center gap-3 font-bold">
-        <i class="fa-solid fa-box"></i>
-        Page config
+     <span class="flex items-center gap-3 font-semibold">
+        <i class="fa-solid fa-pager text-blue-600"></i>
+        <span class="menu-text">Page config</span>
      </span>
      <i class="fa-solid fa-chevron-down text-xs"></i>
      </button>
      <!-- submenu -->
-    <div id="productMenu" class="ml-8 mt-1 space-y-1 hidden">
+    <div id="page_config" class="submenu ml-8 mt-1 space-y-1 hidden">
         <a href="/admin/page-config" class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition ">
-            Partial page
+            
+            <span class="menu-text">Partial page</span>
         </a>
         <a href="/admin/page-config/customize-section" class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition">
-            Advantage
+            
+            <span class="menu-text">Advantage</span>
         </a>
 
     </div>
     <!--  -->
-    <!-- <a href="/admin/page-config" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition">
-        <i class="fa-solid fa-users"></i>
-        Page Configs
-    </a> -->
-    <a href="/admin/gallery" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-bold">
-      <i class="fa-solid fa-box"></i>
-      Gallery
+    <a href="/admin/gallery" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-semibold">
+      <i class="fa-solid fa-images text-blue-600"></i>
+      <span class="menu-text">Gallery</span>
+      
     </a>
     
 </nav>

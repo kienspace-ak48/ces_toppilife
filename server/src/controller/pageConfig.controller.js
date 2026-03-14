@@ -16,7 +16,7 @@ const pageConfigController = () => {
     SaveAndUpdate: async (req, res) => {
       try {
         const data = req.body;
-        console.log(data);
+        // console.log(data);
         const pageconfigDTO = {
           hero: {
             badge: data.hero_badge,
@@ -87,7 +87,8 @@ const pageConfigController = () => {
     },
     CustomizeSection: async (req, res) => {
       try {
-        const pc = await getPageConfigFx();
+        // const pc = await getPageConfigFx();
+        const pc = await pageConfigService.GetOneRecord(); 
         res.render(VNAME + "/customize", { data: pc });
       } catch (error) {
         res.render(VNAME + "/customize", { data: {} });

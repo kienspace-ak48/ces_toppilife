@@ -6,6 +6,11 @@ import path from 'path';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      'pre_video': path.resolve(__dirname, './src/assets/pre_video.png')
+    }
+  },
   build: {
     outDir: path.resolve(__dirname, '../server/public/bin'),
     emptyOutDir: true

@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
-import {
-  Phone,
-  MessageCircle,
-  ChevronDown,
-  ChevronUp,
-  CheckCircle2,
-  ArrowRight,
-  ShieldCheck,
-  Award,
-  Users,
-  Smile,
-  Languages,
-} from "lucide-react";
+import * as Icons from "lucide-react";
+import { formatPhone442 } from "./utils/formatPhone.js";
+import YoutubeEmbed from "./utils/YoutubeEmbed.jsx";
+
+const iconMap = {
+  Phone: Icons["Phone"],
+  MessageCircle: Icons["MessageCircle"],
+  ChevronDown: Icons["ChevronDown"],
+  ChevronUp: Icons["ChevronUp"],
+  CheckCircle2: Icons["CheckCircle2"],
+  ArrowRight: Icons["ArrowRight"],
+  ShieldCheck: Icons["ShieldCheck"],
+  Award: Icons["Award"],
+  Users: Icons["Users"],
+  Smile: Icons["Smile"],
+  Languages: Icons["Languages"],
+};
 import {
   LOGO_URL,
   LIFESTYLE_IMAGES,
@@ -36,7 +40,7 @@ function ChangeLanguageIcon() {
       onClick={handleChangeLanguage}
       className="flex items-center gap-1 cursor-pointer p-2"
     >
-      <Languages size={20} />
+      <iconMap.Languages size={20} />
       <span className="text-sm font-semibold w-6 text-center">
         {i18n.language.toUpperCase()}
       </span>
@@ -81,18 +85,21 @@ const Navbar: React.FC<any> = ({ data }) => {
 
         <div className="flex items-center space-x-4">
           <a
-            href="tel:1900xxxx"
-            className="hidden lg:flex items-center text-green-700 font-bold"
+            href={"tel:" + data?.customize?.phone}
+            className="items-center text-green-700 font-bold hidden md:flex "
           >
-            <Phone className="w-5 h-5 mr-2" />
-            1900xxxx
+            <iconMap.Phone className="w-5 h-5 mr-2" />
+            {formatPhone442(data?.customize?.phone)}
           </a>
-          <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-full font-bold shadow-lg transition-transform hover:scale-105 active:scale-95 hidden md:block">
-            Nhận tư vấn ngay
-          </button>
-          <div className="flex items-center gap-4">
+          <a href={"tel:" + data?.customize?.phone}>
+            <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-full font-bold shadow-lg transition-transform hover:scale-105 active:scale-95  block">
+              Nhận tư vấn ngay
+            </button>
+          </a>
+
+          {/* <div className="flex items-center gap-4">
             <ChangeLanguageIcon />
-          </div>
+          </div> */}
         </div>
       </div>
     </nav>
@@ -106,7 +113,7 @@ const Hero: React.FC<any> = ({ data }) => (
   >
     <div className="absolute inset-0 z-0">
       <img
-        src={data?.hero?.url_img || ""}
+        src={data?.hero?.url_img || null}
         alt="Nature Relax"
         className="w-full h-full object-cover opacity-10"
       />
@@ -127,13 +134,13 @@ const Hero: React.FC<any> = ({ data }) => (
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
           <a
-            href="https://zalo.me"
+            href={"https://zalo.me/" + data?.customize?.zalo}
             className="flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl text-lg font-bold shadow-xl transition-all hover:-translate-y-1"
           >
-            Tìm hiểu ngay <ArrowRight className="ml-2 w-5 h-5" />
+            Tìm hiểu ngay <iconMap.ArrowRight className="ml-2 w-5 h-5" />
           </a>
           <div className="flex items-center justify-center space-x-2 text-gray-500 font-medium">
-            <CheckCircle2 className="text-green-500" />
+            <iconMap.CheckCircle2 className="text-green-500" />
             <span>Công nghệ CES Mỹ</span>
           </div>
         </div>
@@ -142,13 +149,13 @@ const Hero: React.FC<any> = ({ data }) => (
       <div className="relative">
         <div className="absolute -inset-4 bg-green-400 rounded-full blur-3xl opacity-20 animate-pulse"></div>
         <img
-          src={ASSETS_URL + (data?.hero?.img_url ?? "")}
+          src={ASSETS_URL + (data?.hero?.img_url ?? null)}
           alt="ToppiLife CES Device"
           className="relative z-10 w-full max-w-md mx-auto drop-shadow-2xl rounded-2xl transform hover:rotate-2 transition-transform duration-500"
         />
         <div className="absolute -bottom-6 -left-6 md:bottom-12 md:-left-12 bg-white p-4 rounded-2xl shadow-xl flex items-center space-x-3">
           <div className="bg-green-100 p-2 rounded-lg">
-            <Smile className="text-green-600 w-6 h-6" />
+            <iconMap.Smile className="text-green-600 w-6 h-6" />
           </div>
           <div>
             <div className="text-sm font-bold text-gray-800">
@@ -182,7 +189,7 @@ const PainPoints: React.FC<any> = ({ data }) => (
               className="flex items-start bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:border-green-200 transition-colors group"
             >
               <div className="bg-red-50 text-red-500 p-2 rounded-lg mr-4 group-hover:scale-110 transition-transform">
-                <ShieldCheck className="w-5 h-5" />
+                <iconMap.ShieldCheck className="w-5 h-5" />
               </div>
               <p className="text-lg text-gray-700 font-medium">{point}</p>
             </div>
@@ -234,18 +241,23 @@ const Technology: React.FC<any> = ({ data }) => (
           </div>
 
           <div className="grid sm:grid-cols-2 gap-6">
-            {data?.solution?.cards.map((val, i) => (
-              <div
-                key={i}
-                className="bg-white p-6 rounded-2xl shadow-md border border-gray-50 hover:shadow-xl transition-all"
-              >
-                <div className="text-green-600 mb-4">{val.icon}</div>
-                <h4 className="font-bold text-gray-800 text-lg mb-2">
-                  {val.title}
-                </h4>
-                <p className="text-gray-500 text-sm">{val.desc}</p>
-              </div>
-            ))}
+            {data?.solution?.cards.map((val, i) => {
+              let Icon = Icons[val?.icon as keyof typeof Icons];
+              return (
+                <div
+                  key={i}
+                  className="bg-white p-6 rounded-2xl shadow-md border border-gray-50 hover:shadow-xl transition-all"
+                >
+                  <div className="text-green-600 mb-4">
+                    {Icon && <Icon size={28} />}
+                  </div>
+                  <h4 className="font-bold text-gray-800 text-lg mb-2">
+                    {val.title}
+                  </h4>
+                  <p className="text-gray-500 text-sm">{val.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -264,29 +276,32 @@ const Features: React.FC<any> = ({ data }) => (
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {data?.benefit?.cards.map((feat, i) => (
-          <div
-            key={i}
-            className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group"
-          >
-            <div className="h-48 overflow-hidden">
-              <img
-                src={ASSETS_URL + feat.img_url}
-                alt={feat.title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-6">
-              <div className="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-4">
-                {feat.icon}
+        {data?.benefit?.cards.map((feat, i) => {
+          let Icon = Icons[feat?.icon as keyof typeof Icons];
+          return (
+            <div
+              key={i}
+              className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group"
+            >
+              <div className="h-48 overflow-hidden">
+                <img
+                  src={ASSETS_URL + feat.img_url}
+                  alt={feat.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
               </div>
-              <h4 className="text-xl font-bold text-gray-900 mb-2">
-                {feat.title}
-              </h4>
-              <p className="text-gray-600 text-sm">{feat.desc}</p>
+              <div className="p-6">
+                <div className="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-4">
+                  {Icon && <Icon size={28} />}
+                </div>
+                <h4 className="text-xl font-bold text-gray-900 mb-2">
+                  {feat.title}
+                </h4>
+                <p className="text-gray-600 text-sm">{feat.desc}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="mt-16 bg-white p-8 md:p-12 rounded-3xl shadow-xl flex flex-col md:flex-row items-center gap-10">
@@ -314,7 +329,7 @@ const Features: React.FC<any> = ({ data }) => (
                 className="flex items-center space-x-3 text-lg font-medium text-gray-700"
               >
                 <div className="bg-green-100 p-1 rounded-full">
-                  <CheckCircle2 className="text-green-600 w-5 h-5" />
+                  <iconMap.CheckCircle2 className="text-green-600 w-5 h-5" />
                 </div>
                 <span>{text}</span>
               </li>
@@ -347,7 +362,7 @@ const TargetAudience: React.FC<any> = ({ data }) => (
                 key={i}
                 className="flex items-center space-x-4 p-4 bg-gray-50 rounded-2xl border border-transparent hover:border-green-200 transition-all"
               >
-                <Users className="text-green-600 flex-shrink-0" />
+                <iconMap.Users className="text-green-600 flex-shrink-0" />
                 <p className="font-medium text-gray-700">{text}</p>
               </div>
             ))}
@@ -356,7 +371,7 @@ const TargetAudience: React.FC<any> = ({ data }) => (
             {data?.target_user?.note}
           </div>
           <button className="w-full sm:w-auto bg-green-600 text-white px-10 py-4 rounded-full font-bold shadow-xl hover:bg-green-700 transition-all flex items-center justify-center">
-            Kiểm tra mức độ phù hợp ngay <ArrowRight className="ml-2" />
+            Kiểm tra mức độ phù hợp ngay <iconMap.ArrowRight className="ml-2" />
           </button>
         </div>
         <div className="lg:w-1/2">
@@ -371,71 +386,76 @@ const TargetAudience: React.FC<any> = ({ data }) => (
   </section>
 );
 
-const Usage: React.FC<any> = ({ data }) => (
-  <section className="py-24 bg-gray-900 text-white overflow-hidden">
-    <div className="container mx-auto px-4">
-      <div className="text-center mb-16 space-y-4">
-        <h2 className="text-3xl md:text-5xl font-bold">
-          {data?.how_to_use?.title}
-        </h2>
-        <p className="text-green-400 font-medium uppercase tracking-widest text-sm">
-          {data?.how_to_use?.desc}
-        </p>
-      </div>
+const Usage: React.FC<any> = ({ data }) => {
+  // console.log(data?.how_to_use?.video_url);
+  return (
+    <section className="py-24 bg-gray-900 text-white overflow-hidden">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16 space-y-4">
+          <h2 className="text-3xl md:text-5xl font-bold">
+            {data?.how_to_use?.title}
+          </h2>
+          <p className="text-green-400 font-medium uppercase tracking-widest text-sm">
+            {data?.how_to_use?.desc}
+          </p>
+        </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {data?.how_to_use?.cards.map((step, i) => (
-          <div key={i} className="relative group">
-            <div className="absolute top-0 left-0 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center font-bold text-xl z-10 -ml-4 -mt-4 shadow-lg">
-              {i + 1}
-            </div>
-            <div className="bg-gray-800 rounded-3xl overflow-hidden h-full flex flex-col border border-gray-700 group-hover:border-green-500 transition-all">
-              <img
-                src={ASSETS_URL + step.img_url}
-                alt={step.title}
-                className="h-40 w-full object-cover grayscale group-hover:grayscale-0 transition-all"
-              />
-              <div className="p-6">
-                <h4 className="text-xl font-bold mb-2">{step.title}</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  {step.desc}
-                </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {data?.how_to_use?.cards.map((step, i) => (
+            <div key={i} className="relative group">
+              <div className="absolute top-0 left-0 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center font-bold text-xl z-10 -ml-4 -mt-4 shadow-lg">
+                {i + 1}
               </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-20 grid md:grid-cols-2 gap-12 items-center">
-        <div className="space-y-6">
-          <h3 className="text-3xl font-bold text-green-400">
-            {data?.how_to_use?.guide_title}
-          </h3>
-          <div className="space-y-4">
-            {// [
-            //   { t: "Phút 1-5", d: "Đeo kẹp tai, chọn mức cường độ từ 0-35 phù hợp cảm nhận." },
-            //   { t: "Phút 6-10", d: "Cơ thể bắt đầu thả lỏng, kết hợp đọc sách hoặc nhắm mắt." },
-            //   { t: "Phút 11-15", d: "Máy tự động kết thúc, trả lại cho bạn tâm trí nhẹ nhàng." }
-            // ]
-            data?.how_to_use?.guide.map((item, idx) => (
-              <div
-                key={idx}
-                className="flex space-x-4 border-l-2 border-green-500/30 pl-6 py-2 hover:bg-white/5 transition-colors rounded-r-xl"
-              >
-                <div>
-                  <div className="text-green-500 font-bold">{item.minute}</div>
-                  <div className="text-gray-300">{item.desc}</div>
+              <div className="bg-gray-800 rounded-3xl overflow-hidden h-full flex flex-col border border-gray-700 group-hover:border-green-500 transition-all">
+                <img
+                  src={ASSETS_URL + step.img_url}
+                  alt={step.title}
+                  className="h-40 w-full object-cover grayscale group-hover:grayscale-0 transition-all"
+                />
+                <div className="p-6">
+                  <h4 className="text-xl font-bold mb-2">{step.title}</h4>
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    {step.desc}
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
-          <div className="bg-green-500/10 p-4 rounded-2xl border border-green-500/20 text-green-300 font-medium">
-            Tần suất lý tưởng: Chỉ cần 1-2 lần mỗi ngày để cảm nhận thay đổi rõ
-            rệt.
-          </div>
+            </div>
+          ))}
         </div>
-        <div className="relative aspect-video rounded-3xl overflow-hidden bg-gray-800 flex items-center justify-center shadow-2xl group cursor-pointer">
-          <img
+
+        <div className="mt-20 grid md:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <h3 className="text-3xl font-bold text-green-400">
+              {data?.how_to_use?.guide_title}
+            </h3>
+            <div className="space-y-4">
+              {// [
+              //   { t: "Phút 1-5", d: "Đeo kẹp tai, chọn mức cường độ từ 0-35 phù hợp cảm nhận." },
+              //   { t: "Phút 6-10", d: "Cơ thể bắt đầu thả lỏng, kết hợp đọc sách hoặc nhắm mắt." },
+              //   { t: "Phút 11-15", d: "Máy tự động kết thúc, trả lại cho bạn tâm trí nhẹ nhàng." }
+              // ]
+              data?.how_to_use?.guide.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="flex space-x-4 border-l-2 border-green-500/30 pl-6 py-2 hover:bg-white/5 transition-colors rounded-r-xl"
+                >
+                  <div>
+                    <div className="text-green-500 font-bold">
+                      {item.minute}
+                    </div>
+                    <div className="text-gray-300">{item.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="bg-green-500/10 p-4 rounded-2xl border border-green-500/20 text-green-300 font-medium">
+              Tần suất lý tưởng: Chỉ cần 1-2 lần mỗi ngày để cảm nhận thay đổi
+              rõ rệt.
+            </div>
+          </div>
+
+          {/* <div className="relative aspect-video rounded-3xl overflow-hidden bg-gray-800 flex items-center justify-center shadow-2xl group cursor-pointer"> */}
+            {/* <img
             src={LIFESTYLE_IMAGES.RELAX}
             alt="Video Thumbnail"
             className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform"
@@ -445,12 +465,15 @@ const Usage: React.FC<any> = ({ data }) => (
           </div>
           <div className="absolute bottom-4 left-4 font-bold text-lg">
             VIDEO HƯỚNG DẪN
-          </div>
+          </div> */}
+
+            <YoutubeEmbed videoId={data?.how_to_use?.video_url} />
+          {/* </div> */}
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const FAQItem: React.FC<{ q: string; a: string }> = ({ q, a }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -462,9 +485,9 @@ const FAQItem: React.FC<{ q: string; a: string }> = ({ q, a }) => {
       >
         <span className="text-lg font-bold text-gray-800 pr-4">{q}</span>
         {isOpen ? (
-          <ChevronUp className="text-green-600" />
+          <iconMap.ChevronUp className="text-green-600" />
         ) : (
-          <ChevronDown className="text-gray-400 group-hover:text-green-600" />
+          <iconMap.ChevronDown className="text-gray-400 group-hover:text-green-600" />
         )}
       </button>
       <div
@@ -503,15 +526,19 @@ const Commitment: React.FC<any> = ({ data }) => (
         //   { icon: <Users />, title: "Tư vấn chuyên nghiệp", desc: "Đồng hành suốt quá trình sử dụng" },
         //   { icon: <MessageCircle />, title: "Hỗ trợ 24/7", desc: "Đội ngũ chuyên gia luôn sẵn sàng" }
         // ]
-        data?.testimonials.map((item, i) => (
-          <div key={i} className="text-center space-y-4 group">
-            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto text-green-400 group-hover:bg-green-500 group-hover:text-white transition-all">
-              {/* {React.cloneElement(item.icon as React.ReactElement<any>, { size: 32 })} */}
+        data?.testimonials.map((item, i) => {
+          let Icon = Icons[item?.icon as keyof typeof Icons];
+
+          return (
+            <div key={i} className="text-center space-y-4 group">
+              <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto text-green-400 group-hover:bg-green-500 group-hover:text-white transition-all">
+                {Icon && <Icon size={28} />}
+              </div>
+              <h4 className="font-bold text-xl">{item.title}</h4>
+              <p className="text-green-200/70 text-sm">{item.desc}</p>
             </div>
-            <h4 className="font-bold text-xl">{item.title}</h4>
-            <p className="text-green-200/70 text-sm">{item.desc}</p>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   </section>
@@ -527,22 +554,22 @@ const Footer: React.FC<any> = ({ data }) => (
             alt="ToppiLife Logo"
             className="h-16 mx-auto md:mx-0"
           />
-          <p className="text-gray-500 max-w-md">
-            Sứ mệnh của chúng tôi là đem lại giấc ngủ ngon và tinh thần thư thái
-            cho hàng triệu người Việt thông qua công nghệ hiện đại và an toàn
-            nhất.
-          </p>
+          <p className="text-gray-500 max-w-md">{data?.customize?.worktime}</p>
           <div className="flex justify-center md:justify-start space-x-4">
-            <button className="p-3 bg-white shadow-md rounded-full text-blue-600 hover:scale-110 transition-transform">
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
-            </button>
-            <button className="p-3 bg-white shadow-md rounded-full text-red-600 hover:scale-110 transition-transform">
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-              </svg>
-            </button>
+            <a target="_blank" href={data?.customize?.facebook}>
+              <button className="p-3 bg-white shadow-md rounded-full text-blue-600 hover:scale-110 transition-transform">
+                <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                </svg>
+              </button>
+            </a>
+            <a target="_blank" href={data?.customize?.youtube}>
+              <button className="p-3 bg-white shadow-md rounded-full text-red-600 hover:scale-110 transition-transform">
+                <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+              </button>
+            </a>
           </div>
         </div>
 
@@ -555,16 +582,27 @@ const Footer: React.FC<any> = ({ data }) => (
               Công ty Cổ phần ToppiGroup
             </li>
             <li className="flex items-start">
-              <span className="mr-3 mt-1">📍</span>
-              16A Lê Hồng Phong, P.Hoà Hưng, Tp.HCM
+              <span className="mr-3 mt-1 text-green-500">
+                <Icons.MapPinHouse />
+              </span>
+              {data?.customize?.address}
             </li>
             <li className="flex items-center">
-              <span className="mr-3">📞</span>
-              1900xxxx
+              <span className="mr-3 text-green-500">
+                <Icons.Phone />
+              </span>
+              {formatPhone442(data?.customize?.phone)}
             </li>
-            <li className="flex items-center">
-              <span className="mr-3">📧</span>
-              contact@toppilife.vn
+            <li className="">
+              <a
+                href={"mailto:" + data?.customize?.email}
+                className="flex items-center"
+              >
+                <span className="mr-3 text-green-500">
+                  <Icons.Mail />
+                </span>
+                {data?.customize?.email}
+              </a>
             </li>
           </ul>
         </div>
@@ -575,14 +613,16 @@ const Footer: React.FC<any> = ({ data }) => (
           </h4>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex items-center justify-center">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/b/b2/U.S._Food_and_Drug_Administration_logo.svg"
-                alt="FDA"
-                className="h-8 grayscale opacity-50"
-              />
+              <span className="font-bold text-gray-600">CFDA</span>
             </div>
             <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex items-center justify-center">
-              <span className="font-bold text-gray-300">CE MARK</span>
+              <span className="font-bold text-gray-600">CE</span>
+            </div>
+            <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex items-center justify-center">
+              <span className="font-bold text-gray-600">ROHS</span>
+            </div>
+            <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex items-center justify-center">
+              <span className="font-bold text-gray-600">ISO9001</span>
             </div>
           </div>
         </div>
@@ -603,10 +643,10 @@ const Footer: React.FC<any> = ({ data }) => (
   </footer>
 );
 
-const FloatButtons: React.FC = () => (
+const FloatButtons: React.FC<any> = ({ data }) => (
   <div className="fixed bottom-8 right-8 z-[100] flex flex-col space-y-4">
     <a
-      href="https://zalo.me"
+      href={"https://zalo.me/" + data?.customize?.zalo}
       target="_blank"
       rel="noopener noreferrer"
       className="bg-blue-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all animate-bounce"
@@ -618,12 +658,12 @@ const FloatButtons: React.FC = () => (
       />
     </a>
     <a
-      href="tel:1900xxxx"
+      href={"tel:" + data?.customize?.phone}
       className="bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all relative group"
     >
-      <Phone className="w-6 h-6" />
+      <iconMap.Phone className="w-6 h-6" />
       <span className="absolute right-16 bg-white text-green-700 font-bold px-4 py-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-        Gọi ngay: 1900xxxx
+        Gọi ngay: {formatPhone442(data?.customize?.phone)}
       </span>
     </a>
   </div>
@@ -632,11 +672,11 @@ const FloatButtons: React.FC = () => (
 const FinalCTA: React.FC<any> = ({ data }) => (
   <section className="py-24 relative overflow-hidden bg-green-600">
     <div className="absolute inset-0 opacity-20 pointer-events-none">
-      <img
+      {/* <img
         src={LIFESTYLE_IMAGES.SLEEP}
         alt="Sleeping"
         className="w-full h-full object-cover"
-      />
+      /> */}
     </div>
     <div className="container mx-auto px-4 relative z-10 text-center text-white space-y-8 max-w-4xl">
       <h2 className="text-3xl md:text-5xl font-bold leading-tight">
@@ -644,11 +684,14 @@ const FinalCTA: React.FC<any> = ({ data }) => (
       </h2>
       <p className="text-xl text-green-50">{data?.contact?.desc}</p>
       <div className="flex flex-col sm:flex-row gap-6 justify-center pt-4">
-        <button className="bg-white text-green-700 hover:bg-green-50 px-12 py-5 rounded-full text-xl font-bold shadow-2xl transition-all hover:scale-105">
-          Nhận tư vấn miễn phí
-        </button>
+        <a href={"tel:" + data?.customize?.phone}>
+          <button className="bg-white text-green-700 hover:bg-green-50 px-12 py-5 rounded-full text-xl font-bold shadow-2xl transition-all hover:scale-105">
+            Nhận tư vấn miễn phí
+          </button>
+        </a>
         <a
-          href="https://zalo.me"
+          target="_blank"
+          href={"https://zalo.me/" + data?.customize?.zalo}
           className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-12 py-5 rounded-full text-xl font-bold transition-all"
         >
           Chat qua Zalo
@@ -669,7 +712,7 @@ const App: React.FC = () => {
     fetch(apiDeploy)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.data);
+        // console.log(data.data);
         setPageData(data.data);
       });
   }, []);
@@ -686,12 +729,18 @@ const App: React.FC = () => {
           content="Dịch vụ massage trị liệu tại nhà giúp giảm đau nhức, thư giãn cơ thể và cải thiện giấc ngủ."
         />
 
-        <meta name="keywords" content="massage trị liệu, massage tại nhà, giảm đau nhức, toppicare" />
+        <meta
+          name="keywords"
+          content="massage trị liệu, massage tại nhà, giảm đau nhức, toppicare"
+        />
 
         <meta name="robots" content="index, follow" />
 
         {/* Open Graph (Facebook, Zalo) */}
-        <meta property="og:title" content="Massage trị liệu tại nhà | ToppiCare" />
+        <meta
+          property="og:title"
+          content="Massage trị liệu tại nhà | ToppiCare"
+        />
         <meta
           property="og:description"
           content="Dịch vụ massage trị liệu tại nhà giúp giảm đau nhức và thư giãn hiệu quả."
@@ -703,7 +752,10 @@ const App: React.FC = () => {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Massage trị liệu tại nhà | ToppiCare" />
+        <meta
+          name="twitter:title"
+          content="Massage trị liệu tại nhà | ToppiCare"
+        />
         <meta
           name="twitter:description"
           content="Dịch vụ massage trị liệu tại nhà giúp giảm đau nhức và cải thiện sức khỏe."
@@ -728,7 +780,7 @@ const App: React.FC = () => {
         <FAQ data={pageData} />
         <FinalCTA data={pageData} />
         <Footer data={pageData} />
-        <FloatButtons />
+        <FloatButtons data={pageData} />
       </div>
     </>
   );
