@@ -702,7 +702,6 @@ const FinalCTA: React.FC<any> = ({ data }) => (
 );
 
 // --- Main App ---
-
 const App: React.FC = () => {
   const [pageData, setPageData] = useState(null);
   //

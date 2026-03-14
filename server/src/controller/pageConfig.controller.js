@@ -7,6 +7,7 @@ const pageConfigController = () => {
   return {
     Index: async (req, res) => {
       try {
+        // 
         const pc = await pageConfigService.GetOneRecord();
         res.render(VNAME + "/index", { pc });
       } catch (error) {

@@ -10,6 +10,7 @@ const path = require('path');
 const dbConnection = require("./config/dbConnection.config");
 const cookieParser = require("cookie-parser");
 const pageConfigModel = require("./model/pageConfig.model");
+const visitModel = require("./model/visit.model");
 
 //connect dB 
 dbConnection();
@@ -41,7 +42,6 @@ app.get("/test", (req, res) => {
 app.get('/api/landing', async(req, res)=>{
   try {
     const pc = await pageConfigModel.findOne({}).select('-__v -_id').lean();
-    // console.log(pc);
     res.success(pc)
   } catch (error) {
     console.error('loi entry point')
@@ -50,7 +50,20 @@ app.get('/api/landing', async(req, res)=>{
 // const html = fs.readFile(myPathConfig.public+"index.html");
 // console.log(html);
 app.use(async (req, res) => {
-  res.sendFile(myPathConfig.public + "/index.html");
+  try {
+    const visit = {
+      ip: req.ip,
+      path: req.originalUrl,
+      userAgent: req.headers["user-agent"]
+    }
+    console.log(visit)
+    await visitModel.create(visit);
+    res.sendFile(myPathConfig.public + "/index.html");
+  } catch (error) {
+    console.log("Server error");
+    res.sendFile(myPathConfig.public + "/index.html");
+    
+  }
 });
 //end
 
