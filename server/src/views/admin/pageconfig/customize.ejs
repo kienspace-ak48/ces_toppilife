@@ -1,5 +1,10 @@
 <div class="flex justify-between items-center">
-  <h2 class="font-bold">Customize section/ Tùy chỉnh cấu hình web <i class="text-blue-500 hover:cursor-pointer fa-regular fa-circle-question hover:scale-150"></i></h2>
+  <h2 class="font-bold">
+    Customize section/ Tùy chỉnh cấu hình web
+    <i
+      class="text-blue-500 hover:cursor-pointer fa-regular fa-circle-question hover:scale-150"
+    ></i>
+  </h2>
   <button
     id="btn_cta_save_config"
     class="font-bold px-4 py-3 rounded-lg border border-gray-300 bg-blue-500 text-white"
@@ -8,193 +13,183 @@
   </button>
 </div>
 <!-- page info -->
-<section id="pageinfo" >
+<section id="pageinfo">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Email -->
+    <div>
+      <label class="form-label font-medium">Email</label>
+      <input
+        type="text"
+        name="pageinfo_email"
+        value="<%=data?.customize?.email||''%>"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2"
+        placeholder="admin@gmail.com"
+      />
+    </div>
 
-  <!-- Email -->
-  <div>
-    <label class="form-label font-medium">Email</label>
-    <input
-      type="text"
-      name="pageinfo_email"
-      value="<%=data?.customize?.email||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-      placeholder="admin@gmail.com"
-    />
+    <!-- Phone -->
+    <div>
+      <label class="form-label font-medium">Phone number</label>
+      <input
+        type="text"
+        name="pageinfo_phone"
+        value="<%=data?.customize?.phone||''%>"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2"
+        placeholder="19001900"
+      />
+    </div>
+
+    <!-- Zalo -->
+    <div>
+      <label class="form-label font-medium">Zalo</label>
+      <input
+        type="text"
+        name="pageinfo_zalo"
+        value="<%=data?.customize?.zalo||''%>"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2"
+        placeholder="19001900"
+      />
+    </div>
+
+    <!-- Address -->
+    <div>
+      <label class="form-label font-medium">Address</label>
+      <input
+        type="text"
+        name="pageinfo_address"
+        value="<%=data?.customize?.address||''%>"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2"
+        placeholder="123 Đường ABC, Quận XYZ, TP.HCM"
+      />
+    </div>
+
+    <!-- Facebook -->
+    <div>
+      <label class="form-label font-medium">Facebook</label>
+      <input
+        type="text"
+        name="pageinfo_facebook"
+        value="<%=data?.customize?.facebook||''%>"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2"
+        placeholder="https://facebook.com/yourpage"
+      />
+    </div>
+
+    <!-- TikTok -->
+    <div>
+      <label class="form-label font-medium">TikTok</label>
+      <input
+        type="text"
+        name="pageinfo_tiktok"
+        value="<%=data?.customize?.tiktok||''%>"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2"
+        placeholder="https://tiktok.com/@yourpage"
+      />
+    </div>
+
+    <!-- YouTube -->
+    <div>
+      <label class="form-label font-medium">YouTube</label>
+      <input
+        type="text"
+        name="pageinfo_youtube"
+        value="<%=data?.customize?.youtube||''%>"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2"
+        placeholder="https://youtube.com/@yourchannel"
+      />
+    </div>
+
+    <!-- Footer title -->
+    <div>
+      <label class="form-label font-medium">land of destiny </label>
+      <input
+        type="text"
+        name="worktime"
+        value="<%=data?.customize?.worktime||''%>"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2"
+        placeholder="Title..."
+      />
+    </div>
   </div>
 
-  <!-- Phone -->
-  <div>
-    <label class="form-label font-medium">Phone number</label>
-    <input
-      type="text"
-      name="pageinfo_phone"
-      value="<%=data?.customize?.phone||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-      placeholder="19001900"
-    />
-  </div>
+  <hr class="my-6" />
+  <h4 class="font-bold pb-4 text-lg">[--- SEO ---]</h4>
 
-  <!-- Zalo -->
-  <div>
-    <label class="form-label font-medium">Zalo</label>
-    <input
-      type="text"
-      name="pageinfo_zalo"
-      value="<%=data?.customize?.zalo||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-      placeholder="19001900"
-    />
-  </div>
-
-  <!-- Address -->
-  <div>
-    <label class="form-label font-medium">Address</label>
-    <input
-      type="text"
-      name="pageinfo_address"
-      value="<%=data?.customize?.address||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-      placeholder="123 Đường ABC, Quận XYZ, TP.HCM"
-    />
-  </div>
-
-  <!-- Facebook -->
-  <div>
-    <label class="form-label font-medium">Facebook</label>
-    <input
-      type="text"
-      name="pageinfo_facebook"
-      value="<%=data?.customize?.facebook||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-      placeholder="https://facebook.com/yourpage"
-    />
-  </div>
-
-  <!-- TikTok -->
-  <div>
-    <label class="form-label font-medium">TikTok</label>
-    <input
-      type="text"
-      name="pageinfo_tiktok"
-      value="<%=data?.customize?.tiktok||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-      placeholder="https://tiktok.com/@yourpage"
-    />
-  </div>
-
-  <!-- YouTube -->
-  <div>
-    <label class="form-label font-medium">YouTube</label>
-    <input
-      type="text"
-      name="pageinfo_youtube"
-      value="<%=data?.customize?.youtube||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-      placeholder="https://youtube.com/@yourchannel"
-    />
-  </div>
-
-  <!-- Footer title -->
-  <div>
-    <label class="form-label font-medium">land of destiny </label>
-    <input
-      type="text"
-      name="worktime"
-      value="<%=data?.customize?.worktime||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-      placeholder="Title..."
-    />
-  </div>
-
-</div>
-
-<hr class="my-6"/>
-
-<!-- SEO Section -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-  <div>
-    <label class="font-medium">Website name</label>
-    <input
-      type="text"
-      id="webname"
-      value="<%=data?.customize?.title||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-    />
-  </div>
-
-  <div>
-    <label class="font-medium">Desc</label>
-    <input
-      type="text"
-      id="desc"
-      value="<%=data?.customize?.desc||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-    />
-  </div>
-
-  <div>
-    <label class="font-medium">Keyword</label>
-    <input
-      type="text"
-      id="keywords"
-      value="<%=data?.customize?.keywords||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-    />
-  </div>
-
-  <!-- <div>
-    <label class="font-medium">Google Analytics</label>
-    <input
-      type="text"
-      id="gg_a"
-      value="<%#=data?.customize?.gg_a||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-    />
-  </div> -->
-
-  <!-- <div>
-    <label class="font-medium">Google Webmaster Tool</label>
-    <input
-      type="text"
-      id="gg_wt"
-      value="<%#=data?.customize?.gg_wt||''%>"
-      class="w-full border border-gray-300 rounded-lg px-3 py-2"
-    />
-  </div> -->
-  <div>
-    <label class="font-medium">Choose image</label>
-    <!-- image handle action -->
-    <div class="image_action">
-      <!-- <label for="">Image banner</label> -->
-      <div class="flex justify-between items-center">
-        <button
-          class="flex-1 px-3 py-2 chooseImg rounded-lg border border-green-500"
-        >
-          Chọn ảnh
-        </button>
+  <!-- SEO Section -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <div class="py-2">
+        <label class="font-medium">Website name</label>
         <input
           type="text"
-          name="website_img"
-          value="<%=data?.customize?.img||''%>"
-          class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
-          placeholder="img"
+          id="webname"
+          value="<%=data?.customize?.title||''%>"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2"
         />
       </div>
-      <div class="img_preview border border-gray-300 w-full h-[200px]">
-        <img
-          src="/<%=data?.customize?.img||''%>"
-          alt=""
-          class="w-full object-cover max-h-[200px]"
+
+      <div class="py-2">
+        <label class="font-medium">Desc</label>
+        <input
+          type="text"
+          id="desc"
+          value="<%=data?.customize?.desc||''%>"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2"
+        />
+      </div>
+      <div class="py-2">
+        <label class="font-medium">Canonical</label>
+        <input
+          type="text"
+          id="canonical"
+          value="<%=data?.customize?.canonical ||''%>"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2"
         />
       </div>
     </div>
-    <!--  -->
-  </div>
-  
+    <!-- right -->
+    <div>
+      <div class="py-2">
+        <label class="font-medium">Keyword</label>
+        <input
+          type="text"
+          id="keywords"
+          value="<%=data?.customize?.keywords||''%>"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2"
+        />
+      </div>
 
-</div>
+      <div class="py-2">
+        <label class="font-medium">OpenGraph image</label>
+        <!-- image handle action -->
+        <div class="image_action">
+          <!-- <label for="">Image banner</label> -->
+          <div class="flex justify-between items-center">
+            <button
+              class="flex-1 px-3 py-2 chooseImg rounded-lg border border-green-500"
+            >
+              Chọn ảnh
+            </button>
+            <input
+              type="text"
+              name="website_img"
+              value="<%=data?.customize?.img||''%>"
+              class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
+              placeholder="img"
+            />
+          </div>
+          <div class="img_preview border border-gray-300 w-full h-[200px]">
+            <img
+              src="/<%=data?.customize?.img||''%>"
+              alt=""
+              class="w-full object-cover max-h-[200px]"
+            />
+          </div>
+        </div>
+        <!--  -->
+      </div>
+    </div>
+  </div>
 </section>
 <!-- =================MODAL===================== -->
 <div
@@ -211,7 +206,7 @@
   </div>
 </div>
 <!-- =============SCRIPT=============== -->
- <script>
+<script>
   var ctaChooseImg = document.querySelectorAll(".chooseImg");
   const chooseImgModal = document.querySelector("#gallery_modal");
   let imgInputIsFocusing = null;
@@ -228,15 +223,15 @@
     el.addEventListener("click", (ev) => {
       console.log(el);
       loadImage();
-      let input = el.closest('.image_action');
+      let input = el.closest(".image_action");
       imgInputIsFocusing = input;
       console.log("input ", input);
       openChooseImgModal();
     });
   });
   function selectImage(src) {
-    imgInputIsFocusing.querySelector('.img_input').value = src;
-     imgInputIsFocusing.querySelector('.img_preview img').src ="/"+src;
+    imgInputIsFocusing.querySelector(".img_input").value = src;
+    imgInputIsFocusing.querySelector(".img_preview img").src = "/" + src;
     closeChooseImgModal();
   }
   //
@@ -271,38 +266,44 @@
   }
   // end combo
   //
-document.getElementById("btn_cta_save_config").addEventListener("click", async () => {
-  const data = {
-    pageinfo_email: document.querySelector("[name='pageinfo_email']").value,
-    pageinfo_phone: document.querySelector("[name='pageinfo_phone']").value,
-    pageinfo_zalo: document.querySelector("[name='pageinfo_zalo']").value,
-    pageinfo_address: document.querySelector("[name='pageinfo_address']").value,
-    pageinfo_facebook: document.querySelector("[name='pageinfo_facebook']").value,
-    pageinfo_tiktok: document.querySelector("[name='pageinfo_tiktok']").value,
-    pageinfo_youtube: document.querySelector("[name='pageinfo_youtube']").value,
-    worktime: document.querySelector("[name='worktime']").value,
-    webname: document.getElementById("webname").value,
-    desc: document.getElementById("desc").value,
-    keywords: document.getElementById("keywords").value,
-    // gg_a: document.getElementById("gg_a").value,
-    // gg_wt: document.getElementById("gg_wt").value,
-    img: document.querySelector("[name='website_img']").value
-  };
+  document
+    .getElementById("btn_cta_save_config")
+    .addEventListener("click", async () => {
+      const data = {
+        pageinfo_email: document.querySelector("[name='pageinfo_email']").value,
+        pageinfo_phone: document.querySelector("[name='pageinfo_phone']").value,
+        pageinfo_zalo: document.querySelector("[name='pageinfo_zalo']").value,
+        pageinfo_address: document.querySelector("[name='pageinfo_address']")
+          .value,
+        pageinfo_facebook: document.querySelector("[name='pageinfo_facebook']")
+          .value,
+        pageinfo_tiktok: document.querySelector("[name='pageinfo_tiktok']")
+          .value,
+        pageinfo_youtube: document.querySelector("[name='pageinfo_youtube']")
+          .value,
+        worktime: document.querySelector("[name='worktime']").value,
+        webname: document.getElementById("webname").value,
+        canonical: document.getElementById("canonical").value,
+        desc: document.getElementById("desc").value,
+        keywords: document.getElementById("keywords").value,
+        // gg_a: document.getElementById("gg_a").value,
+        // gg_wt: document.getElementById("gg_wt").value,
+        img: document.querySelector("[name='website_img']").value,
+      };
 
-  const res = await fetch("/admin/page-config/customize-section", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+      const res = await fetch("/admin/page-config/customize-section", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-  const result = await res.json();
-  if(result.success){
-    alert('update successfully');
-  }else{
-    alert('update failed');
-
-  }
-});
+      const result = await res.json();
+      if (result.success) {
+        alert("update successfully");
+      } else {
+        alert("update failed");
+      }
+    });
 </script>

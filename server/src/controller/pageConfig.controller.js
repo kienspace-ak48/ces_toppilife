@@ -110,6 +110,7 @@ const pageConfigController = () => {
             youtube: data.pageinfo_youtube,
             worktime: data.worktime,
             title: data.webname,
+            canonical: data.canonical,
             img: data.img || "image1.jpg",
             desc: data.desc,
             keywords: data.keywords,

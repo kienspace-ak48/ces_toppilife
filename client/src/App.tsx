@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import * as Icons from "lucide-react";
 import { formatPhone442 } from "./utils/formatPhone.js";
 import YoutubeEmbed from "./utils/YoutubeEmbed.jsx";
@@ -48,6 +48,21 @@ function ChangeLanguageIcon() {
   );
 }
 //
+const renderHighlight = (text) => {
+  const parts = text.split(/(\[\[.*?\]\])/g);
+
+  return parts.map((part, index) => {
+    if (part.startsWith("[[") && part.endsWith("]]")) {
+      const cleanText = part.slice(2, -2);
+      return (
+        <span key={index} className="text-green-600">
+          {cleanText}
+        </span>
+      );
+    }
+    return part;
+  });
+};
 const ASSETS_URL = "/"; //http://localhost:8081/
 const Navbar: React.FC<any> = ({ data }) => {
   const { t } = useTranslation();
@@ -126,8 +141,7 @@ const Hero: React.FC<any> = ({ data }) => (
           {data?.hero?.badge}
         </div>
         <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
-          Ngủ sâu hơn – Đầu nhẹ hơn <br />
-          <span className="text-green-600">Tinh thần dễ chịu</span> mỗi ngày
+          {renderHighlight(data?.hero?.title)}
         </h1>
         <p className="text-lg md:text-xl text-gray-600 max-w-lg mx-auto md:mx-0">
           {data?.hero?.desc}
@@ -153,7 +167,7 @@ const Hero: React.FC<any> = ({ data }) => (
           alt="ToppiLife CES Device"
           className="relative z-10 w-full max-w-md mx-auto drop-shadow-2xl rounded-2xl transform hover:rotate-2 transition-transform duration-500"
         />
-        <div className="absolute -bottom-6 -left-6 md:bottom-12 md:-left-12 bg-white p-4 rounded-2xl shadow-xl flex items-center space-x-3">
+        <div className="absolute z-9 -bottom-2 -left-3 md:bottom-12 md:-left-12 bg-white p-4 rounded-2xl shadow-xl flex items-center space-x-3">
           <div className="bg-green-100 p-2 rounded-lg">
             <iconMap.Smile className="text-green-600 w-6 h-6" />
           </div>
@@ -455,7 +469,7 @@ const Usage: React.FC<any> = ({ data }) => {
           </div>
 
           {/* <div className="relative aspect-video rounded-3xl overflow-hidden bg-gray-800 flex items-center justify-center shadow-2xl group cursor-pointer"> */}
-            {/* <img
+          {/* <img
             src={LIFESTYLE_IMAGES.RELAX}
             alt="Video Thumbnail"
             className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform"
@@ -467,7 +481,7 @@ const Usage: React.FC<any> = ({ data }) => {
             VIDEO HƯỚNG DẪN
           </div> */}
 
-            <YoutubeEmbed videoId={data?.how_to_use?.video_url} />
+          <YoutubeEmbed videoId={data?.how_to_use?.video_url} />
           {/* </div> */}
         </div>
       </div>
@@ -715,57 +729,54 @@ const App: React.FC = () => {
         setPageData(data.data);
       });
   }, []);
-  if (!pageData) return <></>;
+  if (!pageData){
+    return (
+      <div className="animate-pulse space-y-4">
+      <div className="h-10 bg-gray-200 rounded w-1/2"></div>
+      <div className="h-6 bg-gray-200 rounded w-1/3"></div>
+    </div>
+    )}
   return (
     <>
       <Helmet>
         {/* Title */}
-        <title>Massage trị liệu tại nhà | ToppiCare</title>
+        <title>{pageData?.customize?.title}</title>
 
         {/* Basic SEO */}
-        <meta
-          name="description"
-          content="Dịch vụ massage trị liệu tại nhà giúp giảm đau nhức, thư giãn cơ thể và cải thiện giấc ngủ."
-        />
+        <meta name="description" content={pageData?.customize?.desc} />
 
-        <meta
-          name="keywords"
-          content="massage trị liệu, massage tại nhà, giảm đau nhức, toppicare"
-        />
+        <meta name="keywords" content={pageData?.customize?.keywords} />
 
         <meta name="robots" content="index, follow" />
 
         {/* Open Graph (Facebook, Zalo) */}
-        <meta
-          property="og:title"
-          content="Massage trị liệu tại nhà | ToppiCare"
-        />
+        <meta property="og:title" content={pageData?.customize?.title} />
         <meta
           property="og:description"
-          content="Dịch vụ massage trị liệu tại nhà giúp giảm đau nhức và thư giãn hiệu quả."
+          content={pageData?.customize?.keywords}
         />
-        <meta property="og:image" content="https://site.com/banner.jpg" />
+        <meta
+          property="og:image"
+          content={pageData?.customize?.canonical + pageData?.customize?.img}
+        />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://toppicare.vn" />
-        <meta property="og:site_name" content="ToppiCare" />
+        <meta property="og:url" content={pageData?.customize?.canonical} />
+        <meta property="og:site_name" content="CES Toppilife" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageData?.customize?.title} />
+        <meta name="twitter:description" content={pageData?.customize?.desc} />
         <meta
-          name="twitter:title"
-          content="Massage trị liệu tại nhà | ToppiCare"
+          name="twitter:image"
+          content={pageData?.customize?.canonical + pageData?.customize?.img}
         />
-        <meta
-          name="twitter:description"
-          content="Dịch vụ massage trị liệu tại nhà giúp giảm đau nhức và cải thiện sức khỏe."
-        />
-        <meta name="twitter:image" content="https://site.com/banner.jpg" />
 
         {/* Mobile */}
         {/* <meta name="viewport" content="width=device-width, initial-scale=1" /> */}
 
         {/* Canonical */}
-        <link rel="canonical" href="https://toppicare.vn" />
+        <link rel="canonical" href={pageData?.customize?.canonical || ""} />
       </Helmet>
       <div className="min-h-screen bg-white">
         <Navbar data={pageData} />

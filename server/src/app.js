@@ -32,12 +32,30 @@ app.use(cors())
 app.use(express.static(myPathConfig.public));
 app.use(response);
 
+//
+app.set("trust proxy", true);
+app.use(async (req, res, next) => {
+  const ip =
+    req.headers["x-forwarded-for"]?.split(",")[0] ||
+    req.socket.remoteAddress;
+    console.log('IP: ',ip)
+  await visitModel.create({
+    ip,
+    path: req.originalUrl,
+    userAgent: req.headers["user-agent"]
+  });
+
+  next();
+});
+// 
 // router
 router(app);
 
 //test area
-app.get("/test", (req, res) => {
-  res.json({ success: true, mess: "hello world" });
+app.get("/test", async (req, res) => {
+  const visit = await visitModel.find({}).sort({createdAt: 1}).limit(300).select("_id").lean();
+  const ids = visit.map(v=>v._id);
+  res.json({ success: true, data: visit });
 });
 app.get('/api/landing', async(req, res)=>{
   try {
@@ -49,15 +67,9 @@ app.get('/api/landing', async(req, res)=>{
 })
 // const html = fs.readFile(myPathConfig.public+"index.html");
 // console.log(html);
+
 app.use(async (req, res) => {
   try {
-    const visit = {
-      ip: req.ip,
-      path: req.originalUrl,
-      userAgent: req.headers["user-agent"]
-    }
-    console.log(visit)
-    await visitModel.create(visit);
     res.sendFile(myPathConfig.public + "/index.html");
   } catch (error) {
     console.log("Server error");
