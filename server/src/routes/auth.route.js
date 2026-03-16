@@ -81,33 +81,5 @@ router.post("/admin/logout", (req, res) => {
   res.clearCookie("token");
   res.redirect("/");
 });
-// register
-router.get("/admin/register", async (req, res) => {
-  console.log('Test')
-  try {
-    const { email, password } = { email: "admin@gmail.com", password: "123@" };
-    const exitAccount = await userEntity.findOne({ email });
-    if (exitAccount) {
-      return res
-        .status(400)
-        .json({ success: false, data: "da ton tai account nay" });
-    }
-    //hash password
-    const hashPassword = await bcrypt.hash(password, 10);
-    const uDTO = new userEntity({
-      email: email,
-      password: hashPassword,
-      username: "ces_toppilife",
-      name: "Ces-Toppilife Admin"
-    });
-    await uDTO.save();
-    res.json({ success: true, data: "creating user is success" });
-    // {email, hashPassword};
-  } catch (error) {
-    console.log(CNAME, error.message);
-    res
-      .status(500)
-      .json({ success: false, mess: "Creating account is failed" });
-  }
-});
+
 module.exports = router;

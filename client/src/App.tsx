@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Suspense } from "react";
 import * as Icons from "lucide-react";
-import { formatPhone442 } from "./utils/formatPhone.js";
+import { formatPhone442, formatPhone433 } from "./utils/formatPhone.js";
 import YoutubeEmbed from "./utils/YoutubeEmbed.jsx";
 
 const iconMap = {
@@ -48,7 +48,7 @@ function ChangeLanguageIcon() {
   );
 }
 //
-const renderHighlight = (text) => {
+const renderHighlight = (text="") => {
   const parts = text.split(/(\[\[.*?\]\])/g);
 
   return parts.map((part, index) => {
@@ -104,7 +104,7 @@ const Navbar: React.FC<any> = ({ data }) => {
             className="items-center text-green-700 font-bold hidden md:flex "
           >
             <iconMap.Phone className="w-5 h-5 mr-2" />
-            {formatPhone442(data?.customize?.phone)}
+            {formatPhone433(data?.customize?.phone)}
           </a>
           <a href={"tel:" + data?.customize?.phone}>
             <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-full font-bold shadow-lg transition-transform hover:scale-105 active:scale-95  block">
@@ -605,7 +605,7 @@ const Footer: React.FC<any> = ({ data }) => (
               <span className="mr-3 text-green-500">
                 <Icons.Phone />
               </span>
-              {formatPhone442(data?.customize?.phone)}
+              {formatPhone433(data?.customize?.phone)}
             </li>
             <li className="">
               <a
@@ -677,7 +677,7 @@ const FloatButtons: React.FC<any> = ({ data }) => (
     >
       <iconMap.Phone className="w-6 h-6" />
       <span className="absolute right-16 bg-white text-green-700 font-bold px-4 py-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-        Gọi ngay: {formatPhone442(data?.customize?.phone)}
+        Gọi ngay: {formatPhone433(data?.customize?.phone)}
       </span>
     </a>
   </div>
