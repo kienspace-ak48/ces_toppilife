@@ -191,12 +191,21 @@
           class="border w-full px-3 py-2 rounded"
         ><%=pc?.solution?.desc%></textarea>
 
-        <!-- <input
-          name="solution_img_url"
-          value="<%#=pc?.solution?.img_url%>"
-          placeholder="Image URL"
-          class="border w-full px-3 py-2 rounded"
-        /> -->
+        <!-- Video ngay dưới section "Vấn đề KH" — lưu ở solution.video_title + solution.video_url -->
+        <label class="block text-sm font-semibold text-gray-700 mb-1">
+          Video (cơ chế hoạt động) — tiêu đề &amp; URL
+        </label>
+         <input class="border w-full px-3 py-2 rounded" type="text" name="solution_video_title" value="<%=pc?.solution?.video_title||''%>" placeholder="Video Title">
+        <div class="mt-3">
+          
+          <!-- <input
+            name="solution_video_url"
+            value="<%=pc?.solution?.video_url||''%>"
+            placeholder="YouTube URL hoặc Video ID (11 ký tự)"
+            class="border w-full px-3 py-2 rounded"
+          /> -->
+        </div>
+        <textarea name="solution_video_url" placeholder="YouTube URL embeded" id="" class="border w-full px-3 py-2 rounded"><%=pc?.solution?.video_url||''%></textarea>
         <h5 class="font-bold">Image <small>(1000x1000)</small></h5>
         <!-- image handle action -->
     <div class="image_action">
@@ -608,6 +617,118 @@
       </div>
     </section>
     <!-- END -->
+    <!-- UX: Feedback carousel + So sánh + CES (landing) -->
+    <section class="border rounded-lg">
+      <button
+        type="button"
+        onclick="toggleSection('ux_blocks')"
+        class="w-full flex justify-between p-4 font-medium"
+      >
+        UX — Phản hồi video / So sánh / Vì sao chọn CES
+        <span>+</span>
+      </button>
+      <div class="p-4 space-y-6" id="ux_blocks">
+        <div>
+          <h3 class="font-bold text-gray-800">Phản hồi khách hàng (carousel)</h3>
+          <input
+            name="feedback_title"
+            value="<%= pc?.feedback?.title || 'Phản hồi của khách hàng' %>"
+            class="border w-full px-3 py-2 rounded mt-2"
+            placeholder="Tiêu đề"
+          />
+          <input
+            name="feedback_subtitle"
+            value="<%= pc?.feedback?.subtitle || 'Nội dung trước và sau khi sử dụng sp' %>"
+            class="border w-full px-3 py-2 rounded mt-2"
+            placeholder="Mô tả phụ"
+          />
+          <label class="block text-sm mt-2 text-gray-600"
+            >Danh sách URL YouTube (mỗi dòng 1 video; carousel cuộn ngang khi nhiều video)</label>
+          <textarea
+            name="feedback_video_urls"
+            class="border w-full px-3 py-2 rounded font-mono text-sm min-h-[100px]"
+            placeholder="https://www.youtube.com/watch?v=..."
+          ><%=(Array.isArray(pc?.feedback?.video_urls) ? pc.feedback.video_urls : []).join('\n')%></textarea>
+          
+        <div>
+          <h3 class="font-bold text-gray-800">So sánh hiệu quả</h3>
+          <input
+            name="comparison_title"
+            value="<%= pc?.comparison?.title || 'SO SÁNH HIỆU QUẢ' %>"
+            class="border w-full px-3 py-2 rounded mt-2"
+          />
+          <div class="grid md:grid-cols-2 gap-3 mt-2">
+            <input
+              name="comparison_before_label"
+              value="<%= pc?.comparison?.before_label || 'TRƯỚC KHI DÙNG' %>"
+              class="border w-full px-3 py-2 rounded"
+              placeholder="Nhãn cột trái"
+            />
+            <input
+              name="comparison_after_label"
+              value="<%= pc?.comparison?.after_label || 'SAU KHI DÙNG' %>"
+              class="border w-full px-3 py-2 rounded"
+              placeholder="Nhãn cột phải"
+            />
+          </div>
+          <div class="grid md:grid-cols-2 gap-3 mt-2">
+            <div>
+              <label class="text-xs text-gray-500">Trước — mỗi dòng 1 ý</label>
+              <textarea
+                name="comparison_before_lines"
+                class="border w-full px-3 py-2 rounded text-sm min-h-[120px]"
+              ><%=(Array.isArray(pc?.comparison?.before) ? pc.comparison.before : []).join('\n')%></textarea>
+            </div>
+            <div>
+              <label class="text-xs text-gray-500">Sau — mỗi dòng 1 ý</label>
+              <textarea
+                name="comparison_after_lines"
+                class="border w-full px-3 py-2 rounded text-sm min-h-[120px]"
+              ><%=(Array.isArray(pc?.comparison?.after) ? pc.comparison.after : []).join('\n')%></textarea>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-bold text-gray-800">Vì sao chọn CES</h3>
+          <input
+            name="ces_why_title"
+            value="<%= pc?.ces_why?.title || 'Vì sao nhiều người chọn sử dụng máy kích thích điện sọ não (CES)?' %>"
+            class="border w-full px-3 py-2 rounded mt-2"
+          />
+          <h5 class="font-bold mt-3 text-gray-800">Ảnh minh họa</h5>
+          <div class="image_action">
+            <div class="flex justify-between items-center mt-3">
+              <button
+                type="button"
+                class="flex-1 px-4 py-3 chooseImg rounded-lg border border-green-500"
+              >
+                Chọn ảnh
+              </button>
+              <input
+                type="text"
+                name="ces_why_img_url"
+                value="<%= pc?.ces_why?.img_url || '' %>"
+                class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
+                placeholder="img"
+              />
+            </div>
+            <div class="img_preview border border-gray-300 w-full h-[200px] mt-2">
+              <img
+                src="/<%= pc?.ces_why?.img_url || '' %>"
+                alt=""
+                class="w-full object-cover max-h-[200px]"
+              />
+            </div>
+          </div>
+          <label class="block text-sm mt-2 text-gray-600"
+            >Gạch đầu dòng — mỗi dòng một ý</label>
+          <textarea
+            name="ces_why_bullets"
+            class="border w-full px-3 py-2 rounded text-sm min-h-[140px]"
+          ><%=(Array.isArray(pc?.ces_why?.bullets) ? pc.ces_why.bullets : []).join('\n')%></textarea>
+        </div>
+      </div>
+    </section>
     <!-- CONTACT -->
     <section class="border rounded-lg">
       <button

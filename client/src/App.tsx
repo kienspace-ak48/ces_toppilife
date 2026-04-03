@@ -2,6 +2,10 @@ import React, { useState, useEffect, Suspense } from "react";
 import * as Icons from "lucide-react";
 import { formatPhone442, formatPhone433 } from "./utils/formatPhone.js";
 import YoutubeEmbed from "./utils/YoutubeEmbed.jsx";
+import { MechanismSection } from "./components/MechanismSection.tsx";
+import { FeedbackVideoCarousel } from "./components/FeedbackVideoCarousel.tsx";
+import { BeforeAfterComparison } from "./components/BeforeAfterComparison.tsx";
+import { CesWhySection } from "./components/CesWhySection.tsx";
 
 const iconMap = {
   Phone: Icons["Phone"],
@@ -27,26 +31,26 @@ import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet-async";
 // --- Sub-components ---
 
-function ChangeLanguageIcon() {
-  const { i18n } = useTranslation();
+// function ChangeLanguageIcon() {
+//   const { i18n } = useTranslation();
 
-  const handleChangeLanguage = () => {
-    const nextLang = i18n.language === "vi" ? "en" : "vi";
-    i18n.changeLanguage(nextLang);
-  };
+//   const handleChangeLanguage = () => {
+//     const nextLang = i18n.language === "vi" ? "en" : "vi";
+//     i18n.changeLanguage(nextLang);
+//   };
 
-  return (
-    <button
-      onClick={handleChangeLanguage}
-      className="flex items-center gap-1 cursor-pointer p-2"
-    >
-      <iconMap.Languages size={20} />
-      <span className="text-sm font-semibold w-6 text-center">
-        {i18n.language.toUpperCase()}
-      </span>
-    </button>
-  );
-}
+//   return (
+//     <button
+//       onClick={handleChangeLanguage}
+//       className="flex items-center gap-1 cursor-pointer p-2"
+//     >
+//       <iconMap.Languages size={20} />
+//       <span className="text-sm font-semibold w-6 text-center">
+//         {i18n.language.toUpperCase()}
+//       </span>
+//     </button>
+//   );
+// }
 //
 const renderHighlight = (text="") => {
   const parts = text.split(/(\[\[.*?\]\])/g);
@@ -719,10 +723,11 @@ const FinalCTA: React.FC<any> = ({ data }) => (
 const App: React.FC = () => {
   const [pageData, setPageData] = useState(null);
   //
-  const apiLocal = "http://localhost:8081/api/landing";
-  const apiDeploy = "/api/landing";
+  const apiLanding = import.meta.env.DEV
+    ? "http://localhost:8081/api/landing"
+    : "/api/landing";
   useEffect(() => {
-    fetch(apiDeploy)
+    fetch(apiLanding)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data.data);
@@ -782,9 +787,13 @@ const App: React.FC = () => {
         <Navbar data={pageData} />
         <Hero data={pageData} />
         <PainPoints data={pageData} />
+        <MechanismSection data={pageData} />
         <Technology data={pageData} />
         <Features data={pageData} />
+        <FeedbackVideoCarousel data={pageData} />
+        <BeforeAfterComparison data={pageData} />
         <TargetAudience data={pageData} />
+        <CesWhySection data={pageData} />
         <Usage data={pageData} />
         <Commitment data={pageData} />
         <FAQ data={pageData} />

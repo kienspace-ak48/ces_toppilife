@@ -23,6 +23,9 @@ const pageConfigSchema = new mongoose.Schema({
     },
   },
   solution: {
+    // YouTube URL hoặc 11-char videoId hiển thị dưới section PainPoints
+    video_title: String,
+    video_url: String,
     img_url: String,
     title: String,
     desc: String,
@@ -76,6 +79,41 @@ const pageConfigSchema = new mongoose.Schema({
   contact: {
     title: String,
     desc: String,
+  },
+  /**
+   * Carousel video feedback (Shorts-style).
+   * items[]: mỗi phần tử { video_url, thumbnail?, headline?, badge?, caption?, brand_label? }
+   * video_urls: legacy — nếu không có items thì client map từ video_urls
+   */
+  feedback: {
+    title: String,
+    subtitle: String,
+    video_urls: [String],
+    items: [
+      {
+        video_url: String,
+        thumbnail: String,
+        headline: String,
+        badge: String,
+        caption: String,
+        brand_label: String,
+        _id: false,
+      },
+    ],
+  },
+  /** So sánh trước / sau khi dùng sản phẩm */
+  comparison: {
+    title: String,
+    before_label: String,
+    after_label: String,
+    before: [],
+    after: [],
+  },
+  /** Vì sao chọn CES — danh sách gạch đầu dòng + ảnh minh họa */
+  ces_why: {
+    title: String,
+    bullets: [],
+    img_url: String,
   },
   customize: {
   }

@@ -3,6 +3,33 @@ const pageConfigService = require("../services/pageConfig.service");
 const CNAME = "pageconfig.controller.js ";
 const VNAME = "admin/pageconfig";
 
+function splitLines(v) {
+  if (v == null) return [];
+  if (Array.isArray(v))
+    return v.map(String).map((s) => s.trim()).filter(Boolean);
+  return String(v)
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+/** JSON array feedback.items hoặc fallback từ feedback_video_urls */
+function parseFeedbackItems(data) {
+  const raw = data.feedback_items_json;
+  if (raw && String(raw).trim()) {
+    try {
+      const j = JSON.parse(String(raw));
+      if (Array.isArray(j) && j.length > 0) return j;
+    } catch (e) {
+      console.log(CNAME, "feedback_items_json parse error", e.message);
+    }
+  }
+  if (Array.isArray(data.feedback_items) && data.feedback_items.length > 0)
+    return data.feedback_items;
+  const urls = splitLines(data.feedback_video_urls);
+  return urls.map((video_url) => ({ video_url }));
+}
+
 const pageConfigController = () => {
   return {
     Index: async (req, res) => {
@@ -39,6 +66,8 @@ const pageConfigController = () => {
             },
           },
           solution: {
+            video_title: data.solution_video_title,
+            video_url: data.solution_video_url,
             title: data.solution_title,
             img_url: data.solution_img_url,
             desc: data.solution_desc,
@@ -73,6 +102,24 @@ const pageConfigController = () => {
           contact: {
             title: data.contact_title,
             desc: data.contact_desc,
+          },
+          feedback: {
+            title: data.feedback_title,
+            subtitle: data.feedback_subtitle,
+            video_urls: splitLines(data.feedback_video_urls),
+            items: parseFeedbackItems(data),
+          },
+          comparison: {
+            title: data.comparison_title,
+            before_label: data.comparison_before_label,
+            after_label: data.comparison_after_label,
+            before: splitLines(data.comparison_before_lines),
+            after: splitLines(data.comparison_after_lines),
+          },
+          ces_why: {
+            title: data.ces_why_title,
+            bullets: splitLines(data.ces_why_bullets),
+            img_url: data.ces_why_img_url,
           },
         };
         const task1 = await pageConfigService.AddAndUpdate(pageconfigDTO);

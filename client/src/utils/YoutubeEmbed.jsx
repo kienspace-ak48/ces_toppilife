@@ -2,7 +2,11 @@ import { useState } from "react"
 import { Play } from "lucide-react";
 import pre_video from 'pre_video';
 
-export default function YoutubeEmbed({ videoId, thumbnail=pre_video }) {
+export default function YoutubeEmbed({
+  videoId,
+  thumbnail = pre_video,
+  aspectClassName = "aspect-video",
+}) {
 
   function getYoutubeId(input) {
     if (!input) return null
@@ -23,7 +27,7 @@ export default function YoutubeEmbed({ videoId, thumbnail=pre_video }) {
       <div className="relative">
         <img
           src={thumbnail || "/no-video.jpg"}
-          className="w-full aspect-video object-cover rounded-3xl shadow-2xl"
+          className={`w-full ${aspectClassName} object-cover rounded-3xl shadow-2xl`}
           alt="about image"
         />
       </div>
@@ -32,7 +36,9 @@ export default function YoutubeEmbed({ videoId, thumbnail=pre_video }) {
 
   return (
     <div className="relative">
-      <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl bg-black z-10">
+      <div
+        className={`relative ${aspectClassName} rounded-3xl overflow-hidden shadow-2xl bg-black z-10`}
+      >
         
         {!play && (
           <>
