@@ -6,7 +6,7 @@ import { MechanismSection } from "./components/MechanismSection.tsx";
 import { FeedbackVideoCarousel } from "./components/FeedbackVideoCarousel.tsx";
 import { BeforeAfterComparison } from "./components/BeforeAfterComparison.tsx";
 import { CesWhySection } from "./components/CesWhySection.tsx";
-
+const NODE_ENV = import.meta.env.VITE_NODE_ENV
 const iconMap = {
   Phone: Icons["Phone"],
   MessageCircle: Icons["MessageCircle"],
@@ -67,7 +67,13 @@ const renderHighlight = (text="") => {
     return part;
   });
 };
-const ASSETS_URL = "/"; //http://localhost:8081/
+let ASSETS_URL =null;
+if(NODE_ENV==='development'){
+  ASSETS_URL = "http://localhost:8081/"; 
+}else{
+  ASSETS_URL="/";
+}
+
 const Navbar: React.FC<any> = ({ data }) => {
   const { t } = useTranslation();
   // start
@@ -723,9 +729,13 @@ const FinalCTA: React.FC<any> = ({ data }) => (
 const App: React.FC = () => {
   const [pageData, setPageData] = useState(null);
   //
-  const apiLanding = import.meta.env.DEV
-    ? "http://localhost:8081/api/landing"
-    : "/api/landing";
+
+  let apiLanding =null;
+  if(NODE_ENV==='development'){
+    apiLanding="http://localhost:8081/api/landing"
+  }else{
+    apiLanding="/api/landing"
+  }
   useEffect(() => {
     fetch(apiLanding)
       .then((res) => res.json())

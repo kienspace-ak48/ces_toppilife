@@ -171,13 +171,12 @@ export const FeedbackVideoCarousel: React.FC<Props> = ({ data }) => {
             <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
           </button>
 
-          {/* Căn giữa nhóm thẻ khi ít video; khi nhiều video → cuộn ngang trong vùng overflow */}
+          {/* Grid + min-w-full: khi ít video nhóm thẻ được căn giữa; khi nhiều video vẫn cuộn ngang */}
           <div
             ref={scrollRef}
             className="w-full overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x scroll-smooth scroll-px-2 sm:scroll-px-12 pb-3 pt-1 pl-2 pr-2 sm:pl-12 sm:pr-12 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {/* safe center: ít video → căn giữa; nhiều video (overflow) → căn start để scrollLeft=0 thấy full thẻ đầu (tránh cắt trái do justify-center) */}
-            <div className="flex min-w-full justify-[safe_center]">
+            <div className="grid min-w-full place-content-center">
               <div className="flex w-max gap-3 sm:gap-4 md:gap-5 snap-x snap-mandatory py-1">
                 {items.map((item, idx) => (
                   <div key={idx} className="snap-start shrink-0">

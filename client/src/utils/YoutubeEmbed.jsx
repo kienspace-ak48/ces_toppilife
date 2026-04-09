@@ -9,12 +9,16 @@ export default function YoutubeEmbed({
 }) {
 
   function getYoutubeId(input) {
-    if (!input) return null
+    if (input == null) return null
+    const s = String(input).trim()
+    if (!s) return null
 
-    if (input.length === 11 && !input.includes("http")) return input
+    // ID thuần (11 ký tự), không phải URL
+    if (/^[A-Za-z0-9_-]{11}$/.test(s)) return s
 
-    const reg = /(?:v=|\/embed\/|\.be\/)([A-Za-z0-9_-]{11})/
-    const match = input.match(reg)
+    // watch, embed, youtu.be, Shorts: .../shorts/VIDEO_ID
+    const reg = /(?:v=|\/embed\/|\.be\/|\/shorts\/)([A-Za-z0-9_-]{11})/
+    const match = s.match(reg)
     return match ? match[1] : null
   }
 
