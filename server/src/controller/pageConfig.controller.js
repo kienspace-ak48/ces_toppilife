@@ -72,6 +72,8 @@ const pageConfigController = () => {
             img_url: data.solution_img_url,
             desc: data.solution_desc,
             cards: data.solution_cards,
+            debunk_title: data.solution_debunk_title,
+            debunk_boxes: data.solution_debunk_boxes,
           },
           benefit: {
             title: data.benefit_title,
@@ -103,6 +105,20 @@ const pageConfigController = () => {
             title: data.contact_title,
             desc: data.contact_desc,
           },
+          gift_promo: {
+            title: data.gift_promo_title,
+            subtitle: data.gift_promo_subtitle,
+            image_url: data.gift_promo_image_url,
+            image_desc: data.gift_promo_image_desc,
+            offer_label: data.gift_promo_offer_label,
+            discount_text: data.gift_promo_discount_text,
+            countdown_until: data.gift_promo_countdown_until,
+            cta_text: data.gift_promo_cta_text,
+          },
+          safety_notice: {
+            title: data.safety_notice_title,
+            boxes: data.safety_notice_boxes,
+          },
           feedback: {
             title: data.feedback_title,
             subtitle: data.feedback_subtitle,
@@ -115,6 +131,13 @@ const pageConfigController = () => {
             after_label: data.comparison_after_label,
             before: splitLines(data.comparison_before_lines),
             after: splitLines(data.comparison_after_lines),
+            table_columns: data.comparison_table_columns,
+            table_rows: data.comparison_table_rows,
+          },
+          medical_proof: {
+            title: data.medical_proof_title,
+            img_url: data.medical_proof_img_url,
+            boxes: data.medical_proof_boxes,
           },
           ces_why: {
             title: data.ces_why_title,

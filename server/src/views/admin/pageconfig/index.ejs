@@ -1,62 +1,59 @@
+<script src="/libs/tinymce_8.4.0/js/tinymce/tinymce.min.js"></script>
 <script defer src="/js/pageconfig.js"></script>
 <form id="configForm">
-  <div class="space-y-4">
+  <div class="vstack gap-3">
     <!-- action -->
-    <div class="flex justify-between items-center">
-      <h2 class="text-lg font-bold">Pageconfig/ Cấu hình page</h2>
-      <button
+    <div class="card border-0 shadow-sm mb-4"><div class="card-body p-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3"><div><div class="text-uppercase text-primary fw-semibold small mb-1">Admin Config</div><h2 class="fs-5 fw-bold">Pageconfig/ Cấu hình page</h2><p class="text-body-secondary mb-0">Quản lý nội dung hiển thị trên landing page.</p></div><button
         type="submit"
-        class="px-3 py-2 border border-gray-300 rounded-lg bg-blue-500 font-bold text-white"
+        class="btn btn-primary fw-semibold"
       >
         Save Config
-      </button>
-    </div>
-    <!-- Hero -->
-    <section class="border rounded-lg">
+      </button></div></div><!-- Hero -->
+    <section class="card border-0 shadow-sm admin-config-section">
       <button
         type="button"
         onclick="toggleSection('hero')"
-        class="w-full flex justify-between p-4 font-medium"
+        class="admin-section-toggle btn btn-link w-100 d-flex justify-content-between align-items-center text-start text-decoration-none fw-semibold"
       >
         Hero Section
         <span>+</span>
       </button>
       <!-- content -->
-      <div class="p-4" id="hero">
+      <div class="card-body" id="hero">
         <input
           name="hero_badge"
           value="<%= pc?.hero?.badge || '' %>"
           placeholder="Badge"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
-        <label for="" class="mt-2 text-red-500 font-semibold">Highline text ( thêm cặp [[ content ]] )</label>
+        <label for="" class="mt-2 text-danger fw-semibold">Highline text ( thêm cặp [[ content ]] )</label>
         <input
           name="hero_title"
           value="<%=pc?.hero?.title||''%>"
           placeholder="Title"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
 
         <textarea
           name="hero_desc"
           placeholder="Description"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         ><%=pc?.hero?.desc ||''%></textarea>
 
         <!-- <input
           name="hero_img_url"
           value="<%#=pc?.hero?.img_url||''%>"
           placeholder="Image URL"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         /> -->
         <!--  -->
         <!-- image handle action -->
-    <div class="image_action">
+    <div class="image_action admin-image-action mb-3">
       <!-- <label for="">Image banner</label> -->
-      <div class="flex justify-between items-center mt-3">
+      <div class="d-flex justify-content-between align-items-center mt-3">
         <button
           type="button"
-          class="flex-1 px-4 py-3 chooseImg rounded-lg border border-green-500"
+          class="chooseImg btn btn-outline-success flex-grow-1"
         >
           Chọn ảnh
         </button>
@@ -64,15 +61,15 @@
           type="text"
           name="hero_img_url"
           value="<%=pc?.hero?.img_url||''%>"
-          class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
+          class="img_input form-control d-none"
           placeholder="img"
         />
       </div>
-      <div class="img_preview border border-gray-300 w-full h-[200px]">
+      <div class="img_preview admin-image-preview border rounded-3">
         <img
           src="/<%=pc?.hero?.img_url||''%>"
           alt=""
-          class="w-full object-cover max-h-[200px]"
+          class="admin-image-preview-img"
         />
       </div>
     </div>
@@ -81,69 +78,69 @@
           name="hero_badge_right_number"
           value="<%=pc?.hero?.badge_right.number||'100'%>"
           placeholder="Badge Right Number"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
 
         <input
           name="hero_badge_right_desc"
           value="<%=pc?.hero?.badge_right.desc||''%>"
           placeholder="Badge Right Desc"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
       </div>
     </section>
     <!-- ISSUE -->
-    <section class="border rounded-lg">
+    <section class="card border-0 shadow-sm admin-config-section">
       <button
         type="button"
         onclick="toggleSection('issue')"
-        class="w-full flex justify-between p-4 font-medium"
+        class="admin-section-toggle btn btn-link w-100 d-flex justify-content-between align-items-center text-start text-decoration-none fw-semibold"
       >
         Issue Section
         <span>+</span>
       </button>
       <!-- ISSUE -->
-      <div class="p-4" id="issue">
+      <div class="card-body" id="issue">
         <input
           name="issue_title"
           value="<%=pc?.issue?.title||''%>"
           placeholder="Title"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
 
         <!-- issues list -->
-        <textarea name="issue_issues" id="" class="border w-full px-3 py-2 rounded" placeholder="Xuong dong = 1 record"><%= pc?.issue?.issues?.join('\n') || '' %></textarea>
+        <textarea name="issue_issues" id="" class="form-control mb-3" placeholder="Xuong dong = 1 record"><%= pc?.issue?.issues?.join('\n') || '' %></textarea>
 
-        <h4 class="font-semibold pt-3">Issue Card</h4>
+        <h4 class="fw-semibold pt-3">Issue Card</h4>
 
         <input
           name="issue_card_title"
           value="<%=pc?.issue?.card?.title||''%>"
           placeholder="Card Title"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
 
         <textarea
           name="issue_card_desc"
           placeholder="Card Desc"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         ><%=pc?.issue?.card?.desc||''%></textarea>
 
         <!-- <input
           name="issue_card_img_url"
           value="<%#=pc?.issue?.card?.img_url||''%>"
           placeholder="Card Image URL"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         /> -->
         <!--  -->
-         <h5 class="font-bold">Image <small>(1000x400)</small></h5>
+         <h5 class="fw-bold">Image <small>(1000x400)</small></h5>
         <!-- image handle action -->
-    <div class="image_action">
+    <div class="image_action admin-image-action mb-3">
       <!-- <label for="">Image banner</label> -->
-      <div class="flex justify-between items-center mt-3">
+      <div class="d-flex justify-content-between align-items-center mt-3">
         <button
         type="button"
-          class="flex-1 px-4 py-3 chooseImg rounded-lg border border-green-500"
+          class="chooseImg btn btn-outline-success flex-grow-1"
         >
           Chọn ảnh
         </button>
@@ -151,15 +148,15 @@
           type="text"
           name="issue_card_img_url"
           value="<%=pc?.issue?.card?.img_url||''%>"
-          class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
+          class="img_input form-control d-none"
           placeholder="img"
         />
       </div>
-      <div class="img_preview border border-gray-300 w-full h-[200px]">
+      <div class="img_preview admin-image-preview border rounded-3">
         <img
           src="/<%=pc?.issue?.card?.img_url||''%>"
           alt=""
-          class="w-full object-cover max-h-[200px]"
+          class="admin-image-preview-img"
         />
       </div>
     </div>
@@ -167,53 +164,53 @@
       </div>
     </section>
     <!-- SOLUTION -->
-    <section class="border rounded-lg">
+    <section class="card border-0 shadow-sm admin-config-section">
       <button
         type="button"
         onclick="toggleSection('solution')"
-        class="w-full flex justify-between p-4 font-medium"
+        class="admin-section-toggle btn btn-link w-100 d-flex justify-content-between align-items-center text-start text-decoration-none fw-semibold"
       >
         Solution Section
         <span>+</span>
       </button>
       <!-- Content -->
-      <div class="p-4" id="solution">
+      <div class="card-body" id="solution">
         <input
           name="solution_title"
           value="<%=pc?.solution?.title||''%>"
           placeholder="Title"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
 
         <textarea
           name="solution_desc"
           placeholder="Description"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         ><%=pc?.solution?.desc%></textarea>
 
         <!-- Video ngay dưới section "Vấn đề KH" — lưu ở solution.video_title + solution.video_url -->
-        <label class="block text-sm font-semibold text-gray-700 mb-1">
+        <label class="block small fw-semibold text-body-secondary mb-1">
           Video (cơ chế hoạt động) — tiêu đề &amp; URL
         </label>
-         <input class="border w-full px-3 py-2 rounded" type="text" name="solution_video_title" value="<%=pc?.solution?.video_title||''%>" placeholder="Video Title">
+         <input class="form-control mb-3" type="text" name="solution_video_title" value="<%=pc?.solution?.video_title||''%>" placeholder="Video Title">
         <div class="mt-3">
           
           <!-- <input
             name="solution_video_url"
             value="<%=pc?.solution?.video_url||''%>"
             placeholder="YouTube URL hoặc Video ID (11 ký tự)"
-            class="border w-full px-3 py-2 rounded"
+            class="form-control mb-3"
           /> -->
         </div>
-        <textarea name="solution_video_url" placeholder="YouTube URL embeded" id="" class="border w-full px-3 py-2 rounded"><%=pc?.solution?.video_url||''%></textarea>
-        <h5 class="font-bold">Image <small>(1000x1000)</small></h5>
+        <textarea name="solution_video_url" placeholder="YouTube URL embeded" id="" class="form-control mb-3"><%=pc?.solution?.video_url||''%></textarea>
+        <h5 class="fw-bold">Image <small>(1000x1000)</small></h5>
         <!-- image handle action -->
-    <div class="image_action">
+    <div class="image_action admin-image-action mb-3">
       <!-- <label for="">Image banner</label> -->
-      <div class="flex justify-between items-center mt-3">
+      <div class="d-flex justify-content-between align-items-center mt-3">
         <button
         type="button"
-          class="flex-1 px-4 py-3 chooseImg rounded-lg border border-green-500"
+          class="chooseImg btn btn-outline-success flex-grow-1"
         >
           Chọn ảnh
         </button>
@@ -221,49 +218,93 @@
           type="text"
           name="solution_img_url"
           value="<%=pc?.solution?.img_url%>"
-          class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
+          class="img_input form-control d-none"
           placeholder="img"
         />
       </div>
-      <div class="img_preview border border-gray-300 w-full h-[200px]">
+      <div class="img_preview admin-image-preview border rounded-3">
         <img
           src="/<%=pc?.solution?.img_url%>"
           alt=""
-          class="w-full object-cover max-h-[200px]"
+          class="admin-image-preview-img"
         />
       </div>
     </div>
         <!--  -->
-        <div class="flex justify-between items-center py-4">
-          <h4 class="font-semibold pt-3">Cards 
-            <a target="_blank"  href="https://lucide.dev/icons/"><small class="text-red-500">Icon phải được viết hoa kiểu(PascalCase)</small><i class="text-blue-500 hover:cursor-pointer fa-regular fa-circle-question hover:scale-150"></i></a>
-          </h4>
-          <button id="cta_add_solution_card" type="button" class="px-3 py-2 font-bold bg-green-500 text-white rounded-lg ">Add Solution Component</button>
+        <div class="border rounded-3 p-3 mt-4 bg-light">
+          <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
+            <div>
+              <h4 class="fw-semibold mb-1">Khối nội dung giải ảo</h4>
+              <p class="text-body-secondary small mb-0">
+                Hiển thị dưới video cơ chế hoạt động. Mỗi box gồm tiêu đề và nội dung rich text.
+              </p>
+            </div>
+            <button id="cta_add_solution_debunk_box" type="button" class="btn btn-success fw-semibold">
+              Thêm box nội dung
+            </button>
+          </div>
+
+          <label class="form-label fw-semibold">Tiêu đề khối</label>
+          <input
+            name="solution_debunk_title"
+            value="<%= pc?.solution?.debunk_title || 'Điện lên não có đáng sợ không?' %>"
+            placeholder="Điện lên não có đáng sợ không?"
+            class="form-control mb-3"
+          />
+
+          <div id="solution_debunk_wrapper" class="row row-cols-1 row-cols-md-2 g-3 admin-component-grid">
+            <% const debunkBoxes = Array.isArray(pc?.solution?.debunk_boxes) ? pc.solution.debunk_boxes : []; %>
+            <% debunkBoxes.forEach((box) => { %>
+              <div class="instance position-relative admin-sub-card">
+                <span type="button" class="remove-instance d-flex justify-content-center align-items-center rounded-circle admin-remove-size bg-danger position-absolute admin-top-n2 admin-right-2 fw-bold text-white">X</span>
+                <label class="form-label fw-semibold">Box title</label>
+                <input
+                  name="debunk_title"
+                  value="<%= box?.title || '' %>"
+                  placeholder="Sự thật khoa học"
+                  class="form-control mb-3"
+                />
+                <label class="form-label fw-semibold">Nội dung</label>
+                <textarea
+                  name="debunk_content"
+                  class="form-control mb-3 tinymce-editor"
+                  placeholder="Nhập nội dung..."
+                ><%- box?.content || '' %></textarea>
+              </div>
+            <% }) %>
+          </div>
         </div>
 
-        <div id="solution_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h4 class="fw-semibold pt-3">Cards 
+            <a target="_blank"  href="https://lucide.dev/icons/"><small class="text-danger">Icon phải được viết hoa kiểu(PascalCase)</small><i class="text-primary fa-regular fa-circle-question"></i></a>
+          </h4>
+          <button id="cta_add_solution_card" type="button" class="btn btn-success fw-semibold">Add Solution Component</button>
+        </div>
+
+        <div id="solution_wrapper" class="row row-cols-1 row-cols-md-2 g-3 admin-component-grid">
           <%if(pc?.solution?.cards && pc?.solution?.cards.length>0){%>
             <% pc.solution.cards.forEach(c=>{%>
-              <div class="instance relative">
-                <span type="button" class="remove-item flex justify-center items-center rounded-full h-5 w-5 bg-red-500 absolute -top-2 right-2 font-bold text-white hover:scale-120 hover:cursor-pointer">X</span>
+              <div class="instance position-relative admin-sub-card">
+                <span type="button" class="remove-item d-flex justify-content-center align-items-center rounded-circle admin-remove-size bg-danger position-absolute admin-top-n2 admin-right-2 fw-bold text-white">X</span>
                 <input
                       name="icon"
                       value="<%=c.icon%>"
                       placeholder="Icon"
-                      class="border w-full px-3 py-2 rounded"
+                      class="form-control mb-3"
                     />
 
                     <input
                       name="title"
                       value="<%=c.title%>"
                       placeholder="Title"
-                      class="border w-full px-3 py-2 rounded"
+                      class="form-control mb-3"
                     />
 
                     <textarea
                       name="desc"
                       placeholder="Desc"
-                      class="border w-full px-3 py-2 rounded"
+                      class="form-control mb-3"
                     ><%=c.desc%></textarea>
               </div>
             <%})%>
@@ -274,37 +315,37 @@
       </div>
     </section>
     <!-- BENEFITS -->
-    <section class="border rounded-lg">
+    <section class="card border-0 shadow-sm admin-config-section">
       <button
       type="button"
         onclick="toggleSection('benefit')"
-        class="w-full flex justify-between p-4 font-medium"
+        class="admin-section-toggle btn btn-link w-100 d-flex justify-content-between align-items-center text-start text-decoration-none fw-semibold"
       >
         Benefit Section
         <span>+</span>
       </button>
       <!-- Content -->
-      <div class="p-4" id="benefit">
-        <input value="<%=pc?.benefit?.title||''%>" type="text" name="benefit_title" class="px-3 py-2 border border-gray-300 rounded-lg  w-full" placeholder="title">
-        <input value="<%=pc?.benefit?.desc||''%>" type="text" name="benefit_desc" class="px-3 py-2 border border-gray-300 rounded-lg  w-full" placeholder="desc">
-        <div class="flex justify-between items-center py-2">
-          <h3 class="font-bold">Cards Image <small>(750x500)</small></h3>
-          <button id="cta_add_benefit_card" type="button" class="px-3 py-2 bg-green-500 text-white font-bold rounded-lg border border-gray-300">Add card component</button>
+      <div class="card-body" id="benefit">
+        <input value="<%=pc?.benefit?.title||''%>" type="text" name="benefit_title" class="form-control" placeholder="title">
+        <input value="<%=pc?.benefit?.desc||''%>" type="text" name="benefit_desc" class="form-control" placeholder="desc">
+        <div class="d-flex justify-content-between align-items-center py-2">
+          <h3 class="fw-bold">Cards Image <small>(750x500)</small></h3>
+          <button id="cta_add_benefit_card" type="button" class="btn btn-success fw-semibold">Add card component</button>
         </div>
-        <div id="benefit_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div id="benefit_wrapper" class="row row-cols-1 row-cols-md-2 g-4 admin-component-grid">
           <%if(pc?.benefit?.cards && pc?.benefit?.cards.length>0){%>
             <%pc.benefit.cards.forEach(b=>{%>
-              <div class="instance relative">
-                <span class="h-5 w-5 remove-instance  border rounded-full flex justify-center items-center border-gray-300 bg-red-500 font-bold text-white hover:cursor-pointer hover:scale-120 absolute -top-2 right-2">X</span>
+              <div class="instance position-relative admin-sub-card">
+                <span class="admin-remove-size remove-instance border rounded-circle d-flex justify-content-center align-items-center border-secondary-subtle bg-danger fw-bold text-white position-absolute admin-top-n2 admin-right-2">X</span>
                 <div>
-                  <!-- <input value="<%#=b.img_url%>" type="text" name="img_url" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="imgage"> -->
+                  <!-- <input value="<%#=b.img_url%>" type="text" name="img_url" id="" class="form-control" placeholder="imgage"> -->
                   <!-- image handle action -->
-                  <div class="image_action">
+                  <div class="image_action admin-image-action mb-3">
                     <!-- <label for="">Image banner</label> -->
-                    <div class="flex justify-between items-center mt-3">
+                    <div class="d-flex justify-content-between align-items-center mt-3">
                       <button
                       type="button"
-                        class="flex-1 px-4 py-3 chooseImg rounded-lg border border-green-500"
+                        class="chooseImg btn btn-outline-success flex-grow-1"
                       >
                         Chọn ảnh
                       </button>
@@ -312,38 +353,38 @@
                         type="text"
                         name="img_url"
                         value="<%=b.img_url%>"
-                        class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
+                        class="img_input form-control d-none"
                         placeholder="img"
                       />
                     </div>
-                    <div class="img_preview border border-gray-300 w-full h-[200px]">
+                    <div class="img_preview admin-image-preview border rounded-3">
                       <img
                         src="/<%=b.img_url%>"
                         alt=""
-                        class="w-full object-cover max-h-[200px]"
+                        class="admin-image-preview-img"
                       />
                     </div>
                   </div>
                       <!--  -->
-                  <input value="<%=b.icon%>" type="text" name="icon" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="icon">
-                  <input value="<%=b.title%>" type="text" name="title" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="title">
-                  <input value="<%=b.desc%>" type="text" name="desc" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="desc">
+                  <input value="<%=b.icon%>" type="text" name="icon" id="" class="form-control" placeholder="icon">
+                  <input value="<%=b.title%>" type="text" name="title" id="" class="form-control" placeholder="title">
+                  <input value="<%=b.desc%>" type="text" name="desc" id="" class="form-control" placeholder="desc">
                 </div>
               </div>
             <%})%>
           <%}%>
         </div>
         <!--  -->
-        <h3 class="font-bold">Footer card</h3>
+        <h3 class="fw-bold">Footer card</h3>
         <div>
-          <!-- <input value="<%#=pc?.benefit?.footer_card.img_url%>" id="benefit_footer_img_url" type="text" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="img_url"> -->
+          <!-- <input value="<%#=pc?.benefit?.footer_card.img_url%>" id="benefit_footer_img_url" type="text" class="form-control" placeholder="img_url"> -->
           <!-- image handle action -->
-                  <div class="image_action">
+                  <div class="image_action admin-image-action mb-3">
                     <!-- <label for="">Image banner</label> -->
-                    <div class="flex justify-between items-center mt-3">
+                    <div class="d-flex justify-content-between align-items-center mt-3">
                       <button
                       type="button"
-                        class="flex-1 px-4 py-3 chooseImg rounded-lg border border-green-500"
+                        class="chooseImg btn btn-outline-success flex-grow-1"
                       >
                         Chọn ảnh
                       </button>
@@ -352,21 +393,21 @@
                         id="benefit_footer_img_url"
                         name="img_url"
                         value="<%=pc?.benefit?.footer_card.img_url%>"
-                        class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
+                        class="img_input form-control d-none"
                         placeholder="img"
                       />
                     </div>
-                    <div class="img_preview border border-gray-300 w-full h-[200px]">
+                    <div class="img_preview admin-image-preview border rounded-3">
                       <img
                         src="/<%=pc?.benefit?.footer_card.img_url%>"
                         alt=""
-                        class="w-full object-cover max-h-[200px]"
+                        class="admin-image-preview-img"
                       />
                     </div>
                   </div>
                       <!--  -->
-          <input value="<%=pc?.benefit?.footer_card.lable%>" id="benefit_footer_title" type="text" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="desc">
-          <textarea name="" class="px-3 py-2 border border-gray-300 rounded-lg w-full" id="benefit_footer_solution" placeholder="1 Enter = 1 sentence"><%=pc?.benefit?.footer_card.solution.join('\n')%></textarea>
+          <input value="<%=pc?.benefit?.footer_card.lable%>" id="benefit_footer_title" type="text" class="form-control" placeholder="desc">
+          <textarea name="" class="form-control" id="benefit_footer_solution" placeholder="1 Enter = 1 sentence"><%=pc?.benefit?.footer_card.solution.join('\n')%></textarea>
         </div>
       </div>
     </section>
@@ -374,39 +415,39 @@
 
     <!-- END -->
     <!-- TARGET_USER -->
-    <section class="border rounded-lg">
+    <section class="card border-0 shadow-sm admin-config-section">
       <button
         type="button"
         onclick="toggleSection('target_user')"
-        class="w-full flex justify-between p-4 font-medium"
+        class="admin-section-toggle btn btn-link w-100 d-flex justify-content-between align-items-center text-start text-decoration-none fw-semibold"
       >
         Target Section
         <span>+</span>
       </button>
       <!-- Content -->
-      <div class="p-4" id="target_user">
+      <div class="card-body" id="target_user">
         <input
           name="target_user_title"
           value="<%=pc?.target_user?.title||''%>"
           placeholder="Title"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
 
         <!-- <input
           name="target_user_img_url"
           value="<%#=pc?.target_user?.img_url||''%>"
           placeholder="Image URL"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         /> -->
         <!--  -->
         <!-- image handle action -->
-                  <h5 class="font-bold">Image <small>(750x500)</small></h5>
-                  <div class="image_action">
+                  <h5 class="fw-bold">Image <small>(750x500)</small></h5>
+                  <div class="image_action admin-image-action mb-3">
                     <!-- <label for="">Image banner</label> -->
-                    <div class="flex justify-between items-center mt-3">
+                    <div class="d-flex justify-content-between align-items-center mt-3">
                       <button
                       type="button"
-                        class="flex-1 px-4 py-3 chooseImg rounded-lg border border-green-500"
+                        class="chooseImg btn btn-outline-success flex-grow-1"
                       >
                         Chọn ảnh
                       </button>
@@ -414,15 +455,15 @@
                         type="text"
                         name="target_user_img_url"
                         value="<%=pc?.target_user?.img_url||''%>"
-                        class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
+                        class="img_input form-control d-none"
                         placeholder="img"
                       />
                     </div>
-                    <div class="img_preview border border-gray-300 w-full h-[200px]">
+                    <div class="img_preview admin-image-preview border rounded-3">
                       <img
                         src="/<%=pc?.target_user?.img_url||''%>"
                         alt=""
-                        class="w-full object-cover max-h-[200px]"
+                        class="admin-image-preview-img"
                       />
                     </div>
                   </div>
@@ -431,68 +472,68 @@
         <textarea
           id="target_user_list"
           placeholder="enter = 1 sentence"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         ><%=pc?.target_user?.list.join('\n')%></textarea>
         <input
           name="target_user_note"
           value="<%=pc?.target_user?.note||''%>"
           placeholder="Note"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
         
       </div>
     </section>
     <!-- END -->
     <!-- HOWTOUSE -->
-    <section class="border rounded-lg">
+    <section class="card border-0 shadow-sm admin-config-section">
       <button
         type="button"
         onclick="toggleSection('how_to_use')"
-        class="w-full flex justify-between p-4 font-medium"
+        class="admin-section-toggle btn btn-link w-100 d-flex justify-content-between align-items-center text-start text-decoration-none fw-semibold"
       >
         HowToUse Section
         <span>+</span>
       </button>
       <!-- Content -->
-      <div class="p-4" id="how_to_use">
+      <div class="card-body" id="how_to_use">
         <input
           name="how_to_use_title"
           value="<%=pc?.how_to_use?.title||''%>"
           placeholder="Title"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
 
         <textarea
           name="how_to_use_desc"
           placeholder="Description"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         ><%=pc?.how_to_use?.desc||''%></textarea>
 
         <input
           name="how_to_use_video_url"
           value="<%=pc?.how_to_use?.video_url||''%>"
           placeholder="Video URL"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
 
-        <div class="flex justify-between items-center py-4">
-          <h4 class="font-bold pt-4">Cards | Image <small>(750x500)</small> </h4>
-          <button type="button" id="cta_add_howtouse_add_card" class="px-3 py-2 rounded-lg border border-gray-300 bg-green-500 text-white">Add card component</button>
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h4 class="fw-bold pt-4">Cards | Image <small>(750x500)</small> </h4>
+          <button type="button" id="cta_add_howtouse_add_card" class="btn btn-success fw-semibold">Add card component</button>
         </div>
-        <div id="howtouse_cards_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div id="howtouse_cards_wrapper" class="row row-cols-1 row-cols-md-2 g-4 admin-component-grid">
           <%if(pc?.how_to_use?.cards && pc?.how_to_use?.cards.length>0){%>
             <%pc.how_to_use.cards.forEach(i=>{%>
-              <div class="instance relative">
-                <span class="remove-instance w-5 h-5 rounded-lg bg-red-500 text-white font-bold hover:cursor-pointer hover:scale-120 flex items-center justify-center absolute -top-2 right-1">X</span>
+              <div class="instance position-relative admin-sub-card">
+                <span class="remove-instance admin-remove-size rounded-3 bg-danger text-white fw-bold d-flex align-items-center justify-content-center position-absolute admin-top-n2 admin-right-1">X</span>
                 <div>
-                  <!-- <input type="text" value="<%#=i.img_url%>" name="img_url" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="img_url..."> -->
+                  <!-- <input type="text" value="<%#=i.img_url%>" name="img_url" class="form-control" placeholder="img_url..."> -->
                    <!-- image handle action -->
-                  <div class="image_action">
+                  <div class="image_action admin-image-action mb-3">
                     <!-- <label for="">Image banner</label> -->
-                    <div class="flex justify-between items-center mt-3">
+                    <div class="d-flex justify-content-between align-items-center mt-3">
                       <button
                       type="button"
-                        class="flex-1 px-4 py-3 chooseImg rounded-lg border border-green-500"
+                        class="chooseImg btn btn-outline-success flex-grow-1"
                       >
                         Chọn ảnh
                       </button>
@@ -500,21 +541,21 @@
                         type="text"
                         name="how_to_use_img_url"
                         value="<%=i.img_url%>"
-                        class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
+                        class="img_input form-control d-none"
                         placeholder="img"
                       />
                     </div>
-                    <div class="img_preview border border-gray-300 w-full h-[200px]">
+                    <div class="img_preview admin-image-preview border rounded-3">
                       <img
                           src="/<%=i.img_url%>"
                         alt=""
-                        class="w-full object-cover max-h-[200px]"
+                        class="admin-image-preview-img"
                       />
                     </div>
                   </div>
                       <!--  -->
-                  <input type="text" value="<%=i.title%>" name="title" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="title...">
-                  <input type="text" value="<%=i.desc%>" name="desc" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="desc...">
+                  <input type="text" value="<%=i.title%>" name="title" class="form-control" placeholder="title...">
+                  <input type="text" value="<%=i.desc%>" name="desc" class="form-control" placeholder="desc...">
 
                 </div>
               </div>
@@ -522,57 +563,57 @@
           <%}%>
         </div>
         
-        <div class="flex justify-between items-center py-4">
-          <h4 class="font-bold">Guide</h4>
-          <button id="cta_howtouse_guide_add_card" type="button" class="px-3 py-2 rounded-lg border border-gray-300 bg-green-500 text-white">Add guide component</button>
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h4 class="fw-bold">Guide</h4>
+          <button id="cta_howtouse_guide_add_card" type="button" class="btn btn-success fw-semibold">Add guide component</button>
         </div>
-        <input type="text" value="<%=pc?.how_to_use?.guide_title||''%>" name="howtouse_guide_title" class="px-3 py-2 rounded-lg border border-gray-300 w-full my-2" placeholder="guide title">
-        <div id="howtouse_guide_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input type="text" value="<%=pc?.how_to_use?.guide_title||''%>" name="howtouse_guide_title" class="px-3 py-2 rounded-3 border border-secondary-subtle w-100 my-2" placeholder="guide title">
+        <div id="howtouse_guide_wrapper" class="row row-cols-1 row-cols-md-2 g-4 admin-component-grid">
           <%if(pc?.how_to_use?.guide && pc?.how_to_use?.guide.length>0){%>
             <%pc.how_to_use.guide.forEach(i=>{%>
-              <div class="instance relative">
-                <span class="remove-instance w-5 h-5 rounded-lg bg-red-500 text-white font-bold hover:cursor-pointer hover:scale-120 flex items-center justify-center absolute -top-2 right-1">X</span>
+              <div class="instance position-relative admin-sub-card">
+                <span class="remove-instance admin-remove-size rounded-3 bg-danger text-white fw-bold d-flex align-items-center justify-content-center position-absolute admin-top-n2 admin-right-1">X</span>
                 <div>
-                  <input  value="<%=i.minute%>" type="text" name="minute" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="minute...">
-                  <input value="<%=i.desc%>" type="text" name="desc" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="desc...">
+                  <input  value="<%=i.minute%>" type="text" name="minute" class="form-control" placeholder="minute...">
+                  <input value="<%=i.desc%>" type="text" name="desc" class="form-control" placeholder="desc...">
                 </div>
             </div>
             <%})%>
           <%}%>
         </div>
-        <!-- <textarea name="" id="howtouse_guide" class="px-3 py-2 rounded-lg border border-gray-300 w-full" placeholder="enter = 1 sentence"></textarea> -->
+        <!-- <textarea name="" id="howtouse_guide" class="px-3 py-2 rounded-3 border border-secondary-subtle w-100" placeholder="enter = 1 sentence"></textarea> -->
 
        
       </div>
     </section>
     <!-- END -->
     <!-- Testimonials -->
-    <section class="border rounded-lg">
+    <section class="card border-0 shadow-sm admin-config-section">
       <button
         type="button"
         onclick="toggleSection('testimonials')"
-        class="w-full flex justify-between p-4 font-medium"
+        class="admin-section-toggle btn btn-link w-100 d-flex justify-content-between align-items-center text-start text-decoration-none fw-semibold"
       >
         Testimonial Section
         <span>+</span>
       </button>
       <!-- Content -->
-      <div class="p-4" id="testimonials">
-        <div class="flex justify-between items-center py-2">
-          <h4 class="font-bold">Testimonials card
-            <a target="_blank"  href="https://lucide.dev/icons/"><small class="text-red-500">Icon phải được viết hoa kiểu(PascalCase)</small><i class="text-blue-500 hover:cursor-pointer fa-regular fa-circle-question hover:scale-150"></i></a>
+      <div class="card-body" id="testimonials">
+        <div class="d-flex justify-content-between align-items-center py-2">
+          <h4 class="fw-bold">Testimonials card
+            <a target="_blank"  href="https://lucide.dev/icons/"><small class="text-danger">Icon phải được viết hoa kiểu(PascalCase)</small><i class="text-primary fa-regular fa-circle-question"></i></a>
           </h4>
-          <button id="cta_add_testimonial" type="button" class="px-3 py-2 bg-green-500 text-white font-bold rounded-lg">Add testimonial component</button>
+          <button id="cta_add_testimonial" type="button" class="btn btn-success fw-semibold">Add testimonial component</button>
         </div>
-        <div id="testimonial_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div id="testimonial_wrapper" class="row row-cols-1 row-cols-md-2 g-4 admin-component-grid">
           <%if(pc?.testimonials && pc?.testimonials.length>0){%>
             <%pc?.testimonials.forEach(i=>{%>
-              <div class="instance relative">
-                <span class="w-5 h-5 remove-instance border border-gray-300 rounded-full flex justify-center items-center bg-red-500 font-bold text-white absolute -top-2 right-2 hover:cursor-pointer hover:scale-120">X</span>
+              <div class="instance position-relative admin-sub-card">
+                <span class="admin-remove-size remove-instance border border-secondary-subtle rounded-circle d-flex justify-content-center align-items-center bg-danger fw-bold text-white position-absolute admin-top-n2 admin-right-2">X</span>
                 <div>
-                  <input value="<%=i.icon%>" type="text" name="icon" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="icon">
-                  <input value="<%=i.title%>" type="text" name="title" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="title">
-                  <input value="<%=i.desc%>" type="text" name="desc" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="desc">
+                  <input value="<%=i.icon%>" type="text" name="icon" class="form-control" placeholder="icon">
+                  <input value="<%=i.title%>" type="text" name="title" class="form-control" placeholder="title">
+                  <input value="<%=i.desc%>" type="text" name="desc" class="form-control" placeholder="desc">
                 </div>
               </div>
             <%})%>
@@ -581,33 +622,88 @@
       </div>
     </section>
     <!-- END -->
+    <!-- SAFETY NOTICE -->
+    <section class="card border-0 shadow-sm admin-config-section">
+      <button
+        type="button"
+        onclick="toggleSection('safety_notice')"
+        class="admin-section-toggle btn btn-link w-100 d-flex justify-content-between align-items-center text-start text-decoration-none fw-semibold"
+      >
+        Safety Notice — Lưu ý và chống chỉ định
+        <span>+</span>
+      </button>
+      <div class="card-body" id="safety_notice">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
+          <div>
+            <h4 class="fw-bold mb-1">Lưu ý và chống chỉ định</h4>
+            <p class="text-body-secondary small mb-0">
+              Hiển thị trước FAQ. Mỗi box gồm tiêu đề và nội dung rich text.
+            </p>
+          </div>
+          <button id="cta_add_safety_box" type="button" class="btn btn-success fw-semibold">
+            Thêm box nội dung
+          </button>
+        </div>
+
+        <label class="form-label fw-semibold">Tiêu đề section</label>
+        <input
+          name="safety_notice_title"
+          value="<%= pc?.safety_notice?.title || 'Lưu ý An toàn & Chống chỉ định (Quan trọng)' %>"
+          class="form-control mb-3"
+          placeholder="Lưu ý An toàn & Chống chỉ định (Quan trọng)"
+        />
+
+        <div id="safety_notice_wrapper" class="row row-cols-1 row-cols-md-2 g-3 admin-component-grid">
+          <% const safetyBoxes = Array.isArray(pc?.safety_notice?.boxes) ? pc.safety_notice.boxes : []; %>
+          <% safetyBoxes.forEach((box) => { %>
+            <div class="instance position-relative admin-sub-card">
+              <span type="button" class="remove-instance d-flex justify-content-center align-items-center rounded-circle admin-remove-size bg-danger position-absolute admin-top-n2 admin-right-2 fw-bold text-white">X</span>
+              <label class="form-label fw-semibold">Box title</label>
+              <input
+                name="safety_title"
+                value="<%= box?.title || '' %>"
+                placeholder="TUYỆT ĐỐI KHÔNG SỬ DỤNG CHO"
+                class="form-control mb-3"
+              />
+              <label class="form-label fw-semibold">Nội dung</label>
+              <textarea
+                name="safety_content"
+                class="form-control mb-3 tinymce-editor"
+                placeholder="Nhập nội dung..."
+              ><%- box?.content || '' %></textarea>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </section>
+    <!-- END -->
     <!-- FAQ -->
-    <section class="border rounded-lg">
+    <section class="card border-0 shadow-sm admin-config-section">
       <button
         type="button"
         onclick="toggleSection('faq')"
-        class="w-full flex justify-between p-4 font-medium"
+        class="admin-section-toggle btn btn-link w-100 d-flex justify-content-between align-items-center text-start text-decoration-none fw-semibold"
       >
         FAQ Section
         <span>+</span>
       </button>
       <!-- Content -->
-      <div class="p-4" id="faq">
-        <input value="<%=pc?.faq?.title||''%>" name="faq_title" type="text" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="title...">
-        <input value="<%=pc?.faq?.desc||''%>" name="faq_desc" type="text" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="desc...">
+      <div class="card-body" id="faq">
+        <input value="<%=pc?.faq?.title||''%>" name="faq_title" type="text" class="form-control" placeholder="title...">
+        <input value="<%=pc?.faq?.desc||''%>" name="faq_desc" type="text" class="form-control" placeholder="desc...">
         <div>
-          <div class="flex justify-between items-center py-4">
-            <h4 class="font-bold">faq card</h4>
-            <button id="cta_add_faq_card" type="button" class="px-3 py-2 bg-green-500 text-white font-bold rounded-lg border border-gray-300">add faq component</button>
+          <div class="d-flex justify-content-between align-items-center py-4">
+            <h4 class="fw-bold">faq card</h4>
+            <button id="cta_add_faq_card" type="button" class="btn btn-success fw-semibold">add faq component</button>
           </div>
-          <div id="faq_wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div id="faq_wrapper" class="row row-cols-1 row-cols-md-2 g-4 admin-component-grid">
             <%if(pc?.faq?.list && pc?.faq?.list.length >0){%>
               <%pc.faq.list.forEach(i=>{%>
-                <div class="instance relative">
-                  <span class="remove-instance w-5 h-5 rounded-lg bg-red-500 text-white font-bold hover:cursor-pointer hover:scale-120 flex items-center justify-center absolute -top-2 right-2">X</span>
+                <div class="instance position-relative admin-sub-card">
+                  <span class="remove-instance admin-remove-size rounded-3 bg-danger text-white fw-bold d-flex align-items-center justify-content-center position-absolute admin-top-n2 admin-right-2">X</span>
                   <div>
-                    <input value="<%=i.question%>" name="question" type="text" class="px-3 py-2 w-full border border-gray-300 rounded-lg" placeholder="question...">
-                    <textarea name="anwser" id="" class="px-3 py-2 w-full border border-gray-300 rounded-lg" placeholder="anwser..."><%=i.anwser%></textarea>
+                    <input value="<%=i.question%>" name="question" type="text" class="form-control" placeholder="question...">
+                    <textarea name="anwser" id="" class="form-control" placeholder="anwser..."><%=i.anwser%></textarea>
                   </div>
                 </div>
               <%})%>
@@ -618,89 +714,308 @@
     </section>
     <!-- END -->
     <!-- UX: Feedback carousel + So sánh + CES (landing) -->
-    <section class="border rounded-lg">
+    <section class="card border-0 shadow-sm admin-config-section">
       <button
         type="button"
         onclick="toggleSection('ux_blocks')"
-        class="w-full flex justify-between p-4 font-medium"
+        class="admin-section-toggle btn btn-link w-100 d-flex justify-content-between align-items-center text-start text-decoration-none fw-semibold"
       >
         UX — Phản hồi video / So sánh / Vì sao chọn CES
         <span>+</span>
       </button>
       <div class="p-4 space-y-6" id="ux_blocks">
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-0 pt-4 px-4">
+            <h3 class="fw-bold text-body mb-1">Quà tặng / CTA trước video phản hồi</h3>
+            <p class="text-body-secondary small mb-0">
+              Hiển thị hình quà tặng, mô tả, ưu đãi, countdown và nút đặt hàng qua Zalo.
+            </p>
+          </div>
+          <div class="card-body p-4">
+            <div class="row g-4">
+              <div class="col-lg-5">
+                <label class="form-label fw-semibold">Hình ảnh quà tặng</label>
+                <div class="image_action admin-image-action mb-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <button
+                      type="button"
+                      class="chooseImg btn btn-outline-success flex-grow-1"
+                    >
+                      Chọn ảnh
+                    </button>
+                    <input
+                      type="text"
+                      name="gift_promo_image_url"
+                      value="<%= pc?.gift_promo?.image_url || '' %>"
+                      class="img_input form-control d-none"
+                      placeholder="img"
+                    />
+                  </div>
+                  <div class="img_preview admin-image-preview border rounded-3">
+                    <img
+                      src="/<%= pc?.gift_promo?.image_url || '' %>"
+                      alt=""
+                      class="admin-image-preview-img"
+                    />
+                  </div>
+                </div>
+
+                <label class="form-label fw-semibold">Text mô tả dưới ảnh</label>
+                <textarea
+                  name="gift_promo_image_desc"
+                  class="form-control"
+                  rows="4"
+                  placeholder="Mô tả quà tặng, công dụng..."
+                ><%= pc?.gift_promo?.image_desc || '' %></textarea>
+              </div>
+
+              <div class="col-lg-7">
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label class="form-label fw-semibold">Tiêu đề</label>
+                    <input
+                      name="gift_promo_title"
+                      value="<%= pc?.gift_promo?.title || '' %>"
+                      class="form-control"
+                      placeholder="Hãy để ToppiLife mang lại cho bạn..."
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fw-semibold">Mô tả ngắn</label>
+                    <textarea
+                      name="gift_promo_subtitle"
+                      class="form-control"
+                      rows="3"
+                      placeholder="Điều tốt cho sức khỏe chính là nền tảng của thành công!"
+                    ><%= pc?.gift_promo?.subtitle || '' %></textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Nội dung box ưu đãi</label>
+                    <textarea
+                      name="gift_promo_offer_label"
+                      class="form-control tinymce-editor"
+                      rows="4"
+                      placeholder="Ưu đãi đặc biệt trong tháng này"
+                    ><%- pc?.gift_promo?.offer_label || '' %></textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Text giảm giá</label>
+                    <input
+                      name="gift_promo_discount_text"
+                      value="<%= pc?.gift_promo?.discount_text || '' %>"
+                      class="form-control"
+                      placeholder="GIẢM NGAY 10%"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Thời gian đếm ngược</label>
+                    <input
+                      type="datetime-local"
+                      name="gift_promo_countdown_until"
+                      value="<%= pc?.gift_promo?.countdown_until || '' %>"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">CTA button</label>
+                    <input
+                      name="gift_promo_cta_text"
+                      value="<%= pc?.gift_promo?.cta_text || 'ĐẶT HÀNG NHẬN QUÀ NGAY' %>"
+                      class="form-control"
+                      placeholder="ĐẶT HÀNG NHẬN QUÀ NGAY"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div>
-          <h3 class="font-bold text-gray-800">Phản hồi khách hàng (carousel)</h3>
+          <h3 class="fw-bold text-body">Phản hồi khách hàng (carousel)</h3>
           <input
             name="feedback_title"
             value="<%= pc?.feedback?.title || 'Phản hồi của khách hàng' %>"
-            class="border w-full px-3 py-2 rounded mt-2"
+            class="border w-100 px-3 py-2 rounded mt-2"
             placeholder="Tiêu đề"
           />
           <input
             name="feedback_subtitle"
             value="<%= pc?.feedback?.subtitle || 'Nội dung trước và sau khi sử dụng sp' %>"
-            class="border w-full px-3 py-2 rounded mt-2"
+            class="border w-100 px-3 py-2 rounded mt-2"
             placeholder="Mô tả phụ"
           />
-          <label class="block text-sm mt-2 text-gray-600"
+          <label class="block small mt-2 text-secondary"
             >Danh sách URL YouTube (mỗi dòng 1 video; carousel cuộn ngang khi nhiều video)</label>
           <textarea
             name="feedback_video_urls"
-            class="border w-full px-3 py-2 rounded font-mono text-sm min-h-[100px]"
+            class="border w-100 px-3 py-2 rounded font-monospace small admin-min-h-100"
             placeholder="https://www.youtube.com/watch?v=..."
           ><%=(Array.isArray(pc?.feedback?.video_urls) ? pc.feedback.video_urls : []).join('\n')%></textarea>
           
-        <div>
-          <h3 class="font-bold text-gray-800">So sánh hiệu quả</h3>
-          <input
-            name="comparison_title"
-            value="<%= pc?.comparison?.title || 'SO SÁNH HIỆU QUẢ' %>"
-            class="border w-full px-3 py-2 rounded mt-2"
-          />
-          <div class="grid md:grid-cols-2 gap-3 mt-2">
-            <input
-              name="comparison_before_label"
-              value="<%= pc?.comparison?.before_label || 'TRƯỚC KHI DÙNG' %>"
-              class="border w-full px-3 py-2 rounded"
-              placeholder="Nhãn cột trái"
-            />
-            <input
-              name="comparison_after_label"
-              value="<%= pc?.comparison?.after_label || 'SAU KHI DÙNG' %>"
-              class="border w-full px-3 py-2 rounded"
-              placeholder="Nhãn cột phải"
-            />
-          </div>
-          <div class="grid md:grid-cols-2 gap-3 mt-2">
-            <div>
-              <label class="text-xs text-gray-500">Trước — mỗi dòng 1 ý</label>
-              <textarea
-                name="comparison_before_lines"
-                class="border w-full px-3 py-2 rounded text-sm min-h-[120px]"
-              ><%=(Array.isArray(pc?.comparison?.before) ? pc.comparison.before : []).join('\n')%></textarea>
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-0 pt-4 px-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
+              <div>
+                <h3 class="fw-bold text-body mb-1">So sánh hiệu quả</h3>
+                <p class="text-body-secondary small mb-0">
+                  Tùy chỉnh nội dung bảng "Vì sao CES khác biệt hoàn toàn với các giải pháp khác?".
+                </p>
+              </div>
+              <button id="cta_add_comparison_row" type="button" class="btn btn-success fw-semibold">
+                Thêm dòng bảng
+              </button>
             </div>
-            <div>
-              <label class="text-xs text-gray-500">Sau — mỗi dòng 1 ý</label>
-              <textarea
-                name="comparison_after_lines"
-                class="border w-full px-3 py-2 rounded text-sm min-h-[120px]"
-              ><%=(Array.isArray(pc?.comparison?.after) ? pc.comparison.after : []).join('\n')%></textarea>
+          </div>
+          <div class="card-body p-4">
+            <% const defaultComparisonColumns = ['Thuốc Ngủ', 'Thiền/Yoga', 'Massage', 'Liệu Pháp CES']; %>
+            <% const savedComparisonColumns = Array.isArray(pc?.comparison?.table_columns) ? pc.comparison.table_columns : []; %>
+            <% const comparisonColumns = defaultComparisonColumns.map((fallback, idx) => savedComparisonColumns[idx] || fallback); %>
+            <% const comparisonRows = Array.isArray(pc?.comparison?.table_rows) && pc.comparison.table_rows.length ? pc.comparison.table_rows : [
+              { label: 'Tốc độ hiệu quả', cells: ['Nhanh', 'Chậm', 'Nhanh/Tạm thời', 'Nhanh'] },
+              { label: 'Nỗ lực người dùng', cells: ['Không cần', 'Đòi hỏi sự kiên nhẫn/Tập luyện', 'Phải đi lại/Chi phí cao', 'Thư giãn hoàn toàn tại nhà'] },
+              { label: 'Tác dụng phụ/Lệ thuộc', cells: ['⚠️ Cao - Lờn thuốc, mệt mỏi', 'Không', 'Không', '✅ Không phụ thuộc, 0 tác dụng phụ nguy hiểm'] },
+              { label: 'Cơ chế tác động', cells: ['Ép buộc hóa học', 'Tâm trí', 'Ngoài da/Cơ bắp', 'Tận gốc hệ thần kinh & não học não'] },
+            ]; %>
+            <label class="form-label fw-semibold">Tiêu đề section</label>
+            <input
+              name="comparison_title"
+              value="<%= pc?.comparison?.title || 'Vì sao CES khác biệt hoàn toàn với các giải pháp khác?' %>"
+              class="form-control mb-3"
+              placeholder="Vì sao CES khác biệt hoàn toàn với các giải pháp khác?"
+            />
+
+            <div class="row row-cols-1 row-cols-md-4 g-3 mb-4">
+              <% comparisonColumns.forEach((col, idx) => { %>
+                <div>
+                  <label class="form-label fw-semibold">Cột <%= idx + 1 %></label>
+                  <input
+                    name="comparison_table_column"
+                    value="<%= col || '' %>"
+                    class="form-control"
+                    placeholder="Tên cột"
+                  />
+                </div>
+              <% }) %>
+            </div>
+
+            <div id="comparison_table_wrapper" class="d-flex flex-column gap-3">
+              <% comparisonRows.forEach((row) => { %>
+                <div class="instance position-relative admin-sub-card">
+                  <span type="button" class="remove-instance d-flex justify-content-center align-items-center rounded-circle admin-remove-size bg-danger position-absolute admin-top-n2 admin-right-2 fw-bold text-white">X</span>
+                  <label class="form-label fw-semibold">Tên dòng</label>
+                  <input
+                    name="comparison_row_label"
+                    value="<%= row?.label || '' %>"
+                    class="form-control mb-3"
+                    placeholder="Tốc độ hiệu quả"
+                  />
+                  <div class="row row-cols-1 row-cols-md-4 g-3">
+                    <% for (let cellIdx = 0; cellIdx < 4; cellIdx++) { %>
+                      <div>
+                        <label class="form-label small text-body-secondary">Nội dung cột <%= cellIdx + 1 %></label>
+                        <textarea
+                          name="comparison_cell"
+                          class="form-control"
+                          rows="3"
+                          placeholder="Nội dung ô..."
+                        ><%= row?.cells?.[cellIdx] || '' %></textarea>
+                      </div>
+                    <% } %>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-0 pt-4 px-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
+              <div>
+                <h3 class="fw-bold text-body mb-1">Bảo chứng từ y khoa</h3>
+                <p class="text-body-secondary small mb-0">
+                  Tiêu đề, ảnh chứng nhận và các box nội dung phía dưới.
+                </p>
+              </div>
+              <button id="cta_add_medical_proof_box" type="button" class="btn btn-success fw-semibold">
+                Thêm box nội dung
+              </button>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <div class="row g-4">
+              <div class="col-lg-5">
+                <label class="form-label fw-semibold">Ảnh bảo chứng</label>
+                <div class="image_action admin-image-action mb-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <button type="button" class="chooseImg btn btn-outline-success flex-grow-1">
+                      Chọn ảnh
+                    </button>
+                    <input
+                      type="text"
+                      name="medical_proof_img_url"
+                      value="<%= pc?.medical_proof?.img_url || '' %>"
+                      class="img_input form-control d-none"
+                      placeholder="img"
+                    />
+                  </div>
+                  <div class="img_preview admin-image-preview border rounded-3">
+                    <img
+                      src="/<%= pc?.medical_proof?.img_url || '' %>"
+                      alt=""
+                      class="admin-image-preview-img"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-7">
+                <label class="form-label fw-semibold">Tiêu đề</label>
+                <input
+                  name="medical_proof_title"
+                  value="<%= pc?.medical_proof?.title || 'An tâm tuyệt đối: Bảo chứng từ khoa học y khoa' %>"
+                  class="form-control mb-3"
+                  placeholder="An tâm tuyệt đối: Bảo chứng từ khoa học y khoa"
+                />
+
+                <div id="medical_proof_wrapper" class="row row-cols-1 row-cols-md-3 g-3 admin-component-grid">
+                  <% const medicalProofBoxes = Array.isArray(pc?.medical_proof?.boxes) && pc.medical_proof.boxes.length ? pc.medical_proof.boxes : []; %>
+                  <% medicalProofBoxes.forEach((box) => { %>
+                    <div class="instance position-relative admin-sub-card">
+                      <span type="button" class="remove-instance d-flex justify-content-center align-items-center rounded-circle admin-remove-size bg-danger position-absolute admin-top-n2 admin-right-2 fw-bold text-white">X</span>
+                      <label class="form-label fw-semibold">Box title</label>
+                      <input
+                        name="medical_proof_box_title"
+                        value="<%= box?.title || '' %>"
+                        class="form-control mb-3"
+                        placeholder="Lịch sử chứng minh"
+                      />
+                      <label class="form-label fw-semibold">Nội dung</label>
+                      <textarea
+                        name="medical_proof_box_content"
+                        class="form-control mb-3 tinymce-editor"
+                        placeholder="Nhập nội dung..."
+                      ><%- box?.content || '' %></textarea>
+                    </div>
+                  <% }) %>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div>
-          <h3 class="font-bold text-gray-800">Vì sao chọn CES</h3>
+          <h3 class="fw-bold text-body">Vì sao chọn CES</h3>
           <input
             name="ces_why_title"
             value="<%= pc?.ces_why?.title || 'Vì sao nhiều người chọn sử dụng máy kích thích điện sọ não (CES)?' %>"
-            class="border w-full px-3 py-2 rounded mt-2"
+            class="border w-100 px-3 py-2 rounded mt-2"
           />
-          <h5 class="font-bold mt-3 text-gray-800">Ảnh minh họa</h5>
-          <div class="image_action">
-            <div class="flex justify-between items-center mt-3">
+          <h5 class="fw-bold mt-3 text-body">Ảnh minh họa</h5>
+          <div class="image_action admin-image-action mb-3">
+            <div class="d-flex justify-content-between align-items-center mt-3">
               <button
                 type="button"
-                class="flex-1 px-4 py-3 chooseImg rounded-lg border border-green-500"
+                class="chooseImg btn btn-outline-success flex-grow-1"
               >
                 Chọn ảnh
               </button>
@@ -708,50 +1023,50 @@
                 type="text"
                 name="ces_why_img_url"
                 value="<%= pc?.ces_why?.img_url || '' %>"
-                class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
+                class="img_input form-control d-none"
                 placeholder="img"
               />
             </div>
-            <div class="img_preview border border-gray-300 w-full h-[200px] mt-2">
+            <div class="img_preview admin-image-preview border rounded-3 mt-2">
               <img
                 src="/<%= pc?.ces_why?.img_url || '' %>"
                 alt=""
-                class="w-full object-cover max-h-[200px]"
+                class="admin-image-preview-img"
               />
             </div>
           </div>
-          <label class="block text-sm mt-2 text-gray-600"
+          <label class="block small mt-2 text-secondary"
             >Gạch đầu dòng — mỗi dòng một ý</label>
           <textarea
             name="ces_why_bullets"
-            class="border w-full px-3 py-2 rounded text-sm min-h-[140px]"
+            class="form-control small admin-min-h-140"
           ><%=(Array.isArray(pc?.ces_why?.bullets) ? pc.ces_why.bullets : []).join('\n')%></textarea>
         </div>
       </div>
     </section>
     <!-- CONTACT -->
-    <section class="border rounded-lg">
+    <section class="card border-0 shadow-sm admin-config-section">
       <button
         type="button"
         onclick="toggleSection('contact')"
-        class="w-full flex justify-between p-4 font-medium"
+        class="admin-section-toggle btn btn-link w-100 d-flex justify-content-between align-items-center text-start text-decoration-none fw-semibold"
       >
         Contact Section
         <span>+</span>
       </button>
       <!-- Content -->
-      <div class="p-4" id="contact">
+      <div class="card-body" id="contact">
         <input
           name="contact_title"
           value="<%=pc?.contact?.title||''%>"
           placeholder="Contact Title"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
 
         <textarea
           name="contact_desc"
           placeholder="Contact Description"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         ><%=pc?.contact?.desc||''%></textarea>
       </div>
     </section>
@@ -762,40 +1077,58 @@
 <!-- //============== TEMPLATE ===========// -->
  <!-- ------------ Solution --------- -->
 <template id="solution_template">
-  <div class="instance relative">
-    <span type="button" class="remove-item flex justify-center items-center rounded-full h-5 w-5 bg-red-500 absolute -top-2 right-2 font-bold text-white hover:scale-120 hover:cursor-pointer">X</span>
+  <div class="instance position-relative admin-sub-card">
+    <span type="button" class="remove-item d-flex justify-content-center align-items-center rounded-circle admin-remove-size bg-danger position-absolute admin-top-n2 admin-right-2 fw-bold text-white">X</span>
     <input
           name="icon"
           placeholder="Icon"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
 
         <input
           name="title"
           placeholder="Title"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         />
 
         <textarea
           name="desc"
           placeholder="Desc"
-          class="border w-full px-3 py-2 rounded"
+          class="form-control mb-3"
         ></textarea>
+  </div>
+</template>
+<!-- ------------ Solution debunk box --------- -->
+<template id="solution_debunk_template">
+  <div class="instance position-relative admin-sub-card">
+    <span type="button" class="remove-instance d-flex justify-content-center align-items-center rounded-circle admin-remove-size bg-danger position-absolute admin-top-n2 admin-right-2 fw-bold text-white">X</span>
+    <label class="form-label fw-semibold">Box title</label>
+    <input
+      name="debunk_title"
+      placeholder="Sự thật khoa học"
+      class="form-control mb-3"
+    />
+    <label class="form-label fw-semibold">Nội dung</label>
+    <textarea
+      name="debunk_content"
+      class="form-control mb-3 tinymce-editor"
+      placeholder="Nhập nội dung..."
+    ></textarea>
   </div>
 </template>
 <!-- ------------------- BENEFITS ---------------->
 <template id="benefit_template">
-  <div class="instance relative">
-    <span class="h-5 w-5 remove-instance  border rounded-full flex justify-center items-center border-gray-300 bg-red-500 font-bold text-white hover:cursor-pointer hover:scale-120 absolute -top-2 right-2">X</span>
+  <div class="instance position-relative admin-sub-card">
+    <span class="admin-remove-size remove-instance border rounded-circle d-flex justify-content-center align-items-center border-secondary-subtle bg-danger fw-bold text-white position-absolute admin-top-n2 admin-right-2">X</span>
     <div>
-      <!-- <input type="text" name="img_url" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="imgage"> -->
+      <!-- <input type="text" name="img_url" id="" class="form-control" placeholder="imgage"> -->
        <!-- image handle action -->
-    <div class="image_action">
+    <div class="image_action admin-image-action mb-3">
       <!-- <label for="">Image banner</label> -->
-      <div class="flex justify-between items-center mt-3">
+      <div class="d-flex justify-content-between align-items-center mt-3">
         <button
         type="button"
-          class="flex-1 px-4 py-3 chooseImg rounded-lg border border-green-500"
+          class="chooseImg btn btn-outline-success flex-grow-1"
         >
           Chọn ảnh
         </button>
@@ -803,106 +1136,175 @@
           type="text"
           name="img_url"
           value="<%#=pc?.issue?.card?.img_url||''%>"
-          class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
+          class="img_input form-control d-none"
           placeholder="img"
         />
       </div>
-      <div class="img_preview border border-gray-300 w-full h-[200px]">
+      <div class="img_preview admin-image-preview border rounded-3">
         <img
           src="#/<%=pc?.issue?.card?.img_url||''%>"
           alt=""
-          class="w-full object-cover max-h-[200px]"
+          class="admin-image-preview-img"
         />
       </div>
     </div>
         <!--  -->
-      <input type="text" name="icon" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="icon">
-      <input type="text" name="title" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="title">
-      <input type="text" name="desc" id="" class="px-3 py-2 border border-gray-300 rounded-lg w-full " placeholder="desc">
+      <input type="text" name="icon" id="" class="form-control" placeholder="icon">
+      <input type="text" name="title" id="" class="form-control" placeholder="title">
+      <input type="text" name="desc" id="" class="form-control" placeholder="desc">
     </div>
 
   </div>
 </template>
 <!-- ----------------- Testimonial ----------- -->
  <template id="testimonial_template">
-  <div class="instance relative">
-    <span class="w-5 h-5 remove-instance border border-gray-300 rounded-full flex justify-center items-center bg-red-500 font-bold text-white absolute -top-2 right-2 hover:cursor-pointer hover:scale-120">X</span>
+  <div class="instance position-relative admin-sub-card">
+    <span class="admin-remove-size remove-instance border border-secondary-subtle rounded-circle d-flex justify-content-center align-items-center bg-danger fw-bold text-white position-absolute admin-top-n2 admin-right-2">X</span>
     <div>
-      <input type="text" name="icon" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="icon">
-      <input type="text" name="title" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="title">
-      <input type="text" name="desc" class="px-3 py-2 border border-gray-300 rounded-lg w-full" placeholder="desc">
+      <input type="text" name="icon" class="form-control" placeholder="icon">
+      <input type="text" name="title" class="form-control" placeholder="title">
+      <input type="text" name="desc" class="form-control" placeholder="desc">
     </div>
   </div>
  </template>
+<!-- ------------ Safety notice box --------- -->
+<template id="safety_notice_template">
+  <div class="instance position-relative admin-sub-card">
+    <span type="button" class="remove-instance d-flex justify-content-center align-items-center rounded-circle admin-remove-size bg-danger position-absolute admin-top-n2 admin-right-2 fw-bold text-white">X</span>
+    <label class="form-label fw-semibold">Box title</label>
+    <input
+      name="safety_title"
+      placeholder="TUYỆT ĐỐI KHÔNG SỬ DỤNG CHO"
+      class="form-control mb-3"
+    />
+    <label class="form-label fw-semibold">Nội dung</label>
+    <textarea
+      name="safety_content"
+      class="form-control mb-3 tinymce-editor"
+      placeholder="Nhập nội dung..."
+    ></textarea>
+  </div>
+</template>
+<!-- ------------ Comparison table row --------- -->
+<template id="comparison_table_row_template">
+  <div class="instance position-relative admin-sub-card">
+    <span type="button" class="remove-instance d-flex justify-content-center align-items-center rounded-circle admin-remove-size bg-danger position-absolute admin-top-n2 admin-right-2 fw-bold text-white">X</span>
+    <label class="form-label fw-semibold">Tên dòng</label>
+    <input
+      name="comparison_row_label"
+      class="form-control mb-3"
+      placeholder="Tốc độ hiệu quả"
+    />
+    <div class="row row-cols-1 row-cols-md-4 g-3">
+      <div>
+        <label class="form-label small text-body-secondary">Nội dung cột 1</label>
+        <textarea name="comparison_cell" class="form-control" rows="3" placeholder="Nội dung ô..."></textarea>
+      </div>
+      <div>
+        <label class="form-label small text-body-secondary">Nội dung cột 2</label>
+        <textarea name="comparison_cell" class="form-control" rows="3" placeholder="Nội dung ô..."></textarea>
+      </div>
+      <div>
+        <label class="form-label small text-body-secondary">Nội dung cột 3</label>
+        <textarea name="comparison_cell" class="form-control" rows="3" placeholder="Nội dung ô..."></textarea>
+      </div>
+      <div>
+        <label class="form-label small text-body-secondary">Nội dung cột 4</label>
+        <textarea name="comparison_cell" class="form-control" rows="3" placeholder="Nội dung ô..."></textarea>
+      </div>
+    </div>
+  </div>
+</template>
+<!-- ------------ Medical proof box --------- -->
+<template id="medical_proof_template">
+  <div class="instance position-relative admin-sub-card">
+    <span type="button" class="remove-instance d-flex justify-content-center align-items-center rounded-circle admin-remove-size bg-danger position-absolute admin-top-n2 admin-right-2 fw-bold text-white">X</span>
+    <label class="form-label fw-semibold">Box title</label>
+    <input
+      name="medical_proof_box_title"
+      class="form-control mb-3"
+      placeholder="Lịch sử chứng minh"
+    />
+    <label class="form-label fw-semibold">Nội dung</label>
+    <textarea
+      name="medical_proof_box_content"
+      class="form-control mb-3 tinymce-editor"
+      placeholder="Nhập nội dung..."
+    ></textarea>
+  </div>
+</template>
  <!-- ---------------- FAQ ------------ -->
   <template id="faq_template">
-    <div class="instance relative">
-      <span class="remove-instance w-5 h-5 rounded-lg bg-red-500 text-white font-bold hover:cursor-pointer hover:scale-120 flex items-center justify-center absolute -top-2 right-2">X</span>
+    <div class="instance position-relative admin-sub-card">
+      <span class="remove-instance admin-remove-size rounded-3 bg-danger text-white fw-bold d-flex align-items-center justify-content-center position-absolute admin-top-n2 admin-right-2">X</span>
       <div>
-        <input name="question" type="text" class="px-3 py-2 w-full border border-gray-300 rounded-lg" placeholder="question...">
-        <textarea name="anwser" id="" class="px-3 py-2 w-full border border-gray-300 rounded-lg" placeholder="anwser..."></textarea>
+        <input name="question" type="text" class="form-control" placeholder="question...">
+        <textarea name="anwser" id="" class="form-control" placeholder="anwser..."></textarea>
       </div>
     </div>
   </template>
 <!-- --------------- HOWTOUSE ----------- -->
  <template id="howtouse_template">
-  <div class="instance relative">
-      <span class="remove-instance w-5 h-5 rounded-lg bg-red-500 text-white font-bold hover:cursor-pointer hover:scale-120 flex items-center justify-center absolute -top-2 right-1">X</span>
+  <div class="instance position-relative admin-sub-card">
+      <span class="remove-instance admin-remove-size rounded-3 bg-danger text-white fw-bold d-flex align-items-center justify-content-center position-absolute admin-top-n2 admin-right-1">X</span>
       <div>
-        <!-- <input type="text" name="video_url" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="img_url..."> -->
+        <!-- <input type="text" name="video_url" class="form-control" placeholder="img_url..."> -->
         <!-- image handle action -->
-                  <div class="image_action">
+                  <div class="image_action admin-image-action mb-3">
                     <!-- <label for="">Image banner</label> -->
-                    <div class="flex justify-between items-center mt-3">
+                    <div class="d-flex justify-content-between align-items-center mt-3">
                       <button
                       type="button"
-                        class="flex-1 px-4 py-3 chooseImg rounded-lg border border-green-500"
+                        class="chooseImg btn btn-outline-success flex-grow-1"
                       >
                         Chọn ảnh
                       </button>
                       <input
                         type="text"
                         name="how_to_use_img_url"
-                        class="flex-3 img_input w-full px-4 py-3 border border-gray-300 rounded-lg hidden"
+                        class="img_input form-control d-none"
                         placeholder="img"
                       />
                     </div>
-                    <div class="img_preview border border-gray-300 w-full h-[200px]">
+                    <div class="img_preview admin-image-preview border rounded-3">
                       <img
                         alt=""
-                        class="w-full object-cover max-h-[200px]"
+                        class="admin-image-preview-img"
                       />
                     </div>
                   </div>
                       <!--  -->
-        <input type="text" name="title" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="title...">
-        <input type="text" name="desc" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="desc...">
+        <input type="text" name="title" class="form-control" placeholder="title...">
+        <input type="text" name="desc" class="form-control" placeholder="desc...">
 
       </div>
   </div>
  </template>
  <!-- ------------ howtouse guide ---------- -->
 <template id="howtouse_guide_template">
-  <div class="instance relative">
-      <span class="remove-instance w-5 h-5 rounded-lg bg-red-500 text-white font-bold hover:cursor-pointer hover:scale-120 flex items-center justify-center absolute -top-2 right-1">X</span>
+  <div class="instance position-relative admin-sub-card">
+      <span class="remove-instance admin-remove-size rounded-3 bg-danger text-white fw-bold d-flex align-items-center justify-content-center position-absolute admin-top-n2 admin-right-1">X</span>
       <div>
-        <input type="text" name="minute" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="minute...">
-        <input type="text" name="desc" class="px-3 py-2 border border-gray-300 w-full rounded-lg" placeholder="desc...">
+        <input type="text" name="minute" class="form-control" placeholder="minute...">
+        <input type="text" name="desc" class="form-control" placeholder="desc...">
       </div>
   </div>
 </template>
 <!-- =================MODAL===================== -->
-<div
-  id="gallery_modal"
-  class="fixed inset-0 bg-black/50 items-center hidden justify-center"
->
-  <div class="bg-white min-w-75 max-h-[80vh] rounded p-4 overflow-y-auto">
-    <div class="header flex justify-between mb-4">
-      <h2>Chon anh</h2>
-      <button onclick="closeChooseImgModal()">X</button>
+<div class="modal fade" id="gallery_modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header">
+        <div>
+          <h5 class="modal-title fw-bold">Chọn ảnh</h5>
+          <div class="text-body-secondary small">Chọn một ảnh từ thư viện để gán vào trường hiện tại.</div>
+        </div>
+        <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="imgList" class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4"></div>
+      </div>
     </div>
-    <!--  -->
-    <div id="imgList" class="grid grid-cols-4 gap-4"></div>
   </div>
 </div>
 <!-- //===================== -->

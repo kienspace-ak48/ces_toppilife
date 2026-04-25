@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import YoutubeEmbed from "../utils/YoutubeEmbed.jsx";
 import { ASSETS_BASE } from "./assetsBase";
@@ -123,6 +123,12 @@ export const FeedbackVideoCarousel: React.FC<Props> = ({ data }) => {
     });
   };
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft = 0;
+    }
+  }, [items.length]);
+
   if (items.length === 0) {
     return (
       <section className="py-14 md:py-18 bg-white">
@@ -158,7 +164,7 @@ export const FeedbackVideoCarousel: React.FC<Props> = ({ data }) => {
             type="button"
             aria-label="Cuộn trái"
             onClick={() => scroll("left")}
-            className="hidden sm:flex absolute left-0 top-[42%] -translate-y-1/2 z-20 h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-white shadow-[0_4px_20px_rgba(0,0,0,0.12)] border border-gray-100 text-gray-600 hover:bg-gray-50 hover:scale-105 transition-transform pointer-events-auto"
+            className="flex absolute left-1 sm:left-0 top-[42%] -translate-y-1/2 z-20 h-9 w-9 md:h-11 md:w-11 items-center justify-center rounded-full bg-white/95 shadow-[0_4px_20px_rgba(0,0,0,0.12)] border border-gray-100 text-gray-600 hover:bg-gray-50 hover:scale-105 transition-transform pointer-events-auto"
           >
             <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
           </button>
@@ -166,24 +172,21 @@ export const FeedbackVideoCarousel: React.FC<Props> = ({ data }) => {
             type="button"
             aria-label="Cuộn phải"
             onClick={() => scroll("right")}
-            className="hidden sm:flex absolute right-0 top-[42%] -translate-y-1/2 z-20 h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-white shadow-[0_4px_20px_rgba(0,0,0,0.12)] border border-gray-100 text-gray-600 hover:bg-gray-50 hover:scale-105 transition-transform pointer-events-auto"
+            className="flex absolute right-1 sm:right-0 top-[42%] -translate-y-1/2 z-20 h-9 w-9 md:h-11 md:w-11 items-center justify-center rounded-full bg-white/95 shadow-[0_4px_20px_rgba(0,0,0,0.12)] border border-gray-100 text-gray-600 hover:bg-gray-50 hover:scale-105 transition-transform pointer-events-auto"
           >
             <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
           </button>
 
-          {/* Grid + min-w-full: khi ít video nhóm thẻ được căn giữa; khi nhiều video vẫn cuộn ngang */}
           <div
             ref={scrollRef}
-            className="w-full overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x scroll-smooth scroll-px-2 sm:scroll-px-12 pb-3 pt-1 pl-2 pr-2 sm:pl-12 sm:pr-12 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="w-full overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x scroll-smooth scroll-px-4 sm:scroll-px-12 pb-3 pt-1 px-4 sm:px-12 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            <div className="grid min-w-full place-content-center">
-              <div className="flex w-max gap-3 sm:gap-4 md:gap-5 snap-x snap-mandatory py-1">
-                {items.map((item, idx) => (
-                  <div key={idx} className="snap-start shrink-0">
-                    <ShortVideoCard item={item} />
-                  </div>
-                ))}
-              </div>
+            <div className="flex w-max gap-3 sm:gap-4 md:gap-5 snap-x snap-mandatory py-1">
+              {items.map((item, idx) => (
+                <div key={idx} className="snap-start shrink-0">
+                  <ShortVideoCard item={item} />
+                </div>
+              ))}
             </div>
           </div>
         </div>

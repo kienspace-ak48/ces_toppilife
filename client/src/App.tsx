@@ -6,6 +6,9 @@ import { MechanismSection } from "./components/MechanismSection.tsx";
 import { FeedbackVideoCarousel } from "./components/FeedbackVideoCarousel.tsx";
 import { BeforeAfterComparison } from "./components/BeforeAfterComparison.tsx";
 import { CesWhySection } from "./components/CesWhySection.tsx";
+import { GiftPromoSection } from "./components/GiftPromoSection.tsx";
+import { SafetyNoticeSection } from "./components/SafetyNoticeSection.tsx";
+import { MedicalProofSection } from "./components/MedicalProofSection.tsx";
 const NODE_ENV = import.meta.env.VITE_NODE_ENV
 const iconMap = {
   Phone: Icons["Phone"],
@@ -254,7 +257,7 @@ const Technology: React.FC<any> = ({ data }) => (
             className="relative z-10 rounded-3xl shadow-2xl"
           />
         </div>
-        <div className="lg:w-1/2 space-y-8">
+        <div className="lg:w-1/2 space-y-8 order-2 lg:order-1">
           <div className="space-y-4">
             <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900">
               {data?.solution?.title}
@@ -398,7 +401,7 @@ const TargetAudience: React.FC<any> = ({ data }) => (
             Kiểm tra mức độ phù hợp ngay <iconMap.ArrowRight className="ml-2" />
           </button>
         </div>
-        <div className="lg:w-1/2">
+        <div className="lg:w-1/2 order-1 lg:order-2">
           <img
             src={ASSETS_URL + (data?.target_user?.img_url || "")}
             alt="Professional Working"
@@ -800,12 +803,15 @@ const App: React.FC = () => {
         <MechanismSection data={pageData} />
         <Technology data={pageData} />
         <Features data={pageData} />
+        <GiftPromoSection data={pageData} />
         <FeedbackVideoCarousel data={pageData} />
         <BeforeAfterComparison data={pageData} />
+        <MedicalProofSection data={pageData} />
         <TargetAudience data={pageData} />
         <CesWhySection data={pageData} />
         <Usage data={pageData} />
         <Commitment data={pageData} />
+        <SafetyNoticeSection data={pageData} />
         <FAQ data={pageData} />
         <FinalCTA data={pageData} />
         <Footer data={pageData} />

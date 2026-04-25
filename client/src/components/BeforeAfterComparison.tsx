@@ -6,67 +6,107 @@ type ComparisonShape = {
   after_label?: string;
   before?: string[];
   after?: string[];
+  table_columns?: string[];
+  table_rows?: Array<{
+    label?: string;
+    cells?: string[];
+  }>;
 };
 
-const DEFAULT_BEFORE = [
-  "Khó ngủ, trằn trọc",
-  "Đầu óc căng thẳng",
-  "Suy nghĩ liên tục",
-  "Mệt mỏi sau khi thức dậy",
-];
+const DEFAULT_COLUMNS = ["Thuốc Ngủ", "Thiền/Yoga", "Massage", "Liệu Pháp CES"];
 
-const DEFAULT_AFTER = [
-  "Dễ thư giãn hơn trước khi ngủ",
-  "Đầu óc nhẹ, dễ chịu hơn",
-  "Giấc ngủ ổn định hơn",
-  "Cơ thể thả lỏng hơn",
+const DEFAULT_ROWS = [
+  {
+    label: "Tốc độ hiệu quả",
+    cells: ["Nhanh", "Chậm", "Nhanh/Tạm thời", "Nhanh"],
+  },
+  {
+    label: "Nỗ lực người dùng",
+    cells: [
+      "Không cần",
+      "Đòi hỏi sự kiên nhẫn/Tập luyện",
+      "Phải đi lại/Chi phí cao",
+      "Thư giãn hoàn toàn tại nhà",
+    ],
+  },
+  {
+    label: "Tác dụng phụ/Lệ thuộc",
+    cells: [
+      "⚠️ Cao - Lờn thuốc, mệt mỏi",
+      "Không",
+      "Không",
+      "✅ Không phụ thuộc, 0 tác dụng phụ nguy hiểm",
+    ],
+  },
+  {
+    label: "Cơ chế tác động",
+    cells: ["Ép buộc hóa học", "Tâm trí", "Ngoài da/Cơ bắp", "Tận gốc hệ thần kinh & não học não"],
+  },
 ];
 
 type Props = { data: Record<string, unknown> | null };
 
 export const BeforeAfterComparison: React.FC<Props> = ({ data }) => {
   const c = (data?.comparison || {}) as ComparisonShape;
-  const title = (c.title?.trim() || "SO SÁNH HIỆU QUẢ") as string;
-  const beforeLabel = (c.before_label?.trim() || "TRƯỚC KHI DÙNG") as string;
-  const afterLabel = (c.after_label?.trim() || "SAU KHI DÙNG") as string;
-  const beforeList =
-    Array.isArray(c.before) && c.before.length ? c.before : DEFAULT_BEFORE;
-  const afterList =
-    Array.isArray(c.after) && c.after.length ? c.after : DEFAULT_AFTER;
+  const title =
+    (c.title?.trim() ||
+      "Vì sao CES khác biệt hoàn toàn với các giải pháp khác?") as string;
+  const columns =
+    Array.isArray(c.table_columns) && c.table_columns.length
+      ? DEFAULT_COLUMNS.map((fallback, idx) => c.table_columns?.[idx] || fallback)
+      : DEFAULT_COLUMNS;
+  const rows =
+    Array.isArray(c.table_rows) && c.table_rows.length
+      ? c.table_rows
+      : DEFAULT_ROWS;
 
   return (
-    <section className="py-14 md:py-16 bg-slate-950 text-white">
+    <section className="py-14 md:py-18 bg-gradient-to-br from-orange-100 via-white to-indigo-200">
       <div className="container mx-auto px-4">
-        <h2 className="text-center text-xl sm:text-2xl md:text-3xl font-extrabold tracking-wide mb-10 md:mb-12">
+        <h2 className="text-center text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 mb-8 md:mb-10">
           {title}
         </h2>
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 md:gap-8">
-          <div className="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 md:p-8 shadow-lg">
-            <h3 className="text-red-400 font-bold text-sm md:text-base mb-6 tracking-wide">
-              {beforeLabel}
-            </h3>
-            <ul className="space-y-4 text-slate-200 text-sm md:text-base leading-relaxed">
-              {beforeList.map((line, i) => (
-                <li key={i} className="flex gap-3">
-                  <span className="text-red-400 font-bold mt-1">•</span>
-                  <span>{line}</span>
-                </li>
+        <div className="max-w-6xl mx-auto overflow-x-auto rounded-2xl shadow-2xl border border-white/80 bg-white/90">
+          <table className="w-full min-w-[760px] border-collapse text-center text-sm md:text-base">
+            <thead>
+              <tr>
+                <th className="w-[18%] bg-white border border-gray-200 px-4 py-4" />
+                {columns.map((column, idx) => (
+                  <th
+                    key={idx}
+                    className={
+                      idx === columns.length - 1
+                        ? "bg-violet-100 border border-gray-200 px-4 py-4 font-extrabold text-violet-900"
+                        : "bg-white border border-gray-200 px-4 py-4 font-extrabold text-gray-900"
+                    }
+                  >
+                    {column}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, rowIdx) => (
+                <tr key={rowIdx}>
+                  <th className="bg-white border border-gray-200 px-4 py-4 font-bold text-gray-900 text-left">
+                    {row.label}
+                  </th>
+                  {columns.map((_, cellIdx) => (
+                    <td
+                      key={cellIdx}
+                      className={
+                        cellIdx === columns.length - 1
+                          ? "bg-violet-50 border border-gray-200 px-4 py-4 font-semibold text-violet-900"
+                          : "bg-white border border-gray-200 px-4 py-4 text-gray-800"
+                      }
+                    >
+                      {row.cells?.[cellIdx] || ""}
+                    </td>
+                  ))}
+                </tr>
               ))}
-            </ul>
-          </div>
-          <div className="rounded-2xl bg-slate-900/80 border border-emerald-500/40 p-6 md:p-8 shadow-lg">
-            <h3 className="text-emerald-400 font-bold text-sm md:text-base mb-6 tracking-wide">
-              {afterLabel}
-            </h3>
-            <ul className="space-y-4 text-slate-200 text-sm md:text-base leading-relaxed">
-              {afterList.map((line, i) => (
-                <li key={i} className="flex gap-3">
-                  <span className="text-emerald-400 font-bold mt-1">•</span>
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>

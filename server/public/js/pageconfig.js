@@ -1,22 +1,62 @@
 function toggleSection(id) {
   const el = document.querySelector("#" + id);
-  el.classList.toggle("hidden");
+  el.classList.toggle("d-none");
+  if (!el.classList.contains("d-none")) {
+    setTimeout(() => initTinyEditors(el), 0);
+  }
 }
 document.querySelectorAll("section > div").forEach((el) => {
-  el.classList.toggle("hidden");
+  el.classList.toggle("d-none");
 });
+
+function initTinyEditors(root = document) {
+  if (!window.tinymce) return;
+
+  root.querySelectorAll("textarea.tinymce-editor:not([data-tiny-ready])").forEach((textarea) => {
+    if (!textarea.id) {
+      textarea.id = `tiny_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    }
+    textarea.dataset.tinyReady = "1";
+    tinymce.init({
+      target: textarea,
+      license_key: "gpl",
+      menubar: false,
+      branding: false,
+      height: 220,
+      plugins: "lists link",
+      toolbar:
+        "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist | link | removeformat",
+    });
+  });
+}
+
+function removeTinyEditors(root) {
+  if (!window.tinymce || !root) return;
+
+  root.querySelectorAll("textarea.tinymce-editor").forEach((textarea) => {
+    const editor = tinymce.get(textarea.id);
+    if (editor) editor.remove();
+  });
+}
+
 //
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("#configForm");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (window.tinymce) tinymce.triggerSave();
+
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     //
     let solutionArr = [];
+    let solutionDebunkBoxes = [];
     let benefitArr = [];
     let testimonialArr = [];
     let faqArr = [];
+    let safetyNoticeBoxes = [];
+    let comparisonTableRows = [];
+    let medicalProofBoxes = [];
     let howtouseCardArr = [];
     let howtouseGuideArr = [];
     document
@@ -47,6 +87,35 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       faqArr.push(faq);
     });
+    document
+      .querySelectorAll("#safety_notice_wrapper .instance")
+      .forEach((el) => {
+        const box = {
+          title: el.querySelector('[name="safety_title"]').value,
+          content: el.querySelector('[name="safety_content"]').value,
+        };
+        if (box.title || box.content) safetyNoticeBoxes.push(box);
+      });
+    document
+      .querySelectorAll("#comparison_table_wrapper .instance")
+      .forEach((el) => {
+        const row = {
+          label: el.querySelector('[name="comparison_row_label"]').value,
+          cells: Array.from(el.querySelectorAll('[name="comparison_cell"]')).map(
+            (input) => input.value,
+          ),
+        };
+        if (row.label || row.cells.some(Boolean)) comparisonTableRows.push(row);
+      });
+    document
+      .querySelectorAll("#medical_proof_wrapper .instance")
+      .forEach((el) => {
+        const box = {
+          title: el.querySelector('[name="medical_proof_box_title"]').value,
+          content: el.querySelector('[name="medical_proof_box_content"]').value,
+        };
+        if (box.title || box.content) medicalProofBoxes.push(box);
+      });
     //-----
     document
       .querySelectorAll("#testimonial_wrapper .instance")
@@ -66,6 +135,15 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       solutionArr.push(s);
     });
+    document
+      .querySelectorAll("#solution_debunk_wrapper .instance")
+      .forEach((el) => {
+        const box = {
+          title: el.querySelector('[name="debunk_title"]').value,
+          content: el.querySelector('[name="debunk_content"]').value,
+        };
+        if (box.title || box.content) solutionDebunkBoxes.push(box);
+      });
     //
     document.querySelectorAll("#benefit_wrapper .instance").forEach((el) => {
       let b = {
@@ -78,8 +156,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     //
     data.faq_list = faqArr;
+    data.safety_notice_boxes = safetyNoticeBoxes;
+    data.comparison_table_columns = Array.from(
+      document.querySelectorAll('[name="comparison_table_column"]'),
+    )
+      .map((input) => input.value.trim());
+    data.comparison_table_rows = comparisonTableRows;
+    data.medical_proof_boxes = medicalProofBoxes;
     data.testimonials = testimonialArr;
     data.solution_cards = solutionArr;
+    data.solution_debunk_boxes = solutionDebunkBoxes;
     data.benefit_cards = benefitArr;
     data.how_to_use_cards = howtouseCardArr;
     data.how_to_use_guide = howtouseGuideArr;
@@ -147,6 +233,22 @@ solutionWrapper.addEventListener("click", (ev) => {
     instance.remove();
   }
 });
+const solutionDebunkTemplate = document.querySelector("#solution_debunk_template");
+const solutionDebunkWrapper = document.querySelector("#solution_debunk_wrapper");
+document
+  .querySelector("#cta_add_solution_debunk_box")
+  .addEventListener("click", () => {
+    const clone = solutionDebunkTemplate.content.cloneNode(true);
+    solutionDebunkWrapper.appendChild(clone);
+    initTinyEditors(solutionDebunkWrapper);
+  });
+solutionDebunkWrapper.addEventListener("click", (ev) => {
+  if (ev.target.classList.contains("remove-instance")) {
+    const instance = ev.target.closest(".instance");
+    removeTinyEditors(instance);
+    instance.remove();
+  }
+});
 //----------benefit
 const benefitWrapper = document.querySelector("#benefit_wrapper");
 document
@@ -176,6 +278,49 @@ document
 testimonialWrapper.addEventListener("click", (ev) => {
   if (ev.target.classList.contains("remove-instance")) {
     const instance = ev.target.closest(".instance");
+    instance.remove();
+  }
+});
+// -------------- faq ----------------
+const safetyNoticeWrapper = document.querySelector("#safety_notice_wrapper");
+const safetyNoticeTemplate = document.querySelector("#safety_notice_template");
+document.querySelector("#cta_add_safety_box").addEventListener("click", () => {
+  const clone = safetyNoticeTemplate.content.cloneNode(true);
+  safetyNoticeWrapper.appendChild(clone);
+  initTinyEditors(safetyNoticeWrapper);
+});
+safetyNoticeWrapper.addEventListener("click", (ev) => {
+  if (ev.target.classList.contains("remove-instance")) {
+    const instance = ev.target.closest(".instance");
+    removeTinyEditors(instance);
+    instance.remove();
+  }
+});
+// -------------- faq ----------------
+const comparisonTableWrapper = document.querySelector("#comparison_table_wrapper");
+const comparisonTableRowTemplate = document.querySelector("#comparison_table_row_template");
+document.querySelector("#cta_add_comparison_row").addEventListener("click", () => {
+  const clone = comparisonTableRowTemplate.content.cloneNode(true);
+  comparisonTableWrapper.appendChild(clone);
+});
+comparisonTableWrapper.addEventListener("click", (ev) => {
+  if (ev.target.classList.contains("remove-instance")) {
+    const instance = ev.target.closest(".instance");
+    instance.remove();
+  }
+});
+
+const medicalProofWrapper = document.querySelector("#medical_proof_wrapper");
+const medicalProofTemplate = document.querySelector("#medical_proof_template");
+document.querySelector("#cta_add_medical_proof_box").addEventListener("click", () => {
+  const clone = medicalProofTemplate.content.cloneNode(true);
+  medicalProofWrapper.appendChild(clone);
+  initTinyEditors(medicalProofWrapper);
+});
+medicalProofWrapper.addEventListener("click", (ev) => {
+  if (ev.target.classList.contains("remove-instance")) {
+    const instance = ev.target.closest(".instance");
+    removeTinyEditors(instance);
     instance.remove();
   }
 });
@@ -231,12 +376,10 @@ const chooseImgModal = document.querySelector("#gallery_modal");
 //   var ctaChooseImg = document.querySelectorAll("#banner_wrapper");
 let imgInputIsFocusing = null;
 function openChooseImgModal() {
-  chooseImgModal.classList.remove("hidden");
-  chooseImgModal.classList.add("flex");
+  coreui.Modal.getOrCreateInstance(chooseImgModal).show();
 }
 function closeChooseImgModal() {
-  chooseImgModal.classList.remove("flex");
-  chooseImgModal.classList.add("hidden");
+  coreui.Modal.getOrCreateInstance(chooseImgModal).hide();
 }
 //
 function selectImage(src) {
@@ -254,19 +397,16 @@ function loadImage() {
       if (res.success) {
         imgList.innerHTML = "";
         res.data.forEach((item) => {
+          const col = document.createElement("div");
+          col.className = "col";
+
           const img = document.createElement("img");
           img.src = "/" + item.path;
-          img.className = `
-            w-full h-32
-            object-cover
-            cursor-pointer rounded border
-            hover:ring-4 hover:ring-blue-500
-            transition
-          `;
-
+          img.className = "admin-gallery-picker-img w-100 cursor-pointer rounded border";
           img.onclick = () => selectImage(item.path);
 
-          imgList.appendChild(img);
+          col.appendChild(img);
+          imgList.appendChild(col);
         });
       }
     },

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="ToppiLife admin">
+    <meta name="author" content="KienVu">
+    <link rel="icon" href="/favicon.ico">
+    <title>ToppiLife - Admin</title>
+    <script src="/libs/js/jquery-3.7.1.js"></script>
+    
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/coreui/assets/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Vendors styles-->
+    <link rel="stylesheet" href="/coreui/vendors/simplebar/css/simplebar.css">
+    <link rel="stylesheet" href="/coreui/css/vendors/simplebar.css">
+    <!-- Main styles for this application-->
+    <link href="/coreui/css/style.css" rel="stylesheet">
+
+    <!-- customize -->
+    <link rel="stylesheet" href="/coreui/vendors/@coreui/icons/css/free.min.css">
+    <link rel="stylesheet" href="/libs/css/all.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+  </head>
+  <body>
+    <%- include('../partials/sidebar.ejs')%>
+    <div class="wrapper d-flex flex-column min-vh-100">
+      <%- include('../partials/header.ejs')%>
+      <div class="body flex-grow-1 pt-4 pb-4">
+        <div class="container-fluid px-4">
+          <%- body %>
+        </div>
+      </div>
+    </div>
+    <!-- CoreUI and necessary plugins-->
+    <script src="/coreui/vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
+    <script src="/coreui/vendors/simplebar/js/simplebar.min.js"></script>
+    <script>
+      const header = document.querySelector('header.header');
+      const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+      
+      document.addEventListener('scroll', () => {
+        if (header) {
+          header.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
+        }
+      });
+
+      document.querySelectorAll('.sidebar .nav-link[href]').forEach((link) => {
+        const href = link.getAttribute('href').replace(/\/$/, '') || '/';
+        if (href === currentPath) {
+          link.classList.add('active');
+          const navGroup = link.closest('.nav-group');
+          if (navGroup) navGroup.classList.add('show');
+        }
+      });
+      
+    </script>
+  </body>
+</html>

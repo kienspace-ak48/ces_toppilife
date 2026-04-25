@@ -4,7 +4,6 @@ const router = express.Router();
 const homeController = require("../controller/home.controller")();
 const pageConfigController = require("../controller/pageConfig.controller")();
 const uploadImage = require("../config/uploadImage.config");
-const visitModel = require("../model/visit.model");
 
 // -cutomize
 router.get(
@@ -43,31 +42,7 @@ router.post(
   galleryController.UploadImage,
 );
 router.delete("/gallery/image-delete-ajax", galleryController.DeleteImageAjax);
-router.get("/", async (req, res) => {
-  const total = await visitModel.countDocuments();
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const todayCount = await visitModel.countDocuments({
-    createdAt: { $gte: today },
-  });
-
-  const topPages = await visitModel.aggregate([
-    { $group: { _id: "$path", count: { $sum: 1 } } },
-    { $sort: { count: -1 } },
-    { $limit: 5 },
-  ]);
-
-  res.render("admin/dashboard", {
-    stats: {
-      total,
-      today: todayCount,
-      topPages: topPages.map((i) => ({
-        path: i._id,
-        count: i.count,
-      })),
-    },
-  });
+router.get("/", (req, res) => {
+  res.render("admin/dashboard");
 });
 module.exports = router;

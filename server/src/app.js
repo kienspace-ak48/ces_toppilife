@@ -10,7 +10,6 @@ const path = require('path');
 const dbConnection = require("./config/dbConnection.config");
 const cookieParser = require("cookie-parser");
 const pageConfigModel = require("./model/pageConfig.model");
-const visitModel = require("./model/visit.model");
 const testModel = require("./model/test.model");
 
 //connect dB 
@@ -25,7 +24,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(myPathConfig.root, 'src/views'));
 // +layout
 app.use(expressLayouts);
-app.set('layout', 'layout/main');//file layout default
+app.set('layout', 'layout/adminLayout');//file layout default
 
 //
 app.use(cors())
@@ -33,22 +32,6 @@ app.use(cors())
 app.use(express.static(myPathConfig.public));
 app.use(response);
 
-//
-app.set("trust proxy", true);
-app.use(async (req, res, next) => {
-  const ip =
-    req.headers["x-forwarded-for"]?.split(",")[0] ||
-    req.socket.remoteAddress;
-    console.log('IP: ',ip)
-  await visitModel.create({
-    ip,
-    path: req.originalUrl,
-    userAgent: req.headers["user-agent"]
-  });
-
-  next();
-});
-// 
 // router
 router(app);
 

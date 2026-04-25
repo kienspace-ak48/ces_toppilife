@@ -1,51 +1,60 @@
-<header
-  class="h-16 flex justify-between items-center bg-white border-b shadow-sm px-6 sticky top-0 z-40"
->
-  <!-- LEFT -->
-  <div class="flex items-center gap-4">
-    <!-- sidebar -->
-    <button  class="p-2 rounded-lg hover:bg-gray-100 transition" onclick="toggleSidebar()">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-    <!-- Logo -->
-    <div class="text-xl font-bold text-blue-600 tracking-wide">AdminPanel</div>
-  </div>
-
-  <!-- Center (search) -->
-  <div class="hidden md:flex items-center">
-    <div class="relative">
-      <input
-        type="text"
-        placeholder="Search..."
-        class="w-72 pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <i
-        class="fa-solid fa-magnifying-glass w-4 h-4 absolute left-3 top-2.5 text-gray-400"
-      ></i>
-    </div>
-  </div>
-
-  <!-- RIGHT -->
-  <div class="flex items-center gap-5">
-    <!-- Notification -->
-    <button class="relative p-2 hover:bg-gray-100 rounded-lg">
-      <i class="fa-solid fa-bell"></i>
-      <!-- badge -->
-      <span
-        class="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 rounded-full"
-        >3</span
-      >
-    </button>
-    <!-- user profile -->
-    <div
-      class="flex items-center gap-3 cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-lg transition"
+<header class="header header-sticky p-0 mb-4">
+  <div class="container-fluid border-bottom px-4">
+    <button
+      class="header-toggler"
+      type="button"
+      onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()"
+      style="margin-inline-start: -14px;"
     >
-      <!-- <img src="" alt="" /> -->
-       <i class="fa-solid fa-user-shield"></i>
-      <div class="hidden md:block leading-light">
-        <p class="text-sm font-medium">Admin</p>
-        <p class="text-xs text-gray-500">Supper Admin</p>
-      </div>
-    </div>
+      <svg class="icon icon-lg">
+        <use xlink:href="/coreui/vendors/@coreui/icons/svg/free.svg#cil-menu"></use>
+      </svg>
+    </button>
+
+    <ul class="header-nav d-none d-lg-flex">
+      <li class="nav-item">
+        <a class="nav-link" href="/admin">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/page-config">Page config</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/gallery">Gallery</a>
+      </li>
+    </ul>
+
+    <ul class="header-nav ms-auto">
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link py-0 pe-0 d-flex align-items-center"
+          data-coreui-toggle="dropdown"
+          href="#"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <div class="avatar avatar-md bg-primary text-white fw-bold d-flex align-items-center justify-content-center">
+            <%= (typeof user !== 'undefined' && user?.name ? user.name.charAt(0).toUpperCase() : 'A') %>
+          </div>
+          <div class="d-none d-md-block ms-2 text-start">
+            <div class="fw-semibold"><%= (typeof user !== 'undefined' && user?.name) || 'Admin' %></div>
+            <div class="small text-body-secondary"><%= (typeof user !== 'undefined' && user?.role) || 'Super Admin' %></div>
+          </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end pt-0">
+          <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">
+            Account
+          </div>
+          <form action="/auth/admin/logout" method="post">
+            <button class="dropdown-item" type="submit">
+              <svg class="icon me-2">
+                <use xlink:href="/coreui/vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
+              </svg>
+              Logout
+            </button>
+          </form>
+        </div>
+      </li>
+    </ul>
   </div>
 </header>

@@ -30,6 +30,8 @@ const pageConfigSchema = new mongoose.Schema({
     title: String,
     desc: String,
     cards: [{ icon: String, title: String, desc: String, _id: false }],
+    debunk_title: String,
+    debunk_boxes: [{ title: String, content: String, _id: false }],
   },
   benefit: {
     title: String,
@@ -80,6 +82,20 @@ const pageConfigSchema = new mongoose.Schema({
     title: String,
     desc: String,
   },
+  gift_promo: {
+    title: String,
+    subtitle: String,
+    image_url: String,
+    image_desc: String,
+    offer_label: String,
+    discount_text: String,
+    countdown_until: String,
+    cta_text: String,
+  },
+  safety_notice: {
+    title: String,
+    boxes: [{ title: String, content: String, _id: false }],
+  },
   /**
    * Carousel video feedback (Shorts-style).
    * items[]: mỗi phần tử { video_url, thumbnail?, headline?, badge?, caption?, brand_label? }
@@ -108,6 +124,19 @@ const pageConfigSchema = new mongoose.Schema({
     after_label: String,
     before: [],
     after: [],
+    table_columns: [String],
+    table_rows: [
+      {
+        label: String,
+        cells: [String],
+        _id: false,
+      },
+    ],
+  },
+  medical_proof: {
+    title: String,
+    img_url: String,
+    boxes: [{ title: String, content: String, _id: false }],
   },
   /** Vì sao chọn CES — danh sách gạch đầu dòng + ảnh minh họa */
   ces_why: {

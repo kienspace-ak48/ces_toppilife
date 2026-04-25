@@ -1,1 +1,44 @@
 @import "tailwindcss";
+
+.safety-richtext ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.safety-richtext li {
+  margin-bottom: 0.75rem;
+}
+
+.safety-richtext li:last-child,
+.safety-richtext p:last-child {
+  margin-bottom: 0;
+}
+
+.medical-proof-richtext ul,
+.medical-proof-richtext ol {
+  padding-left: 1.25rem;
+}
+
+.medical-proof-richtext ul {
+  list-style: disc;
+}
+
+.medical-proof-richtext ol {
+  list-style: decimal;
+}
+
+.medical-proof-richtext p {
+  margin-bottom: 0.75rem;
+}
+
+.medical-proof-richtext p:last-child {
+  margin-bottom: 0;
+}
+
+.gift-promo-richtext p {
+  margin-bottom: 0.25rem;
+}
+
+.gift-promo-richtext p:last-child {
+  margin-bottom: 0;
+}

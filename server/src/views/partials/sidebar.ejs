@@ -1,36 +1,60 @@
-<nav  class="p-4 space-y-2">
-    <a href="/admin" class="flex items-center gap-3 px-3 py-2 rounded-lg font-semibold text-blue-600">
-        <i class="fa-solid fa-chart-line"></i>
-        <span class="menu-text">Dashboard</span>
+<div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
+  <div class="sidebar-header border-bottom">
+    <a class="sidebar-brand text-decoration-none" href="/admin">
+      <span class="sidebar-brand-full fw-bold fs-5">ToppiLife CES</span>
+      <span class="sidebar-brand-narrow fw-bold fs-5">TL</span>
     </a>
+    <button
+      class="btn-close d-lg-none"
+      type="button"
+      data-coreui-theme="dark"
+      aria-label="Close"
+      onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()"
+    ></button>
+  </div>
 
-    <!-- Pageconfig parrent -->
-     <button onclick="toggleMenu(this, 'page_config')"
-     class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 transition"
-     >
-     <span class="flex items-center gap-3 font-semibold">
-        <i class="fa-solid fa-pager text-blue-600"></i>
-        <span class="menu-text">Page config</span>
-     </span>
-     <i class="fa-solid fa-chevron-down text-xs"></i>
-     </button>
-     <!-- submenu -->
-    <div id="page_config" class="submenu ml-8 mt-1 space-y-1 hidden">
-        <a href="/admin/page-config" class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition ">
-            
-            <span class="menu-text">Partial page</span>
-        </a>
-        <a href="/admin/page-config/customize-section" class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition">
-            
-            <span class="menu-text">Advantage</span>
-        </a>
+  <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin">
+        <svg class="nav-icon">
+          <use xlink:href="/coreui/vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
+        </svg>
+        Dashboard
+      </a>
+    </li>
 
-    </div>
-    <!--  -->
-    <a href="/admin/gallery" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-semibold">
-      <i class="fa-solid fa-images text-blue-600"></i>
-      <span class="menu-text">Gallery</span>
-      
-    </a>
-    
-</nav>
+    <li class="nav-title">Quản trị nội dung</li>
+
+    <li class="nav-group">
+      <a class="nav-link nav-group-toggle" href="#">
+        <svg class="nav-icon">
+          <use xlink:href="/coreui/vendors/@coreui/icons/svg/free.svg#cil-description"></use>
+        </svg>
+        Page config
+      </a>
+      <ul class="nav-group-items compact">
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/page-config">
+            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>
+            Partial page
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/page-config/customize-section">
+            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>
+            Customize / Advantage
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/gallery">
+        <svg class="nav-icon">
+          <use xlink:href="/coreui/vendors/@coreui/icons/svg/free.svg#cil-image"></use>
+        </svg>
+        Gallery
+      </a>
+    </li>
+  </ul>
+</div>
