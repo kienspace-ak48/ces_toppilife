@@ -374,7 +374,11 @@ const galleryController = () => {
           });
         }
 
-        res.json({ success: true, images });
+        res.json({
+          success: true,
+          images,
+          uploaded: img,
+        });
       } catch (err) {
         console.log(err);
         res.json({ success: false });

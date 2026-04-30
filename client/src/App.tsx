@@ -9,6 +9,7 @@ import { CesWhySection } from "./components/CesWhySection.tsx";
 import { GiftPromoSection } from "./components/GiftPromoSection.tsx";
 import { SafetyNoticeSection } from "./components/SafetyNoticeSection.tsx";
 import { MedicalProofSection } from "./components/MedicalProofSection.tsx";
+import { MarketingTags } from "./components/MarketingTags.tsx";
 const NODE_ENV = import.meta.env.VITE_NODE_ENV
 const iconMap = {
   Phone: Icons["Phone"],
@@ -368,23 +369,26 @@ const Features: React.FC<any> = ({ data }) => (
   </section>
 );
 
-const TargetAudience: React.FC<any> = ({ data }) => (
-  <section className="py-24">
-    <div className="container mx-auto px-4">
-      <div className="flex flex-col lg:flex-row gap-12 items-center">
-        <div className="lg:w-1/2 space-y-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+const TargetAudience: React.FC<any> = ({ data }) => {
+  const zalo = String(data?.customize?.zalo ?? "").trim();
+  const zaloUrl = zalo ? `https://zalo.me/${zalo}` : "#";
+
+  return (
+    <section className="py-24">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-8 lg:items-start">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight row-start-1 lg:col-start-1 lg:row-start-1">
             {data?.target_user?.title}
           </h2>
-          <div className="space-y-4">
-            {// [
-            //   "Người thường xuyên căng thẳng, áp lực công việc kéo dài.",
-            //   "Người khó ngủ, ngủ không sâu, hay tỉnh giấc giữa đêm.",
-            //   "Người làm việc trí óc, cần sự tỉnh táo và cân bằng tinh thần.",
-            //   "Người gặp áp lực tâm lý, lo âu và trầm cảm.",
-            //   "Người muốn giải pháp thư giãn không dùng thuốc tại nhà."
-            // ]
-            data?.target_user?.list.map((text, i) => (
+          <div className="row-start-2 lg:col-start-2 lg:row-start-1 lg:row-span-4 lg:self-center w-full">
+            <img
+              src={ASSETS_URL + (data?.target_user?.img_url || "")}
+              alt="Professional Working"
+              className="rounded-3xl shadow-2xl w-full"
+            />
+          </div>
+          <div className="space-y-4 row-start-3 lg:col-start-1 lg:row-start-2">
+            {data?.target_user?.list.map((text, i) => (
               <div
                 key={i}
                 className="flex items-center space-x-4 p-4 bg-gray-50 rounded-2xl border border-transparent hover:border-green-200 transition-all"
@@ -394,24 +398,25 @@ const TargetAudience: React.FC<any> = ({ data }) => (
               </div>
             ))}
           </div>
-          <div className="p-4 bg-yellow-50 text-yellow-800 border-l-4 border-yellow-400 text-sm">
+          <div className="p-4 bg-yellow-50 text-yellow-800 border-l-4 border-yellow-400 text-sm row-start-4 lg:col-start-1 lg:row-start-3">
             {data?.target_user?.note}
           </div>
-          <button className="w-full sm:w-auto bg-green-600 text-white px-10 py-4 rounded-full font-bold shadow-xl hover:bg-green-700 transition-all flex items-center justify-center">
-            Kiểm tra mức độ phù hợp ngay <iconMap.ArrowRight className="ml-2" />
-          </button>
-        </div>
-        <div className="lg:w-1/2 order-1 lg:order-2">
-          <img
-            src={ASSETS_URL + (data?.target_user?.img_url || "")}
-            alt="Professional Working"
-            className="rounded-3xl shadow-2xl"
-          />
+          <div className="row-start-5 lg:col-start-1 lg:row-start-4">
+            <a
+              href={zaloUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-flex items-center justify-center bg-green-600 text-white px-10 py-4 rounded-full font-bold shadow-xl hover:bg-green-700 transition-all"
+            >
+              Kiểm tra mức độ phù hợp ngay{" "}
+              <iconMap.ArrowRight className="ml-2" />
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const Usage: React.FC<any> = ({ data }) => {
   // console.log(data?.how_to_use?.video_url);
@@ -796,6 +801,10 @@ const App: React.FC = () => {
         {/* Canonical */}
         <link rel="canonical" href={pageData?.customize?.canonical || ""} />
       </Helmet>
+      <MarketingTags
+        gtmContainerId={pageData?.customize?.gtm_container_id}
+        facebookPixelId={pageData?.customize?.facebook_pixel_id}
+      />
       <div className="min-h-screen bg-white">
         <Navbar data={pageData} />
         <Hero data={pageData} />
@@ -812,6 +821,7 @@ const App: React.FC = () => {
         <Usage data={pageData} />
         <Commitment data={pageData} />
         <SafetyNoticeSection data={pageData} />
+        <GiftPromoSection data={pageData} />
         <FAQ data={pageData} />
         <FinalCTA data={pageData} />
         <Footer data={pageData} />

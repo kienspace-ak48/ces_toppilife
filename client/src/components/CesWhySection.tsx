@@ -52,19 +52,18 @@ export const CesWhySection: React.FC<Props> = ({ data }) => {
     <section className="py-24 bg-gray-50">
       <div className="container mx-auto px-4">
         {imageSrc ? (
-          <div className="flex flex-col lg:flex-row gap-12 items-center">
-            {/* Ảnh trái — đối xứng với TargetAudience (chữ trái, ảnh phải) */}
-            <div className="lg:w-1/2 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-8 lg:items-start">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight row-start-1 lg:col-start-2 lg:row-start-1">
+              {title}
+            </h2>
+            <div className="row-start-2 w-full lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:self-center">
               <img
                 src={imageSrc}
                 alt=""
                 className="w-full rounded-3xl shadow-2xl object-cover"
               />
             </div>
-            <div className="lg:w-1/2 space-y-8 w-full">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-                {title}
-              </h2>
+            <div className="row-start-3 lg:col-start-2 lg:row-start-2 w-full">
               {listBlock}
             </div>
           </div>

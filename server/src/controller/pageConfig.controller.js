@@ -186,6 +186,10 @@ const pageConfigController = () => {
             keywords: data.keywords,
             gg_a: data.gg_a || "--no--",
             gg_wt: data.gg_wt || "--no--",
+            gtm_container_id: String(data.marketing_gtm_id || "").trim(),
+            facebook_pixel_id: String(
+              data.marketing_fb_pixel_id || "",
+            ).replace(/\D/g, ""),
           },
         };
         console.log(cDTO);

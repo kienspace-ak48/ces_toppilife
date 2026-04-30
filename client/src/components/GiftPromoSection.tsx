@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { ArrowRight, Gift, TicketPercent } from "lucide-react";
-import { ASSETS_BASE } from "./assetsBase";
+import { ArrowRight, Gift } from "lucide-react";
+import { ASSETS_BASE, rewriteRelativeUploadUrlsInHtml } from "./assetsBase";
 
 type GiftPromoShape = {
   title?: string;
@@ -96,15 +96,16 @@ export const GiftPromoSection: React.FC<Props> = ({ data }) => {
                     hình ảnh quà tặng
                   </div>
                 )}
-                <div className="absolute top-4 right-4 rounded-full bg-white shadow-lg px-4 py-2 flex items-center gap-2 text-green-600 font-extrabold">
-                  <TicketPercent className="w-5 h-5" />
-                  -10%
-                </div>
               </div>
               <div className="mt-3 rounded-2xl bg-cyan-50/60 p-5 min-h-[120px] flex items-center justify-center text-center">
-                <p className="text-gray-600 leading-relaxed mb-0">
-                  {promo.image_desc || "text mô tả"}
-                </p>
+                <div
+                  className="gift-promo-image-desc text-gray-600 leading-relaxed w-full text-sm text-start"
+                  dangerouslySetInnerHTML={{
+                    __html: rewriteRelativeUploadUrlsInHtml(
+                      promo.image_desc?.trim() || "<p>text mô tả</p>",
+                    ),
+                  }}
+                />
               </div>
             </div>
 
@@ -127,9 +128,10 @@ export const GiftPromoSection: React.FC<Props> = ({ data }) => {
                   <div
                     className="gift-promo-richtext text-xs text-gray-500 mb-1"
                     dangerouslySetInnerHTML={{
-                      __html:
+                      __html: rewriteRelativeUploadUrlsInHtml(
                         promo.offer_label ||
-                        "<p>Ưu đãi đặc biệt trong tháng này</p>",
+                          "<p>Ưu đãi đặc biệt trong tháng này</p>",
+                      ),
                     }}
                   />
                   <p className="text-red-500 font-extrabold text-lg mb-0">

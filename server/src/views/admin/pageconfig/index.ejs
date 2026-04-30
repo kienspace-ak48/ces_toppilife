@@ -235,9 +235,17 @@
           <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
             <div>
               <h4 class="fw-semibold mb-1">Khối nội dung giải ảo</h4>
-              <p class="text-body-secondary small mb-0">
+              <p class="text-body-secondary small mb-2">
                 Hiển thị dưới video cơ chế hoạt động. Mỗi box gồm tiêu đề và nội dung rich text.
+                Trong editor nội dung: nút <strong>↑ Ảnh</strong> (hoặc dán ảnh) sẽ upload lên Gallery
+                và chèn <code>/uploads/default/...</code> — ảnh vừa chiều ngang khôi nhờ CSS.
               </p>
+              <input
+                type="file"
+                id="debunk_tinymce_image_upload"
+                class="d-none"
+                accept="image/*"
+              />
             </div>
             <button id="cta_add_solution_debunk_box" type="button" class="btn btn-success fw-semibold">
               Thêm box nội dung
@@ -247,7 +255,7 @@
           <label class="form-label fw-semibold">Tiêu đề khối</label>
           <input
             name="solution_debunk_title"
-            value="<%= pc?.solution?.debunk_title || 'Điện lên não có đáng sợ không?' %>"
+            value="<%= pc?.solution?.debunk_title || '' %>"
             placeholder="Điện lên não có đáng sợ không?"
             class="form-control mb-3"
           />
@@ -760,13 +768,13 @@
                   </div>
                 </div>
 
-                <label class="form-label fw-semibold">Text mô tả dưới ảnh</label>
+                <label class="form-label fw-semibold">Text mô tả dưới ảnh (TinyMCE)</label>
                 <textarea
                   name="gift_promo_image_desc"
-                  class="form-control"
+                  class="form-control tinymce-editor"
                   rows="4"
                   placeholder="Mô tả quà tặng, công dụng..."
-                ><%= pc?.gift_promo?.image_desc || '' %></textarea>
+                ><%- pc?.gift_promo?.image_desc || '' %></textarea>
               </div>
 
               <div class="col-lg-7">
@@ -947,6 +955,9 @@
             <div class="row g-4">
               <div class="col-lg-5">
                 <label class="form-label fw-semibold">Ảnh bảo chứng</label>
+                <span class="text-body-secondary small mb-0">
+                  size: 800:200px
+                </span>
                 <div class="image_action admin-image-action mb-3">
                   <div class="d-flex justify-content-between align-items-center">
                     <button type="button" class="chooseImg btn btn-outline-success flex-grow-1">

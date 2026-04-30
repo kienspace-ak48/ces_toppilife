@@ -15,6 +15,7 @@ const testModel = require("./model/test.model");
 //connect dB 
 dbConnection();
 //middleware
+app.set("trust proxy", 1);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser())

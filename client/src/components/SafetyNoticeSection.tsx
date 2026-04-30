@@ -1,5 +1,6 @@
 import React from "react";
 import { AlertTriangle, ShieldAlert } from "lucide-react";
+import { rewriteRelativeUploadUrlsInHtml } from "./assetsBase";
 
 type SafetyBox = {
   title?: string;
@@ -89,7 +90,11 @@ export const SafetyNoticeSection: React.FC<Props> = ({ data }) => {
                           ? "safety-richtext text-slate-100"
                           : "safety-richtext text-gray-700"
                       }
-                      dangerouslySetInnerHTML={{ __html: box.content || "" }}
+                      dangerouslySetInnerHTML={{
+                        __html: rewriteRelativeUploadUrlsInHtml(
+                          box.content || "",
+                        ),
+                      }}
                     />
                   </div>
                 </div>

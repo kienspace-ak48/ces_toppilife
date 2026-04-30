@@ -1,6 +1,6 @@
 import React from "react";
-import { Award, ShieldCheck } from "lucide-react";
-import { ASSETS_BASE } from "./assetsBase";
+import { Award } from "lucide-react";
+import { ASSETS_BASE, rewriteRelativeUploadUrlsInHtml } from "./assetsBase";
 
 type MedicalProofBox = {
   title?: string;
@@ -63,11 +63,11 @@ export const MedicalProofSection: React.FC<Props> = ({ data }) => {
           </div>
 
           {imageSrc && (
-            <div className="mb-8 md:mb-10 flex justify-center">
+            <div className="-mx-6 md:-mx-10 mb-8 md:mb-10">
               <img
                 src={imageSrc}
                 alt=""
-                className="max-h-40 md:max-h-52 w-auto max-w-full object-contain"
+                className="w-full h-auto max-h-[min(28rem,70vh)] object-contain object-center bg-white/60 border-y border-gray-100/90"
               />
             </div>
           )}
@@ -86,7 +86,9 @@ export const MedicalProofSection: React.FC<Props> = ({ data }) => {
                 </h3>
                 <div
                   className="medical-proof-richtext text-sm leading-relaxed text-gray-700"
-                  dangerouslySetInnerHTML={{ __html: box.content || "" }}
+                  dangerouslySetInnerHTML={{
+                    __html: rewriteRelativeUploadUrlsInHtml(box.content || ""),
+                  }}
                 />
               </div>
             ))}

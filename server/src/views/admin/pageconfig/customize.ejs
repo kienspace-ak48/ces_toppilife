@@ -187,6 +187,40 @@
       </div>
     </div>
   </div>
+
+  <hr class="my-4" />
+  <h4 class="fw-bold pb-2 fs-5">Đo lường landing (Google Tag Manager &amp; Meta Pixel)</h4>
+  <p class="text-body-secondary small mb-3">
+    Các landing dùng chung cấu hình của bản Page config (CES, LPA12, máy điện trường…).
+    Chỉ nhập ID — site sẽ chèn snippet chuẩn. Pixel và GTM là hai hệ khác nhau: có thể dùng cả hai
+    hoặc một trong hai; nếu đã nhúng Pixel trong container GTM thì không cần nhập Pixel ở đây
+    để tránh đếm trùng PageView (tùy setup).
+  </p>
+  <div class="row row-cols-1 row-cols-md-2 g-4 admin-component-grid">
+    <div>
+      <label class="form-label fw-medium">Google Tag Manager — Container ID</label>
+      <input
+        type="text"
+        name="marketing_gtm_id"
+        value="<%=data?.customize?.gtm_container_id || ''%>"
+        class="form-control font-monospace"
+        placeholder="GTM-W524G2XR"
+        autocomplete="off"
+      />
+    </div>
+    <div>
+      <label class="form-label fw-medium">Meta (Facebook) Pixel — ID</label>
+      <input
+        type="text"
+        name="marketing_fb_pixel_id"
+        value="<%=data?.customize?.facebook_pixel_id || ''%>"
+        class="form-control font-monospace"
+        placeholder="1291350602880286"
+        inputmode="numeric"
+        autocomplete="off"
+      />
+    </div>
+  </div>
 </div>
 </section>
 <!-- =================MODAL===================== -->
@@ -285,6 +319,8 @@
         // gg_a: document.getElementById("gg_a").value,
         // gg_wt: document.getElementById("gg_wt").value,
         img: document.querySelector("[name='website_img']").value,
+        marketing_gtm_id: document.querySelector("[name='marketing_gtm_id']")?.value || "",
+        marketing_fb_pixel_id: document.querySelector("[name='marketing_fb_pixel_id']")?.value || "",
       };
 
       const res = await fetch("/admin/page-config/customize-section", {

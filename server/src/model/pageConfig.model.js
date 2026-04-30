@@ -144,8 +144,11 @@ const pageConfigSchema = new mongoose.Schema({
     bullets: [],
     img_url: String,
   },
+  /** SEO, liên hệ, GTM/Pixel — Mixed để lưu các key mới (gtm_container_id, facebook_pixel_id, …) không cần migration schema chi tiết. */
   customize: {
-  }
+    type: mongoose.Schema.Types.Mixed,
+    default: {},
+  },
 }, {timestamps: true});
 
 module.exports = mongoose.model('page_config', pageConfigSchema);

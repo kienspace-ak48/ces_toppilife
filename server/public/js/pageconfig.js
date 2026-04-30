@@ -9,6 +9,35 @@ document.querySelectorAll("section > div").forEach((el) => {
   el.classList.toggle("d-none");
 });
 
+function normalizeGallerySrc(path) {
+  if (!path) return "";
+  const s = String(path).trim();
+  return s.startsWith("/") ? s : `/${s}`;
+}
+
+function debunkInsertedImageHtml(relativePath) {
+  const src = normalizeGallerySrc(relativePath);
+  return `<p><img src="${src}" alt="" style="max-width:100%;height:auto;display:block;"></p>`;
+}
+
+async function uploadDebunkEditorImage(file) {
+  const fd = new FormData();
+  fd.append("image", file);
+  fd.append("folder_id", "all");
+
+  const res = await fetch("/admin/gallery/image-upload-ajax", {
+    method: "POST",
+    body: fd,
+  });
+  const data = await res.json();
+  if (!data.success)
+    throw new Error(data.mess || "Upload thất bại");
+  const rec = data.uploaded || (Array.isArray(data.images) && data.images[0]);
+  if (!rec?.path)
+    throw new Error("Không nhận được đường dẫn ảnh");
+  return rec.path;
+}
+
 function initTinyEditors(root = document) {
   if (!window.tinymce) return;
 
@@ -17,7 +46,10 @@ function initTinyEditors(root = document) {
       textarea.id = `tiny_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     }
     textarea.dataset.tinyReady = "1";
-    tinymce.init({
+
+    const isDebunk = Boolean(textarea.closest("#solution_debunk_wrapper"));
+
+    const cfg = {
       target: textarea,
       license_key: "gpl",
       menubar: false,
@@ -26,7 +58,50 @@ function initTinyEditors(root = document) {
       plugins: "lists link",
       toolbar:
         "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist | link | removeformat",
-    });
+      convert_urls: false,
+    };
+
+    if (isDebunk) {
+      cfg.toolbar +=
+        " | uploaddebunkimg";
+      cfg.content_style = "img { max-width:100%; height:auto; display:block; }";
+      cfg.paste_data_images = true;
+      cfg.automatic_uploads = true;
+      cfg.images_upload_handler = (blobInfo /* , progress */) =>
+        new Promise((resolve, reject) => {
+          const fd = new FormData();
+          fd.append("image", blobInfo.blob(), blobInfo.filename?.() || "image.png");
+          fd.append("folder_id", "all");
+          fetch("/admin/gallery/image-upload-ajax", { method: "POST", body: fd })
+            .then((r) => r.json())
+            .then((data) => {
+              if (!data.success) {
+                reject(data.mess || "Upload thất bại");
+                return;
+              }
+              const rec = data.uploaded || data.images?.[0];
+              if (!rec?.path) {
+                reject("Không có path ảnh");
+                return;
+              }
+              resolve(normalizeGallerySrc(rec.path));
+            })
+            .catch((e) => reject(String(e)));
+        });
+      cfg.setup = function (editor) {
+        editor.ui.registry.addButton("uploaddebunkimg", {
+          text: "↑ Ảnh",
+          tooltip:
+            "Chọn ảnh máy → lưu lên Gallery (như uploads) → chèn vào ô soạn",
+          onAction() {
+            window.__pageconfigTinyUploadTarget = editor;
+            document.getElementById("debunk_tinymce_image_upload")?.click();
+          },
+        });
+      };
+    }
+
+    tinymce.init(cfg);
   });
 }
 
@@ -41,6 +116,24 @@ function removeTinyEditors(root) {
 
 //
 document.addEventListener("DOMContentLoaded", () => {
+  const debunkPick = document.getElementById("debunk_tinymce_image_upload");
+  if (debunkPick) {
+    debunkPick.addEventListener("change", async (e) => {
+      const editor = window.__pageconfigTinyUploadTarget;
+      const input = e.target;
+      const file = input.files && input.files[0];
+      input.value = "";
+      if (!file || !window.tinymce || !editor) return;
+      try {
+        const path = await uploadDebunkEditorImage(file);
+        editor.insertContent(debunkInsertedImageHtml(path));
+      } catch (err) {
+        console.error(err);
+        alert(err.message || String(err));
+      }
+    });
+  }
+
   const form = document.querySelector("#configForm");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
