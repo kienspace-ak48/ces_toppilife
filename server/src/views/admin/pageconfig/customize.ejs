@@ -163,6 +163,7 @@
           <!-- <label for="">Image banner</label> -->
           <div class="d-flex justify-content-between align-items-center">
             <button
+              type="button"
               class="chooseImg btn btn-outline-success flex-grow-1"
             >
               Chọn ảnh
@@ -242,51 +243,68 @@
 </div>
 <!-- =============SCRIPT=============== -->
 <script>
+  const galleryImgList = document.getElementById("imgList");
   var ctaChooseImg = document.querySelectorAll(".chooseImg");
   const chooseImgModal = document.querySelector("#gallery_modal");
   let imgInputIsFocusing = null;
   // combo choose image
   function openChooseImgModal() {
+    if (!chooseImgModal || !window.coreui || !window.coreui.Modal) {
+      console.error("[customize] CoreUI Modal or #gallery_modal missing");
+      alert("Không mở được cửa sổ chọn ảnh — kiểm tra CoreUI và tải lại trang.");
+      return;
+    }
     coreui.Modal.getOrCreateInstance(chooseImgModal).show();
   }
   function closeChooseImgModal() {
+    if (!chooseImgModal || !window.coreui || !window.coreui.Modal) return;
     coreui.Modal.getOrCreateInstance(chooseImgModal).hide();
   }
   ctaChooseImg.forEach((el) => {
     el.addEventListener("click", (ev) => {
-      console.log(el);
-      loadImage();
-      let input = el.closest(".image_action");
-      imgInputIsFocusing = input;
-      console.log("input ", input);
+      imgInputIsFocusing = el.closest(".image_action");
       openChooseImgModal();
+      loadImage();
     });
   });
   function selectImage(src) {
-    imgInputIsFocusing.querySelector(".img_input").value = src;
-    imgInputIsFocusing.querySelector(".img_preview img").src = "/" + src;
+    if (!imgInputIsFocusing) return;
+    const inp = imgInputIsFocusing.querySelector(".img_input");
+    const prev = imgInputIsFocusing.querySelector(".img_preview img");
+    if (inp) inp.value = src;
+    if (prev) prev.src = src.startsWith("/") ? src : "/" + src;
     closeChooseImgModal();
   }
   //
   function loadImage() {
-    imgList.innerHTML = "Loading...";
+    if (!galleryImgList) {
+      console.error("[customize] #imgList missing");
+      return;
+    }
+    if (typeof $ === "undefined" || typeof $.ajax !== "function") {
+      galleryImgList.textContent =
+        "Lỗi: jQuery chưa load. Kiểm tra file /libs/js/jquery-3.7.1.js trên host.";
+      return;
+    }
+    galleryImgList.innerHTML = "Loading...";
     $.ajax({
       url: "/admin/gallery/image-getall",
       method: "GET",
       success: (res) => {
-        if (res.success) {
-          imgList.innerHTML = "";
+        if (res.success && Array.isArray(res.data)) {
+          galleryImgList.innerHTML = "";
           res.data.forEach((item) => {
             const col = document.createElement("div");
             col.className = "col";
 
             const img = document.createElement("img");
-            img.src = "/" + item.path;
+            var pth = item.path || "";
+            img.src = pth.startsWith("/") ? pth : "/" + pth;
             img.className = "admin-gallery-picker-img w-100 cursor-pointer rounded border";
             img.onclick = () => selectImage(item.path);
 
             col.appendChild(img);
-            imgList.appendChild(col);
+            galleryImgList.appendChild(col);
           });
         }
       },

@@ -40,14 +40,14 @@ export const MechanismSection: React.FC<Props> = ({ data }) => {
             <div className="mt-4 h-1 w-20 bg-green-500 rounded-full mx-auto" />
           </div>
         ) : null}
-        <div className="w-full max-w-5xl xl:max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-xl border border-gray-100 bg-white p-4 md:p-6 lg:p-8">
+        <div className="w-full rounded-3xl overflow-hidden shadow-xl border border-gray-100 bg-white p-4 md:p-6 lg:p-8">
           <YoutubeEmbed videoId={videoUrl} aspectClassName="aspect-video" />
         </div>
 
         {showDebunkBlock ? (
-          <div className="max-w-6xl mx-auto mt-12 md:mt-16">
+          <div className="w-full mt-12 md:mt-16">
             {debunkTitle ? (
-              <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
+              <div className="text-center max-w-4xl mx-auto mb-8 md:mb-10 px-2">
                 <h3 className="text-2xl md:text-4xl font-extrabold text-gray-900 leading-tight">
                   {debunkTitle}
                 </h3>

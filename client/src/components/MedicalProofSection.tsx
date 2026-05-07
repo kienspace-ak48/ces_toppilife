@@ -53,9 +53,9 @@ export const MedicalProofSection: React.FC<Props> = ({ data }) => {
   if (!title && !imageSrc && boxes.length === 0) return null;
 
   return (
-    <section className="py-14 md:py-18 bg-gradient-to-br from-indigo-100 via-orange-50 to-white">
+    <section className="py-14 md:py-18 w-full bg-[linear-gradient(128deg,#d9e4ff_0%,#ddd6fe_22%,#f3e8ff_48%,#ffedd5_74%,#fef3c7_100%)]">
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto rounded-3xl bg-white/45 backdrop-blur-sm border border-white/70 shadow-xl p-6 md:p-10">
+        {/* <div className="max-w-6xl mx-auto  p-6 md:p-10"> */}
           <div className="text-center mb-8 md:mb-10">
             <h2 className="text-2xl md:text-4xl font-extrabold text-gray-950">
               {title}
@@ -63,11 +63,11 @@ export const MedicalProofSection: React.FC<Props> = ({ data }) => {
           </div>
 
           {imageSrc && (
-            <div className="-mx-6 md:-mx-10 mb-8 md:mb-10">
+            <div className="mb-8 md:mb-10 overflow-hidden rounded-2xl border border-white/50 bg-transparent">
               <img
                 src={imageSrc}
                 alt=""
-                className="w-full h-auto max-h-[min(28rem,70vh)] object-contain object-center bg-white/60 border-y border-gray-100/90"
+                className="w-full h-auto max-h-[min(28rem,70vh)] object-contain object-center"
               />
             </div>
           )}
@@ -93,7 +93,8 @@ export const MedicalProofSection: React.FC<Props> = ({ data }) => {
               </div>
             ))}
           </div>
-        </div>
+        {/* </div> */}
+        {/*  */}
       </div>
     </section>
   );

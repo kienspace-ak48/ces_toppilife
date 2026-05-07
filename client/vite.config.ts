@@ -12,7 +12,9 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: path.resolve(__dirname, '../server/public/bin'),
-    emptyOutDir: true
-  }
+    // Phải trùng với Express: res.sendFile(.../public/index.html) + express.static(public)
+    // Trước đây outDir = public/bin nên bundle mới không được index.html ở root trỏ tới.
+    outDir: path.resolve(__dirname, '../server/public'),
+    emptyOutDir: false,
+  },
 })

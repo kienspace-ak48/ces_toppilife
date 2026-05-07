@@ -24,8 +24,7 @@ async function auth(req, res, next){
     } catch (error) {
         console.log(CNAME, error.message);
         // return res.status(401).json({success: false, data: 'Token loi'});
-        return res.redirect('/auth/admin/login', {layout: false, mess: 'token is expired'})
-
+        return res.redirect(302, "/auth/admin/login?session=expired");
     }
 }
 

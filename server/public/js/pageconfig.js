@@ -135,6 +135,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const form = document.querySelector("#configForm");
+  if (!form) return;
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (window.tinymce) tinymce.triggerSave();
@@ -314,13 +316,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 const solutionTemplate = document.querySelector("#solution_template");
 const solutionWrapper = document.querySelector("#solution_wrapper");
-document
-  .querySelector("#cta_add_solution_card")
-  .addEventListener("click", () => {
-    const clone = solutionTemplate.content.cloneNode(true);
-    solutionWrapper.appendChild(clone);
-  });
-solutionWrapper.addEventListener("click", (ev) => {
+document.querySelector("#cta_add_solution_card")?.addEventListener("click", () => {
+  if (!solutionTemplate || !solutionWrapper) return;
+  const clone = solutionTemplate.content.cloneNode(true);
+  solutionWrapper.appendChild(clone);
+});
+solutionWrapper?.addEventListener("click", (ev) => {
   if (ev.target.classList.contains("remove-item")) {
     const instance = ev.target.closest(".instance");
     instance.remove();
@@ -328,14 +329,13 @@ solutionWrapper.addEventListener("click", (ev) => {
 });
 const solutionDebunkTemplate = document.querySelector("#solution_debunk_template");
 const solutionDebunkWrapper = document.querySelector("#solution_debunk_wrapper");
-document
-  .querySelector("#cta_add_solution_debunk_box")
-  .addEventListener("click", () => {
-    const clone = solutionDebunkTemplate.content.cloneNode(true);
-    solutionDebunkWrapper.appendChild(clone);
-    initTinyEditors(solutionDebunkWrapper);
-  });
-solutionDebunkWrapper.addEventListener("click", (ev) => {
+document.querySelector("#cta_add_solution_debunk_box")?.addEventListener("click", () => {
+  if (!solutionDebunkTemplate || !solutionDebunkWrapper) return;
+  const clone = solutionDebunkTemplate.content.cloneNode(true);
+  solutionDebunkWrapper.appendChild(clone);
+  initTinyEditors(solutionDebunkWrapper);
+});
+solutionDebunkWrapper?.addEventListener("click", (ev) => {
   if (ev.target.classList.contains("remove-instance")) {
     const instance = ev.target.closest(".instance");
     removeTinyEditors(instance);
@@ -344,15 +344,14 @@ solutionDebunkWrapper.addEventListener("click", (ev) => {
 });
 //----------benefit
 const benefitWrapper = document.querySelector("#benefit_wrapper");
-document
-  .querySelector("#cta_add_benefit_card")
-  .addEventListener("click", (ev) => {
-    const clone = document
-      .querySelector("#benefit_template")
-      .content.cloneNode(true);
-    benefitWrapper.appendChild(clone);
-  });
-document.querySelector("#benefit_wrapper").addEventListener("click", (ev) => {
+document.querySelector("#cta_add_benefit_card")?.addEventListener("click", (ev) => {
+  if (!benefitWrapper) return;
+  const clone = document
+    .querySelector("#benefit_template")
+    .content.cloneNode(true);
+  benefitWrapper.appendChild(clone);
+});
+document.querySelector("#benefit_wrapper")?.addEventListener("click", (ev) => {
   if (ev.target.classList.contains("remove-instance")) {
     const instance = ev.target.closest(".instance");
     instance.remove();
@@ -360,15 +359,14 @@ document.querySelector("#benefit_wrapper").addEventListener("click", (ev) => {
 });
 // ------------- testimonial ------------
 const testimonialWrapper = document.querySelector("#testimonial_wrapper");
-document
-  .querySelector("#cta_add_testimonial")
-  .addEventListener("click", (ev) => {
-    const clone = document
-      .querySelector("#testimonial_template")
-      .content.cloneNode(true);
-    testimonialWrapper.appendChild(clone);
-  });
-testimonialWrapper.addEventListener("click", (ev) => {
+document.querySelector("#cta_add_testimonial")?.addEventListener("click", (ev) => {
+  if (!testimonialWrapper) return;
+  const clone = document
+    .querySelector("#testimonial_template")
+    .content.cloneNode(true);
+  testimonialWrapper.appendChild(clone);
+});
+testimonialWrapper?.addEventListener("click", (ev) => {
   if (ev.target.classList.contains("remove-instance")) {
     const instance = ev.target.closest(".instance");
     instance.remove();
@@ -377,12 +375,13 @@ testimonialWrapper.addEventListener("click", (ev) => {
 // -------------- faq ----------------
 const safetyNoticeWrapper = document.querySelector("#safety_notice_wrapper");
 const safetyNoticeTemplate = document.querySelector("#safety_notice_template");
-document.querySelector("#cta_add_safety_box").addEventListener("click", () => {
+document.querySelector("#cta_add_safety_box")?.addEventListener("click", () => {
+  if (!safetyNoticeTemplate || !safetyNoticeWrapper) return;
   const clone = safetyNoticeTemplate.content.cloneNode(true);
   safetyNoticeWrapper.appendChild(clone);
   initTinyEditors(safetyNoticeWrapper);
 });
-safetyNoticeWrapper.addEventListener("click", (ev) => {
+safetyNoticeWrapper?.addEventListener("click", (ev) => {
   if (ev.target.classList.contains("remove-instance")) {
     const instance = ev.target.closest(".instance");
     removeTinyEditors(instance);
@@ -392,11 +391,12 @@ safetyNoticeWrapper.addEventListener("click", (ev) => {
 // -------------- faq ----------------
 const comparisonTableWrapper = document.querySelector("#comparison_table_wrapper");
 const comparisonTableRowTemplate = document.querySelector("#comparison_table_row_template");
-document.querySelector("#cta_add_comparison_row").addEventListener("click", () => {
+document.querySelector("#cta_add_comparison_row")?.addEventListener("click", () => {
+  if (!comparisonTableRowTemplate || !comparisonTableWrapper) return;
   const clone = comparisonTableRowTemplate.content.cloneNode(true);
   comparisonTableWrapper.appendChild(clone);
 });
-comparisonTableWrapper.addEventListener("click", (ev) => {
+comparisonTableWrapper?.addEventListener("click", (ev) => {
   if (ev.target.classList.contains("remove-instance")) {
     const instance = ev.target.closest(".instance");
     instance.remove();
@@ -405,12 +405,13 @@ comparisonTableWrapper.addEventListener("click", (ev) => {
 
 const medicalProofWrapper = document.querySelector("#medical_proof_wrapper");
 const medicalProofTemplate = document.querySelector("#medical_proof_template");
-document.querySelector("#cta_add_medical_proof_box").addEventListener("click", () => {
+document.querySelector("#cta_add_medical_proof_box")?.addEventListener("click", () => {
+  if (!medicalProofTemplate || !medicalProofWrapper) return;
   const clone = medicalProofTemplate.content.cloneNode(true);
   medicalProofWrapper.appendChild(clone);
   initTinyEditors(medicalProofWrapper);
 });
-medicalProofWrapper.addEventListener("click", (ev) => {
+medicalProofWrapper?.addEventListener("click", (ev) => {
   if (ev.target.classList.contains("remove-instance")) {
     const instance = ev.target.closest(".instance");
     removeTinyEditors(instance);
@@ -420,11 +421,12 @@ medicalProofWrapper.addEventListener("click", (ev) => {
 // -------------- faq ----------------
 const faq_wrapper = document.querySelector("#faq_wrapper");
 const faq_template = document.querySelector("#faq_template");
-document.querySelector("#cta_add_faq_card").addEventListener("click", (ev) => {
+document.querySelector("#cta_add_faq_card")?.addEventListener("click", (ev) => {
+  if (!faq_template || !faq_wrapper) return;
   const clone = faq_template.content.cloneNode(true);
   faq_wrapper.appendChild(clone);
 });
-faq_wrapper.addEventListener("click", (ev) => {
+faq_wrapper?.addEventListener("click", (ev) => {
   if (ev.target.classList.contains("remove-instance")) {
     const instance = ev.target.closest(".instance");
     instance.remove();
@@ -438,68 +440,91 @@ const howToUseGuideTemplate = document.querySelector(
   "#howtouse_guide_template",
 );
 
-document
-  .querySelector("#cta_add_howtouse_add_card")
-  .addEventListener("click", (ev) => {
-    const clone = howToUseTemplate.content.cloneNode(true);
-    howToUseWrapper.appendChild(clone);
-  });
-howToUseWrapper.addEventListener("click", (ev) => {
+document.querySelector("#cta_add_howtouse_add_card")?.addEventListener("click", (ev) => {
+  if (!howToUseTemplate || !howToUseWrapper) return;
+  const clone = howToUseTemplate.content.cloneNode(true);
+  howToUseWrapper.appendChild(clone);
+});
+howToUseWrapper?.addEventListener("click", (ev) => {
   if (ev.target.classList.contains("remove-instance")) {
     const instance = ev.target.closest(".instance");
     instance.remove();
   }
 });
 //
-document
-  .querySelector("#cta_howtouse_guide_add_card")
-  .addEventListener("click", (ev) => {
-    const clone = howToUseGuideTemplate.content.cloneNode(true);
-    howToUseGuideWrapper.appendChild(clone);
-  });
-howToUseGuideWrapper.addEventListener("click", (ev) => {
+document.querySelector("#cta_howtouse_guide_add_card")?.addEventListener("click", (ev) => {
+  if (!howToUseGuideTemplate || !howToUseGuideWrapper) return;
+  const clone = howToUseGuideTemplate.content.cloneNode(true);
+  howToUseGuideWrapper.appendChild(clone);
+});
+howToUseGuideWrapper?.addEventListener("click", (ev) => {
   if (ev.target.classList.contains("remove-instance")) {
     const instance = ev.target.closest(".instance");
     instance.remove();
   }
 });
 //
-// combo choose image
+// combo choose image (gallery picker)
 const chooseImgModal = document.querySelector("#gallery_modal");
+const imgListEl = document.getElementById("imgList");
 //   var ctaChooseImg = document.querySelectorAll("#banner_wrapper");
 let imgInputIsFocusing = null;
 function openChooseImgModal() {
+  if (!chooseImgModal) {
+    console.error("[pageconfig] #gallery_modal not found");
+    return;
+  }
+  if (!window.coreui || !window.coreui.Modal) {
+    console.error("[pageconfig] CoreUI Modal not loaded (check layout scripts)");
+    alert("Không mở được modal chọn ảnh — thử tải lại trang.");
+    return;
+  }
   coreui.Modal.getOrCreateInstance(chooseImgModal).show();
 }
 function closeChooseImgModal() {
+  if (!chooseImgModal || !window.coreui?.Modal) return;
   coreui.Modal.getOrCreateInstance(chooseImgModal).hide();
 }
 //
 function selectImage(src) {
-  imgInputIsFocusing.querySelector(".img_input").value = src;
-  imgInputIsFocusing.querySelector(".img_preview img").src = "/" + src;
+  if (!imgInputIsFocusing) return;
+  const input = imgInputIsFocusing.querySelector(".img_input");
+  const preview = imgInputIsFocusing.querySelector(".img_preview img");
+  if (input) input.value = src;
+  if (preview) preview.src = src.startsWith("/") ? src : "/" + src;
   closeChooseImgModal();
 }
 //
 function loadImage() {
-  imgList.innerHTML = "Loading...";
+  if (!imgListEl) {
+    console.error('[pageconfig] #imgList not found inside #gallery_modal');
+    return;
+  }
+  imgListEl.innerHTML = "Loading...";
+  if (typeof $ === "undefined" || typeof $.ajax !== "function") {
+    imgListEl.textContent =
+      "Lỗi: jQuery chưa load (kiểm tra /libs/js/jquery trên server).";
+    console.error("[pageconfig] jQuery missing");
+    return;
+  }
   $.ajax({
     url: "/admin/gallery/image-getall",
     method: "GET",
     success: (res) => {
-      if (res.success) {
-        imgList.innerHTML = "";
+      if (res.success && Array.isArray(res.data)) {
+        imgListEl.innerHTML = "";
         res.data.forEach((item) => {
           const col = document.createElement("div");
           col.className = "col";
 
           const img = document.createElement("img");
-          img.src = "/" + item.path;
+          const pth = item.path || "";
+          img.src = pth.startsWith("/") ? pth : "/" + pth;
           img.className = "admin-gallery-picker-img w-100 cursor-pointer rounded border";
           img.onclick = () => selectImage(item.path);
 
           col.appendChild(img);
-          imgList.appendChild(col);
+          imgListEl.appendChild(col);
         });
       }
     },
@@ -513,7 +538,7 @@ document.addEventListener("click", (ev) => {
   const btn = ev.target.closest(".chooseImg");
   if (!btn) return;
 
-  loadImage();
   imgInputIsFocusing = btn.closest(".image_action");
   openChooseImgModal();
+  loadImage();
 });
