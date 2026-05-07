@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ces.toppilife.vn/sitemap.xml
+Sitemap: https://toppicare.vn/sitemap.xml
