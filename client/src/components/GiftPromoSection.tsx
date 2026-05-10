@@ -88,7 +88,7 @@ export const GiftPromoSection: React.FC<Props> = ({ data }) => {
       </div>
 
       <div className="container relative mx-auto px-4">
-        <div className="max-w-6xl mx-auto overflow-hidden rounded-3xl border border-white/80 bg-white/95 shadow-[0_25px_60px_-15px_rgba(16,185,129,0.25)] ring-1 ring-emerald-200/60 backdrop-blur-sm">
+        <div className="w-full overflow-hidden rounded-3xl border border-white/80 bg-white/95 shadow-[0_25px_60px_-15px_rgba(16,185,129,0.25)] ring-1 ring-emerald-200/60 backdrop-blur-sm">
           <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-0">
             <div className="p-5 md:p-8 bg-gradient-to-b from-white to-emerald-50/25">
               <div className="relative min-h-[260px] overflow-hidden rounded-2xl border border-emerald-100/80 bg-[linear-gradient(180deg,#ffffff_0%,#ecfeff_55%,#d1fae5_100%)] shadow-inner flex items-center justify-center">
@@ -133,7 +133,7 @@ export const GiftPromoSection: React.FC<Props> = ({ data }) => {
                 </p>
               ) : null}
 
-              <div className="relative mt-7 max-w-md">
+              <div className="relative mt-7 w-full">
                 <div className="rounded-2xl bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 p-[2px] shadow-lg shadow-orange-500/20">
                   <div className="flex items-center gap-4 rounded-[14px] bg-white px-5 py-4">
                     <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-rose-500 to-orange-600 text-white shadow-md">
@@ -162,7 +162,7 @@ export const GiftPromoSection: React.FC<Props> = ({ data }) => {
                   <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-orange-500" />
                   Thời gian còn lại
                 </p>
-                <div className="grid max-w-md grid-cols-4 gap-2 sm:gap-3">
+                <div className="grid w-full grid-cols-4 gap-2 sm:gap-3">
                   {timeItems.map((item) => (
                     <div
                       key={item.label}
@@ -183,7 +183,7 @@ export const GiftPromoSection: React.FC<Props> = ({ data }) => {
                 href={zaloUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative mt-8 inline-flex w-full max-w-md items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 px-8 py-4 text-center text-base font-extrabold uppercase tracking-wide text-white shadow-[0_12px_30px_-8px_rgba(5,150,105,0.55)] ring-2 ring-white/40 transition-all hover:-translate-y-0.5 hover:from-emerald-500 hover:via-emerald-400 hover:to-teal-400 hover:shadow-[0_16px_36px_-8px_rgba(5,150,105,0.6)] sm:text-lg"
+                className="relative mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 px-8 py-4 text-center text-base font-extrabold uppercase tracking-wide text-white shadow-[0_12px_30px_-8px_rgba(5,150,105,0.55)] ring-2 ring-white/40 transition-all hover:-translate-y-0.5 hover:from-emerald-500 hover:via-emerald-400 hover:to-teal-400 hover:shadow-[0_16px_36px_-8px_rgba(5,150,105,0.6)] sm:text-lg"
               >
                 {promo.cta_text || "ĐẶT HÀNG NHẬN QUÀ NGAY"}
                 <ArrowRight className="h-5 w-5 shrink-0" />

@@ -33,7 +33,7 @@ export const MechanismSection: React.FC<Props> = ({ data }) => {
     <section className="py-16 md:py-20 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4">
         {title ? (
-          <div className="max-w-4xl mx-auto text-center mb-10 md:mb-12">
+          <div className="w-full text-center mb-10 md:mb-12">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 tracking-tight leading-snug">
               {title}
             </h2>
@@ -47,7 +47,7 @@ export const MechanismSection: React.FC<Props> = ({ data }) => {
         {showDebunkBlock ? (
           <div className="w-full mt-12 md:mt-16">
             {debunkTitle ? (
-              <div className="text-center max-w-4xl mx-auto mb-8 md:mb-10 px-2">
+              <div className="text-center w-full mb-8 md:mb-10 px-2">
                 <h3 className="text-2xl md:text-4xl font-extrabold text-gray-900 leading-tight">
                   {debunkTitle}
                 </h3>
@@ -59,7 +59,7 @@ export const MechanismSection: React.FC<Props> = ({ data }) => {
                 {debunkBoxes.map((box, idx) => (
                   <div
                     key={idx}
-                    className="bg-white rounded-3xl border border-gray-100 shadow-lg p-6 md:p-8 text-center"
+                    className="rounded-3xl border border-slate-200/80 bg-slate-50 shadow-lg p-6 md:p-8 text-center"
                   >
                     {(box.title ?? "").trim() ? (
                       <h4 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">

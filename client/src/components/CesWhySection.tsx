@@ -69,12 +69,12 @@ export const CesWhySection: React.FC<Props> = ({ data }) => {
           </div>
         ) : (
           <>
-            <div className="max-w-4xl mx-auto text-center mb-10 md:mb-12">
+            <div className="w-full text-center mb-10 md:mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
                 {title}
               </h2>
             </div>
-            <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-10">
+            <div className="w-full bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-10">
               {listBlock}
             </div>
           </>

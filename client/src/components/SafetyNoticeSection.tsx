@@ -41,66 +41,64 @@ export const SafetyNoticeSection: React.FC<Props> = ({ data }) => {
   return (
     <section className="py-16 md:py-20 bg-slate-950 text-white">
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-10">
-            {title}
-          </h2>
+        <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-10">
+          {title}
+        </h2>
 
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-            {boxes.map((box, idx) => {
-              const isPrimary = true
-              //  idx === 0;
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          {boxes.map((box, idx) => {
+            const isPrimary = true;
+            //  idx === 0;
 
-              return (
+            return (
+              <div
+                key={idx}
+                className={
+                  isPrimary
+                    ? "rounded-2xl border-2 border-orange-400 bg-slate-900/80 p-6 md:p-8 shadow-xl"
+                    : "rounded-2xl border-2 border-orange-300 bg-white text-gray-800 p-6 md:p-8 shadow-xl"
+                }
+              >
                 <div
-                  key={idx}
                   className={
                     isPrimary
-                      ? "rounded-2xl border-2 border-orange-400 bg-slate-900/80 p-6 md:p-8 shadow-xl"
-                      : "rounded-2xl border-2 border-orange-300 bg-white text-gray-800 p-6 md:p-8 shadow-xl"
+                      ? "mb-6 rounded-lg bg-white text-slate-900 px-4 py-3 text-center font-extrabold"
+                      : "mb-6 rounded-lg bg-slate-50 text-slate-900 px-4 py-3 text-center font-extrabold"
                   }
                 >
+                  {box.title}
+                </div>
+
+                <div className="flex gap-4">
                   <div
                     className={
                       isPrimary
-                        ? "mb-6 rounded-lg bg-white text-slate-900 px-4 py-3 text-center font-extrabold"
-                        : "mb-6 rounded-lg bg-slate-50 text-slate-900 px-4 py-3 text-center font-extrabold"
+                        ? "hidden sm:flex shrink-0 h-12 w-12 items-center justify-center rounded-xl text-orange-300"
+                        : "hidden sm:flex shrink-0 h-12 w-12 items-center justify-center rounded-xl text-orange-500 bg-orange-50"
                     }
                   >
-                    {box.title}
+                    {isPrimary ? (
+                      <ShieldAlert className="h-8 w-8" />
+                    ) : (
+                      <AlertTriangle className="h-8 w-8" />
+                    )}
                   </div>
-
-                  <div className="flex gap-4">
-                    <div
-                      className={
-                        isPrimary
-                          ? "hidden sm:flex shrink-0 h-12 w-12 items-center justify-center rounded-xl text-orange-300"
-                          : "hidden sm:flex shrink-0 h-12 w-12 items-center justify-center rounded-xl text-orange-500 bg-orange-50"
-                      }
-                    >
-                      {isPrimary ? (
-                        <ShieldAlert className="h-8 w-8" />
-                      ) : (
-                        <AlertTriangle className="h-8 w-8" />
-                      )}
-                    </div>
-                    <div
-                      className={
-                        isPrimary
-                          ? "safety-richtext text-slate-100"
-                          : "safety-richtext text-gray-700"
-                      }
-                      dangerouslySetInnerHTML={{
-                        __html: rewriteRelativeUploadUrlsInHtml(
-                          box.content || "",
-                        ),
-                      }}
-                    />
-                  </div>
+                  <div
+                    className={
+                      isPrimary
+                        ? "safety-richtext text-slate-100"
+                        : "safety-richtext text-gray-700"
+                    }
+                    dangerouslySetInnerHTML={{
+                      __html: rewriteRelativeUploadUrlsInHtml(
+                        box.content || "",
+                      ),
+                    }}
+                  />
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
